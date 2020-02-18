@@ -42,4 +42,8 @@ public class Cliente {
     public Tarifa getTarifa() {
         return tarifa;
     }
+
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
+    }
 }
