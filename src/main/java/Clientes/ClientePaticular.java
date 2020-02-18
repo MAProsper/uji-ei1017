@@ -9,4 +9,8 @@ public class ClientePaticular extends Cliente {
         super(nombre, NIF, fechaAlta);
         this.apellidos = apellidos;
     }
+
+    public String getApellidos() {
+        return apellidos;
+    }
 }

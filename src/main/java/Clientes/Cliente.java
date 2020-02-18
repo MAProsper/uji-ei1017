@@ -35,7 +35,7 @@ public class Cliente {
         return correo;
     }
 
-    public Date getFechaAlta() {
+    public Date getFecha() {
         return fechaAlta;
     }
 
