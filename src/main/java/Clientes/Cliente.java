@@ -5,7 +5,7 @@ import Tarifas.Tarifa;
 
 import java.util.Date;
 
-public class Cliente {
+abstract public class Cliente {
     String nombre;
     String NIF;
     Direccion direccion;
@@ -13,9 +13,11 @@ public class Cliente {
     Date fechaAlta;
     Tarifa tarifa;
 
-    public Cliente(String nombre, String NIF, Date fechaAlta) {
+    public Cliente(String nombre, String NIF, Direccion direccion, String correo, Date fechaAlta) {
         this.nombre = nombre;
         this.NIF = NIF;
+        this.direccion = direccion;
+        this.correo = correo;
         this.fechaAlta = fechaAlta;
     }
 
