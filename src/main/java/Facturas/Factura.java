@@ -8,6 +8,13 @@ public class Factura {
     Tarifa tarifa;
     String fecha;
     String periodo;
-    double importe;
+    float importe;
 
+    public Factura(String codigo, Tarifa tarifa, String fecha, String periodo, float importe) {
+        this.codigo = codigo;
+        this.tarifa = tarifa;
+        this.fecha = fecha;
+        this.periodo = periodo;
+        this.importe = importe;
+    }
 }
