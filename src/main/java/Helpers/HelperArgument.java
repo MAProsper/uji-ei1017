@@ -2,7 +2,7 @@ package Helpers;
 
 public final class HelperArgument {
     public static String stringNotEmpty(String name, String s) {
-        return generic(s, s.length() == 0, name + " no puede ser una cadena vacia");
+        return generic(s, s.length() != 0, name + " no puede ser una cadena vacia");
     }
 
     public static double numberNotNegative(String name, double n) {

@@ -2,19 +2,23 @@ package Facturas;
 
 import Tarifas.Tarifa;
 
+import java.util.Date;
+
+import static Helpers.HelperArgument.numberNotNegative;
+
 public class Factura {
 
     int codigo;
     Tarifa tarifa;
-    String fecha;
+    Date fecha;
     String periodo;
-    float importe;
+    double importe;
 
-    public Factura(int codigo, Tarifa tarifa, String fecha, String periodo, float importe) {
+    public Factura(int codigo, Tarifa tarifa, Date fecha, String periodo, double importe) {
         this.codigo = codigo;
         this.tarifa = tarifa;
         this.fecha = fecha;
         this.periodo = periodo;
-        this.importe = importe;
+        this.importe = numberNotNegative("Importe", importe);
     }
 }

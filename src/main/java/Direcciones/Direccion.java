@@ -1,5 +1,8 @@
 package Direcciones;
 
+import static Helpers.HelperArgument.numberNotNegative;
+import static Helpers.HelperArgument.stringNotEmpty;
+
 public class Direccion {
 
     int codigo_postal;
@@ -8,8 +11,8 @@ public class Direccion {
 
     public Direccion(int codigo_postal, String provincia, String poblacion) {
         this.codigo_postal = codigo_postal;
-        this.provincia = provincia;
-        this.poblacion = poblacion;
+        this.provincia = stringNotEmpty("Provincia", provincia);
+        this.poblacion = stringNotEmpty("Poblacion", poblacion);
     }
 
     public int getCodigo_postal() {
