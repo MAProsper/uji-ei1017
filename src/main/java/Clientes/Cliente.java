@@ -15,12 +15,13 @@ abstract public class Cliente {
     Date fechaAlta;
     Tarifa tarifa;
 
-    public Cliente(String nombre, String NIF, Direccion direccion, String correo, Date fechaAlta) {
+    public Cliente(String nombre, String NIF, Direccion direccion, String correo, Date fechaAlta, Tarifa tarifa) {
         this.nombre = stringNotEmpty("nombre", referenceNotNull("nombre", nombre));
         this.NIF = generic(stringNotEmpty("NIF", referenceNotNull("NIF", NIF)), NIF.length() == 9, "formato de NIF invalido");
         this.direccion = direccion;
         this.correo = generic(stringNotEmpty("correo", referenceNotNull("correo", correo)), correo.contains("@"), "formato de correo invalido");
         this.fechaAlta = fechaAlta;
+        this.tarifa = tarifa;
     }
 
     public String getNombre() {
