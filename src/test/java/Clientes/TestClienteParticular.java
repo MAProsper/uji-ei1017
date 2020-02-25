@@ -18,7 +18,7 @@ public class TestClienteParticular {
 
     public static Stream<Arguments> genericData() {
         return Stream.of(
-                Arguments.of("Pablo", "Lopez Gallego", "46078060D", new Direccion(12590, "Castellon", "Almenara"), "Pablo@email.org", new Date(), new Tarifa(0.2))
+                Arguments.of("Pablo", "Lopez Gallego", "46078060D", new Direccion("Castellon".hashCode(), "Castellon", "Almenara"), "Pablo@email.org", new Date(), new Tarifa(0.2))
         );
     }
 
@@ -27,7 +27,7 @@ public class TestClienteParticular {
 
     @ParameterizedTest
     @MethodSource("genericData")
-    public void TestClienteParticular(String nombre, String apellidos, String NIF, Direccion direccion, String correo, Date fecha, Tarifa tarifa) {
+    public void COnstructorTestClienteParticular(String nombre, String apellidos, String NIF, Direccion direccion, String correo, Date fecha, Tarifa tarifa) {
         ClientePaticular cliente = new ClientePaticular(nombre, apellidos, NIF, direccion, correo, fecha, tarifa);
 
         System.out.println("\n---- Cliente numero " + n + " ----\n");
@@ -45,7 +45,7 @@ public class TestClienteParticular {
         System.out.println(cliente.fechaAlta + " == " + fecha);
         assertEquals(cliente.fechaAlta, fecha);
         System.out.println(cliente.tarifa.getTarifa() + " == " + tarifa.getTarifa());
-        assertEquals(cliente.tarifa.getTarifa(), tarifa.getTarifa(), 0.1);
+        assertEquals(cliente.tarifa.getTarifa(), tarifa.getTarifa(), 0.0);
         n++;
     }
 
