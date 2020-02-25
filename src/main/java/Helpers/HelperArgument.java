@@ -15,7 +15,7 @@ public final class HelperArgument {
     }
 
     public static double numberNotNegative(String name, double n) {
-        return generic(n, n < 0, name + " no puede ser un numero negativo");
+        return generic(n, n >= 0, name + " no puede ser un numero negativo");
     }
 
     public static <T> T referenceNotNull(String name, T value) {
