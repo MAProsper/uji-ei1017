@@ -22,8 +22,8 @@ public class Direccion {
             throw new IllegalArgumentException(codigoPostal + " tiene multiples provincia");
 
         this.codigoPostal = codigoPostal;
-        this.provincia = stringNotEmpty("Provincia", provincia);
-        this.poblacion = stringNotEmpty("Poblacion", poblacion);
+        this.provincia = stringNotEmpty("provincia", provincia);
+        this.poblacion = stringNotEmpty("poblacion", poblacion);
 
         provinciaCodigo.put(provincia, codigoPostal);
         codigoProvincia.put(codigoPostal, poblacion);
