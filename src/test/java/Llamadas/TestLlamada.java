@@ -1,8 +1,6 @@
 package Llamadas;
 
 import Helpers.HelperGenerator;
-import Tarifas.Tarifa;
-import com.google.common.collect.Range;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;

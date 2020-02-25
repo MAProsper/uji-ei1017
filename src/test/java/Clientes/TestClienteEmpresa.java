@@ -1,13 +1,10 @@
 package Clientes;
 
 import Direcciones.Direccion;
-import Helpers.HelperGenerator;
 import Tarifas.Tarifa;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestClienteEmpresa extends TestCliente {
     @RepeatedTest(5)
