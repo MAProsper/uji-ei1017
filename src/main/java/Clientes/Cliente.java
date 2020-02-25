@@ -1,27 +1,27 @@
 package Clientes;
 
-import Direcciones.Direccion;
-import Tarifas.Tarifa;
+import java.util.*;
 
-import java.util.Date;
+import Tarifas.Tarifa;
+import Direcciones.Direccion;
 
 import static Helpers.HelperArgument.*;
 
-abstract public class Cliente {
-    String nombre;
-    String NIF;
-    Direccion direccion;
-    String correo;
-    Date fechaAlta;
+public class Cliente {
+    final String nombre;
+    final String NIF;
+    final Direccion direccion;
+    final String correo;
+    final Date fechaAlta;
     Tarifa tarifa;
 
-    public Cliente(String nombre, String NIF, Direccion direccion, String correo, Date fechaAlta, Tarifa tarifa) {
-        this.nombre = stringNotEmpty("nombre", referenceNotNull("nombre", nombre));
-        this.NIF = generic(stringNotEmpty("NIF", referenceNotNull("NIF", NIF)), NIF.length() == 9, "formato de NIF invalido");
-        this.direccion = direccion;
-        this.correo = generic(stringNotEmpty("correo", referenceNotNull("correo", correo)), correo.contains("@"), "formato de correo invalido");
-        this.fechaAlta = fechaAlta;
-        this.tarifa = tarifa;
+    public Cliente(final String nombre, final String NIF, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
+        this.nombre = stringNotEmpty("nombre", nombre);
+        this.NIF = stringMatchesPattern("NIF", NIF, "\\d+[TRWAGMYFPDXBNJZSQVHLCKE]");
+        this.direccion = referenceNotNull("direccion", direccion);
+        this.correo = stringMatchesPattern("correo", correo, "[\\w.]+@[\\w.]{2,}");
+        this.fechaAlta = referenceNotNull("fechaAlta", fechaAlta);
+        this.tarifa = referenceNotNull("tarifa", tarifa);
     }
 
     public String getNombre() {
@@ -48,7 +48,37 @@ abstract public class Cliente {
         return tarifa;
     }
 
-    public void setTarifa(Tarifa tarifa) {
+    public void setTarifa(final Tarifa tarifa) {
         this.tarifa = tarifa;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final Cliente cliente = (Cliente) o;
+        return Objects.equals(nombre, cliente.nombre) &&
+                Objects.equals(NIF, cliente.NIF) &&
+                Objects.equals(direccion, cliente.direccion) &&
+                Objects.equals(correo, cliente.correo) &&
+                Objects.equals(fechaAlta, cliente.fechaAlta) &&
+                Objects.equals(tarifa, cliente.tarifa);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, NIF, direccion, correo, fechaAlta, tarifa);
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nombre='" + nombre + '\'' +
+                ", NIF='" + NIF + '\'' +
+                ", direccion=" + direccion +
+                ", correo='" + correo + '\'' +
+                ", fechaAlta=" + fechaAlta +
+                ", tarifa=" + tarifa +
+                '}';
     }
 }

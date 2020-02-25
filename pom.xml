@@ -7,23 +7,27 @@
     <groupId>es.uji.akicode</groupId>
     <artifactId>FacturacionMovil</artifactId>
     <version>0.0.1</version>
+
+    <properties>
+        <com.google.guava.version>28.2-jre</com.google.guava.version>
+        <com.github.TallerIngenieriaDelSoftware.version>v1.0.0</com.github.TallerIngenieriaDelSoftware.version>
+        <org.junit.jupiter.version>5.2.0</org.junit.jupiter.version>
+        <org.junit.platform.version>1.0.2</org.junit.platform.version>
+        <org.apache.maven.plugins.version>8</org.apache.maven.plugins.version>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>${org.apache.maven.plugins.version}</source>
+                    <target>${org.apache.maven.plugins.version}</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <properties>
-        <junit.jupiter.version>5.2.0</junit.jupiter.version>
-        <junit.platform.version>1.0.2</junit.platform.version>
-    </properties>
 
     <repositories>
         <repository>
@@ -31,36 +35,44 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
+
     <dependencies>
-        <!--Biblioteca para tests-->
+        <!--Biblioteca para más tipos de datos-->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-runner</artifactId>
-            <version>${junit.platform.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${com.google.guava.version}</version>
         </dependency>
 
         <!--Biblioteca para generar datos aleatorios-->
         <dependency>
             <groupId>com.github.TallerIngenieriaDelSoftware</groupId>
             <artifactId>GeneradorDatosINE</artifactId>
-            <version>v1.0.0</version>
+            <version>${com.github.TallerIngenieriaDelSoftware.version}</version>
+        </dependency>
+
+        <!--Biblioteca para tests-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${org.junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${org.junit.jupiter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>${org.junit.platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${org.junit.jupiter.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

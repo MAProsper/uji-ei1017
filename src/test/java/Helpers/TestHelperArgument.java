@@ -10,83 +10,95 @@ import static Helpers.HelperArgument.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestHelperArgument {
-    public static Stream<Arguments> genericVoidData() {
+    public static Stream<Arguments> dataValidateVoid() {
         return Stream.of(
-                Arguments.of(true, "mensage"),
-                Arguments.of(false, "mensage")
+                Arguments.of("valid", true),
+                Arguments.of("invalid", false)
         );
     }
 
     @ParameterizedTest
-    @MethodSource("genericVoidData")
-    public void genericTest(boolean valid, String error){
-        if (valid) assertDoesNotThrow(() -> generic(valid, error));
-        else assertThrows(IllegalArgumentException.class, () -> generic(valid, error));
+    @MethodSource("dataValidateVoid")
+    public void testValidate(final String message, final boolean valid) {
+        if (valid) assertDoesNotThrow(() -> validate(message, valid));
+        else assertThrows(IllegalArgumentException.class, () -> validate(message, valid));
     }
 
-    public static Stream<Arguments> genericValueData() {
+    public static Stream<Arguments> dataValidateValue() {
         return Stream.of(
-                Arguments.of(null, true, "mensage"),
-                Arguments.of(1, true, "mensage"),
-                Arguments.of("", true, "mensage"),
-                Arguments.of(null, false, "mensage"),
-                Arguments.of(1, false, "mensage"),
-                Arguments.of("", false, "mensage")
+                Arguments.of("valid", null, true),
+                Arguments.of("valid", 1, true),
+                Arguments.of("valid", "", true),
+                Arguments.of("invalid", null, false),
+                Arguments.of("invalid", 1, false),
+                Arguments.of("invalid", "", false)
         );
     }
 
     @ParameterizedTest
-    @MethodSource("genericValueData")
-    public <T> void genericTest(T value, boolean valid, String error){
-        if (valid) assertEquals(value, generic(value, valid, error));
-        else assertThrows(IllegalArgumentException.class, () -> generic(value, valid, error));
+    @MethodSource("dataValidateValue")
+    public <T> void testValidate(final String message, final T value, final boolean valid) {
+        if (valid) assertEquals(value, validate(message, value, valid));
+        else assertThrows(IllegalArgumentException.class, () -> validate(message, value, valid));
     }
 
-    public static Stream<Arguments> stringNotEmptyData() {
+    public static Stream<Arguments> dataNumberNotNegative() {
         return Stream.of(
-                Arguments.of("", false),
-                Arguments.of("message", true)
+                Arguments.of("negative", -1, false),
+                Arguments.of("zero", 0, true),
+                Arguments.of("positive", 1, true)
         );
     }
 
     @ParameterizedTest
-    @MethodSource("stringNotEmptyData")
-    public void stringNotEmptyTest(String s, boolean valid) {
-        if (valid) assertEquals(s, stringNotEmpty("mesage", s));
-        else assertThrows(IllegalArgumentException.class, () -> stringNotEmpty("mesage", s));
+    @MethodSource("dataNumberNotNegative")
+    public void testNumberNotNegative(final String message, final Number n, final boolean valid) {
+        if (valid) assertEquals(n, numberNotNegative(message, n));
+        else assertThrows(IllegalArgumentException.class, () -> numberNotNegative(message, n));
     }
 
-    public static Stream<Arguments> numberNotNegativeData() {
+    public static Stream<Arguments> dataReferenceNotNull() {
         return Stream.of(
-                Arguments.of(-1, false),
-                Arguments.of(0, true),
-                Arguments.of(1, true)
+                Arguments.of("null", null, false),
+                Arguments.of("base", 0, true),
+                Arguments.of("class", "", true)
         );
     }
 
     @ParameterizedTest
-    @MethodSource("numberNotNegativeData")
-    public void numberNotNegativeTest(double n, boolean valid) {
-        if (valid) assertEquals(n, numberNotNegative("mesage", n));
-        else {
-            assertThrows(IllegalArgumentException.class, () -> {
-                double fix = numberNotNegative("mesage", n);  //Don't remove, generates a warning
-            });
-        }
+    @MethodSource("dataReferenceNotNull")
+    public <T> void testReferenceNotNull(final String message, final T value, final boolean valid) {
+        if (valid) assertEquals(value, referenceNotNull(message, value));
+        else assertThrows(IllegalArgumentException.class, () -> referenceNotNull(message, value));
     }
 
-    public static Stream<Arguments> referenceNotNullData() {
+    public static Stream<Arguments> dataStringNotEmpty() {
         return Stream.of(
-                Arguments.of(null, false),
-                Arguments.of(0, true),
-                Arguments.of("", true)
+                Arguments.of("null", null, false),
+                Arguments.of("empty", "", false),
+                Arguments.of("non-empty", "message", true)
         );
     }
 
     @ParameterizedTest
-    @MethodSource("referenceNotNullData")
-    public <T> void referenceNotNullTest(T value, boolean valid) {
-        if (valid) assertEquals(value, referenceNotNull("mesage", value));
-        else assertThrows(IllegalArgumentException.class, () -> referenceNotNull("mesage", value));
+    @MethodSource("dataStringNotEmpty")
+    public void testStringNotEmpty(final String message, final String s, final boolean valid) {
+        if (valid) assertEquals(s, stringNotEmpty(message, s));
+        else assertThrows(IllegalArgumentException.class, () -> stringNotEmpty(message, s));
+    }
+
+    public static Stream<Arguments> dataStringMatchesPattern() {
+        return Stream.of(
+                Arguments.of("valid", "0", "\\d", true),
+                Arguments.of("invalid", "00", "\\d", false),
+                Arguments.of("invalid", "a", "\\d", false)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataStringMatchesPattern")
+    public void testStringMatchesPattern(final String message, final String s, final String regex, final boolean valid) {
+        if (valid) assertEquals(s, stringMatchesPattern(message, s, regex));
+        else assertThrows(IllegalArgumentException.class, () -> stringMatchesPattern(message, s, regex));
     }
 }

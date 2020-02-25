@@ -1,32 +1,27 @@
 package Direcciones;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import static Helpers.HelperArgument.stringNotEmpty;
+import com.google.common.collect.*;
+
+import static Helpers.HelperArgument.*;
 
 public class Direccion {
 
-    int codigoPostal;
-    String provincia;
-    String poblacion;
+    final int codigoPostal;
+    final String provincia;
+    final String poblacion;
 
-    final static Map<String, Integer> provinciaCodigo = new HashMap<>();
-    final static Map<Integer, String> codigoProvincia = new HashMap<>();
+    final static BiMap<String, Integer> provinciaCodigo = HashBiMap.create();
+    final static BiMap<Integer, String> codigoProvincia = provinciaCodigo.inverse();
 
-    public Direccion(int codigoPostal, String provincia, String poblacion) {
-        if (provinciaCodigo.containsKey(provincia) && provinciaCodigo.get(provincia) != codigoPostal)
-            throw new IllegalArgumentException(provincia + " tiene multiples codigos postales");
-
-        if (codigoProvincia.containsKey(codigoPostal) && codigoProvincia.get(codigoPostal).equals(provincia))
-            throw new IllegalArgumentException(codigoPostal + " tiene multiples provincia");
-
-        this.codigoPostal = codigoPostal;
+    public Direccion(final int codigoPostal, final String provincia, final String poblacion) {
+        validate(provincia + " tiene multiples codigos postales", !provinciaCodigo.containsKey(provincia) || provinciaCodigo.get(provincia) == codigoPostal);
+        validate(codigoPostal + " tiene multiples provincia", !codigoProvincia.containsKey(codigoPostal) || codigoProvincia.get(codigoPostal).equals(provincia));
+        this.codigoPostal = numberNotNegative("codigoPostal", codigoPostal);
         this.provincia = stringNotEmpty("provincia", provincia);
         this.poblacion = stringNotEmpty("poblacion", poblacion);
-
         provinciaCodigo.put(provincia, codigoPostal);
-        codigoProvincia.put(codigoPostal, poblacion);
     }
 
     public int getCodigoPostal() {
@@ -39,5 +34,29 @@ public class Direccion {
 
     public String getPoblacion() {
         return poblacion;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final Direccion direccion = (Direccion) o;
+        return codigoPostal == direccion.codigoPostal &&
+                Objects.equals(provincia, direccion.provincia) &&
+                Objects.equals(poblacion, direccion.poblacion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigoPostal, provincia, poblacion);
+    }
+
+    @Override
+    public String toString() {
+        return "Direccion{" +
+                "codigoPostal=" + codigoPostal +
+                ", provincia='" + provincia + '\'' +
+                ", poblacion='" + poblacion + '\'' +
+                '}';
     }
 }

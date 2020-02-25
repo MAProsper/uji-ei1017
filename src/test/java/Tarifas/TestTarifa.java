@@ -1,40 +1,21 @@
 package Tarifas;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.RepeatedTest;
 
-import java.util.stream.Stream;
+import java.util.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestTarifa {
+    static final Random random = new Random();
 
-
-    public static Stream<Arguments> genericData() {
-        return Stream.of(
-                Arguments.of(0.2),
-                Arguments.of(0.7),
-                Arguments.of(0.15),
-                Arguments.of(0.19),
-                Arguments.of(18.2),
-                Arguments.of(15.4)
-        );
-    }
-
-    private static Tarifa tarifaConstructor;
-
-    @ParameterizedTest
-    @MethodSource("genericData")
-    public void ConstructorTestTarifa(double t) {
-        tarifaConstructor = new Tarifa(t);
-        assertEquals(tarifaConstructor.getTarifa(), t, 0.1);
-    }
-
-    @AfterAll
-    public static void finish() {
-        tarifaConstructor = null;
+    @RepeatedTest(5)
+    public void testTarifa() {
+        final double tarifaValor = random.nextDouble() * 10;
+        System.out.println("Tarifa{" +
+                "tarifa=" + tarifaValor +
+                '}');
+        final Tarifa tarifa = new Tarifa(tarifaValor);
+        assertEquals(tarifaValor, tarifa.getTarifa());
     }
 }
-
