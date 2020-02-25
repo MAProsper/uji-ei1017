@@ -12,7 +12,10 @@ import es.uji.www.GeneradorDatosINE;
 import java.util.*;
 
 public class HelperGenerator extends GeneradorDatosINE {
-    private final static Random random = new Random();
+    //Generation is guaranteed if used exclusively
+
+    final static Random random = new Random();
+    static int facturas = 0;
 
     public HelperGenerator() {
         super();
@@ -46,7 +49,7 @@ public class HelperGenerator extends GeneradorDatosINE {
     }
 
     public Factura getFactura() {
-        return new Factura(random.nextInt(9999), getTarifa(), getFecha(), getPeriodo());
+        return new Factura(facturas++, getTarifa(), getFecha(), getPeriodo());
     }
 
     public String getTelefono() {
