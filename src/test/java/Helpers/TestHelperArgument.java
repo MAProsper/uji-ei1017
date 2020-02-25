@@ -6,8 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static Helpers.TestHelperArgument.generic;
-import static Helpers.TestHelperArgument.referenceNotNull;
+import static Helpers.HelperArgument.generic;
+import static Helpers.HelperArgument.referenceNotNull;
 
 public class TestHelperArgument {
     public static Stream<Arguments> genericData() {
