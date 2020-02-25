@@ -5,6 +5,8 @@ import Tarifas.Tarifa;
 
 import java.util.Date;
 
+import static Helpers.HelperArgument.*;
+
 abstract public class Cliente {
     String nombre;
     String NIF;
@@ -14,10 +16,10 @@ abstract public class Cliente {
     Tarifa tarifa;
 
     public Cliente(String nombre, String NIF, Direccion direccion, String correo, Date fechaAlta) {
-        this.nombre = nombre;
-        this.NIF = NIF;
+        this.nombre = stringNotEmpty("nombre", referenceNotNull("nombre", nombre));
+        this.NIF = generic(stringNotEmpty("NIF", referenceNotNull("NIF", NIF)), NIF.length() == 9, "formato de NIF invalido");
         this.direccion = direccion;
-        this.correo = correo;
+        this.correo = generic(stringNotEmpty("correo", referenceNotNull("correo", correo)), correo.contains("@"), "formato de correo invalido");
         this.fechaAlta = fechaAlta;
     }
 
