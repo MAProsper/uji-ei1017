@@ -18,7 +18,7 @@ public class TestClienteParticular {
 
     public static Stream<Arguments> genericData() {
         return Stream.of(
-                Arguments.of("Pablo", "Lopez Gallego", "46078060D", new Direccion(12590, "Castellon", "Almenara"), "Pablo@email.org", new Date() , new Tarifa(0.2))
+                Arguments.of("Pablo", "Lopez Gallego", "46078060D", new Direccion(12590, "Castellon", "Almenara"), "Pablo@email.org", new Date(), new Tarifa(0.2))
         );
     }
 
@@ -27,7 +27,7 @@ public class TestClienteParticular {
 
     @ParameterizedTest
     @MethodSource("genericData")
-    public void TestClienteParticular(String nombre, String apellidos, String NIF, Direccion direccion, String correo, Date fecha, Tarifa tarifa){
+    public void TestClienteParticular(String nombre, String apellidos, String NIF, Direccion direccion, String correo, Date fecha, Tarifa tarifa) {
         ClientePaticular cliente = new ClientePaticular(nombre, apellidos, NIF, direccion, correo, fecha, tarifa);
 
         System.out.println("\n---- Cliente numero " + n + " ----\n");
@@ -50,9 +50,7 @@ public class TestClienteParticular {
     }
 
     @AfterAll
-    public static void finish(){
+    public static void finish() {
         cliente = null;
     }
-
-
 }
