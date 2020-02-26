@@ -1,26 +1,22 @@
 package Facturas;
 
-import Helpers.HelperGenerator;
+import Facturas.Generadores.GeneradorFactura;
 import Tarifas.Tarifa;
 import com.google.common.collect.Range;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
-import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestFactura {
-    static int codigos = 0;
-    static final Random random = new Random();
-    static final HelperGenerator generator = new HelperGenerator();
+    static final GeneradorFactura genFactura = new GeneradorFactura();
 
     @RepeatedTest(5)
     public void testFactura() {
-        final int codigo = codigos++;
-        final Tarifa tarifa = generator.getTarifa();
-        final Date fechaEmision = generator.getFecha();
-        final Range<Date> periodo = generator.getPeriodo();
+        final int codigo = genFactura.nextCodigo();
+        final Tarifa tarifa = genFactura.nextTarifa();
+        final Date fechaEmision = genFactura.nextFecha();
+        final Range<Date> periodo = genFactura.nextPeriodo();
         System.out.println("Factura{" +
                 "codigo=" + codigo +
                 ", tarifa=" + tarifa +

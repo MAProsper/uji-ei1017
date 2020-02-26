@@ -2,6 +2,7 @@ package Clientes;
 
 import java.util.Date;
 
+import Clientes.Generadores.GeneradorClienteParticular;
 import Direcciones.Direccion;
 import Tarifas.Tarifa;
 import org.junit.jupiter.api.RepeatedTest;
@@ -9,15 +10,17 @@ import org.junit.jupiter.api.RepeatedTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestClienteParticular extends TestCliente {
+    static final GeneradorClienteParticular genClienteParticular = new GeneradorClienteParticular();
+
     @RepeatedTest(5)
     public void testClienteParticular() {
-        final String nombre = generator.getNombre();
-        final String apellidos = generator.getApellidos();
-        final String NIF = generator.getNIF();
-        final Direccion direccion = generator.getDireccion();
-        final String correo = generator.getCorreo();
-        final Date fechaAlta = generator.getFecha();
-        final Tarifa tarifa = generator.getTarifa();
+        final String nombre = genClienteParticular.nextNombre();
+        final String apellidos = genClienteParticular.nextApellidos();
+        final String NIF = genClienteParticular.nextNIF();
+        final Direccion direccion = genClienteParticular.nextDireccion();
+        final String correo = genClienteParticular.nextCorreo();
+        final Date fechaAlta = genClienteParticular.nextFecha();
+        final Tarifa tarifa = genClienteParticular.nextTarifa();
         System.out.println("ClientePaticular{" +
                 "nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +

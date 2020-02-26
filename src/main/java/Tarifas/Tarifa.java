@@ -6,14 +6,14 @@ import static Helpers.HelperArgument.*;
 
 public class Tarifa {
 
-    final double tarifa;
+    final double precio;
 
-    public Tarifa(final double tarifa) {
-        this.tarifa = numberNotNegative("tarifa", tarifa);
+    public Tarifa(final double precio) {
+        this.precio = numberNotNegative("precio", precio);
     }
 
-    public double getTarifa() {
-        return tarifa;
+    public double getPrecio() {
+        return precio;
     }
 
     @Override
@@ -21,18 +21,18 @@ public class Tarifa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final Tarifa tarifa1 = (Tarifa) o;
-        return Double.compare(tarifa1.tarifa, tarifa) == 0;
+        return Double.compare(tarifa1.precio, precio) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tarifa);
+        return Objects.hash(precio);
     }
 
     @Override
     public String toString() {
         return "Tarifa{" +
-                "tarifa=" + tarifa +
+                "precio=" + precio +
                 '}';
     }
 }

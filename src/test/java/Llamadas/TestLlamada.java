@@ -1,22 +1,20 @@
 package Llamadas;
 
-import Helpers.HelperGenerator;
+import Llamadas.Generadores.GeneradorLlamada;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestLlamada {
-    static final Random random = new Random();
-    static final HelperGenerator generator = new HelperGenerator();
+    static final GeneradorLlamada genLlamada = new GeneradorLlamada();
 
     @RepeatedTest(5)
     public void testLlamada() {
-        final String telefono = generator.getTelefono();
-        final Date fecha = generator.getFecha();
-        final double duracion = random.nextDouble() * 999;
+        final String telefono = genLlamada.nextTelefono();
+        final Date fecha = genLlamada.nextFecha();
+        final double duracion = genLlamada.nextDuracion();
         System.out.println("Llamada{" +
                 "telefono='" + telefono + '\'' +
                 ", fecha=" + fecha +

@@ -1,18 +1,18 @@
 package Direcciones;
 
-import Helpers.HelperGenerator;
+import Direcciones.Generadores.GeneradorDireccion;
 import org.junit.jupiter.api.RepeatedTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestDireccion {
-    static final HelperGenerator generator = new HelperGenerator();
+    static final GeneradorDireccion genDireccion = new GeneradorDireccion();
 
     @RepeatedTest(5)
     public void testDirecion() {
-        final String provincia = generator.getProvincia();
-        final int codigoPostal = generator.getCodigoPostal(provincia);
-        final String poblacion = generator.getPoblacion(provincia);
+        final String provincia = genDireccion.nextProvincia();
+        final int codigoPostal = genDireccion.nextCodigoPostal(provincia);
+        final String poblacion = genDireccion.nextPoblacion(provincia);
         System.out.println("Direccion{" +
                 "codigoPostal=" + codigoPostal +
                 ", provincia='" + provincia + '\'' +
