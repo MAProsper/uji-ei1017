@@ -1,8 +1,11 @@
 package Tarifas;
 
-import java.util.*;
+import Helpers.Llamada;
 
-import static Helpers.ValidatorArguments.*;
+import java.util.Objects;
+
+import static Helpers.ValidatorArguments.numberNotNegative;
+import static Helpers.ValidatorArguments.referenceNotNull;
 
 public class Tarifa {
 
@@ -14,6 +17,11 @@ public class Tarifa {
 
     public double getPrecio() {
         return precio;
+    }
+
+    public double getImporte(Llamada llamada) {
+        referenceNotNull("llamada", llamada);
+        return llamada.getDuracion() * precio;
     }
 
     @Override
