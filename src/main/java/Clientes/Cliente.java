@@ -15,7 +15,7 @@ public class Cliente {
     final Date fechaAlta;
     Tarifa tarifa;
 
-    public Cliente(final String nombre, final String NIF, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
+    public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
         this.nombre = stringNotEmpty("nombre", nombre);
         this.NIF = stringMatchesPattern("NIF", NIF, "\\d+[TRWAGMYFPDXBNJZSQVHLCKE]");
         this.direccion = referenceNotNull("direccion", direccion);
@@ -73,8 +73,8 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "nombre='" + nombre + '\'' +
-                ", NIF='" + NIF + '\'' +
+                "NIF='" + NIF + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +

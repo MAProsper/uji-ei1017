@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestFactura {
     static final GeneradorFactura genFactura = new GeneradorFactura();
 
-    @RepeatedTest(5)
+    @RepeatedTest(3)
     public void testFactura() {
         final int codigo = genFactura.nextCodigo();
         final Tarifa tarifa = genFactura.nextTarifa();

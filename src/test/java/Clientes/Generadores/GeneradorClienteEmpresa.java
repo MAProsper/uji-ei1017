@@ -4,6 +4,6 @@ import Clientes.ClienteEmpresa;
 
 public class GeneradorClienteEmpresa extends GeneradorCliente {
     public ClienteEmpresa nextClienteEmpresa() {
-        return new ClienteEmpresa(nextNombre(), nextNIF(), nextDireccion(), nextCorreo(), nextFecha(), nextTarifa());
+        return new ClienteEmpresa(nextNIF(), nextNombre(), nextDireccion(), nextCorreo(), nextFecha(), nextTarifa());
     }
 }

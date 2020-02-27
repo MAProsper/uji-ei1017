@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestLlamada {
     static final GeneradorLlamada genLlamada = new GeneradorLlamada();
 
-    @RepeatedTest(5)
+    @RepeatedTest(3)
     public void testLlamada() {
         final String telefono = genLlamada.nextTelefono();
         final Date fecha = genLlamada.nextFecha();

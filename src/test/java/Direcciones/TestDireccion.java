@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestDireccion {
     static final GeneradorDireccion genDireccion = new GeneradorDireccion();
 
-    @RepeatedTest(5)
+    @RepeatedTest(3)
     public void testDirecion() {
         final String provincia = genDireccion.nextProvincia();
         final int codigoPostal = genDireccion.nextCodigoPostal(provincia);

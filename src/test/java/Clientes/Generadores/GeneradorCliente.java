@@ -46,6 +46,6 @@ public class GeneradorCliente {
     }
 
     public Cliente nextCliente() {
-        return new Cliente(nextNombre(), nextNIF(), nextDireccion(), nextCorreo(), nextFecha(), nextTarifa());
+        return new Cliente(nextNIF(), nextNombre(), nextDireccion(), nextCorreo(), nextFecha(), nextTarifa());
     }
 }

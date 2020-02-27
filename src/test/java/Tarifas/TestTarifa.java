@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestTarifa {
     static final GeneradorTarifa genTarifa = new GeneradorTarifa();
 
-    @RepeatedTest(5)
+    @RepeatedTest(3)
     public void testTarifa() {
         final double precio = genTarifa.nextPrecio();
         System.out.println("Tarifa{" +

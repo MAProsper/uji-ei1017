@@ -8,6 +8,6 @@ public class GeneradorClienteParticular extends GeneradorCliente {
     }
 
     public ClientePaticular nextClienteParticular() {
-        return new ClientePaticular(nextNombre(), nextApellidos(), nextNIF(), nextDireccion(), nextCorreo(), nextFecha(), nextTarifa());
+        return new ClientePaticular(nextNIF(), nextNombre(), nextApellidos(), nextDireccion(), nextCorreo(), nextFecha(), nextTarifa());
     }
 }

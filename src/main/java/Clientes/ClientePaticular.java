@@ -10,8 +10,8 @@ import static Helpers.HelperArgument.*;
 public class ClientePaticular extends Cliente {
     final String apellidos;
 
-    public ClientePaticular(final String nombre, final String apellidos, final String NIF, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
-        super(nombre, NIF, direccion, correo, fechaAlta, tarifa);
+    public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
+        super(NIF, nombre, direccion, correo, fechaAlta, tarifa);
         this.apellidos = stringNotEmpty("apellidos", apellidos);
     }
 
@@ -36,9 +36,9 @@ public class ClientePaticular extends Cliente {
     @Override
     public String toString() {
         return "ClientePaticular{" +
-                "nombre='" + nombre + '\'' +
+                "NIF='" + NIF + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
-                ", NIF='" + NIF + '\'' +
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
