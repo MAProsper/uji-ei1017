@@ -8,6 +8,7 @@ import Tarifas.Tarifa;
 import Helpers.Direccion;
 
 import static Helpers.ValidatorArguments.*;
+import static Helpers.ValidatorArguments.referenceNotNull;
 
 public class Cliente {
     final String NIF;
@@ -63,7 +64,7 @@ public class Cliente {
     }
 
     public void addLlamada(Llamada llamada) {
-        llamadas.add(llamada);
+        llamadas.add(referenceNotNull("llamada", llamada));
     }
 
     final public List<Factura> getFacturas() {
@@ -71,7 +72,7 @@ public class Cliente {
     }
 
     public void addFactura(Factura factura) {
-        facturas.add(factura);
+        facturas.add(referenceNotNull("factura", factura));
     }
 
     @Override
