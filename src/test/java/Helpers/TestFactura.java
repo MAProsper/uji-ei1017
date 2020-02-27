@@ -17,16 +17,19 @@ public class TestFactura {
         final Tarifa tarifa = genFactura.nextTarifa();
         final Date fechaEmision = genFactura.nextFecha();
         final Range<Date> periodo = genFactura.nextPeriodo();
+        final double importe = genFactura.nextImporte();
         System.out.println("Factura{" +
                 "codigo=" + codigo +
                 ", tarifa=" + tarifa +
                 ", fechaEmision=" + fechaEmision +
-                ", periodo='" + periodo + '\'' +
+                ", periodo=" + periodo +
+                ", importe=" + importe +
                 '}');
-        final Factura factura = new Factura(codigo, tarifa, fechaEmision, periodo);
+        final Factura factura = new Factura(codigo, tarifa, fechaEmision, periodo, importe);
         assertEquals(codigo, factura.getCodigo());
         assertEquals(tarifa, factura.getTarifa());
         assertEquals(fechaEmision, factura.getFecha());
         assertEquals(periodo, factura.getPeriodo());
+        assertEquals(importe, factura.getImporte());
     }
 }

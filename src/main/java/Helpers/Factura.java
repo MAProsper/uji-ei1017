@@ -12,48 +12,51 @@ public class Factura {
     final Tarifa tarifa;
     final Date fechaEmision;
     final Range<Date> periodo;
+    final double importe;
 
     final static Set<Integer> codigos = new HashSet<>();
 
-    public Factura(final int codigo, final Tarifa tarifa, final Date fechaEmision, final Range<Date> periodo) {
+    public Factura(final int codigo, final Tarifa tarifa, final Date fechaEmision, final Range<Date> periodo, final double importe) {
         validate("codigo de factura repetido", !codigos.contains(codigo));
         this.codigo = numberNotNegative("codigo", codigo);
         this.tarifa = referenceNotNull("tarifa", tarifa);
         this.fechaEmision = referenceNotNull("fecha", fechaEmision);
         this.periodo = referenceNotNull("periodo", periodo);
+        this.importe = numberNotNegative("importe", importe);
         codigos.add(codigo);
     }
 
-    public int getCodigo() {
+    final public int getCodigo() {
         return codigo;
     }
 
-    public Tarifa getTarifa() {
+    final public Tarifa getTarifa() {
         return tarifa;
     }
 
-    public Date getFecha() {
+    final public Date getFecha() {
         return fechaEmision;
     }
 
-    public Range<Date> getPeriodo() {
+    final public Range<Date> getPeriodo() {
         return periodo;
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Factura factura = (Factura) o;
-        return codigo == factura.codigo &&
-                Objects.equals(tarifa, factura.tarifa) &&
-                Objects.equals(fechaEmision, factura.fechaEmision) &&
-                Objects.equals(periodo, factura.periodo);
+    final public double getImporte() {
+        return importe;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(codigo, tarifa, fechaEmision, periodo);
+    final public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Factura factura = (Factura) o;
+        return codigo == factura.codigo;
+    }
+
+    @Override
+    final public int hashCode() {
+        return Objects.hash(codigo);
     }
 
     @Override
@@ -62,7 +65,8 @@ public class Factura {
                 "codigo=" + codigo +
                 ", tarifa=" + tarifa +
                 ", fechaEmision=" + fechaEmision +
-                ", periodo='" + periodo + '\'' +
+                ", periodo=" + periodo +
+                ", importe=" + importe +
                 '}';
     }
 }
