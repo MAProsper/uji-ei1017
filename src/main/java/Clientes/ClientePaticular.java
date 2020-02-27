@@ -29,6 +29,8 @@ public class ClientePaticular extends Cliente {
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
                 ", tarifa=" + tarifa +
+                ", llamadas=" + llamadas +
+                ", facturas=" + facturas +
                 '}';
     }
 }

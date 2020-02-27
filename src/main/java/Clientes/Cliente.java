@@ -10,8 +10,8 @@ import Helpers.Direccion;
 import static Helpers.ValidatorArguments.*;
 
 public class Cliente {
-    final String nombre;
     final String NIF;
+    final String nombre;
     final Direccion direccion;
     final String correo;
     final Date fechaAlta;
@@ -96,6 +96,8 @@ public class Cliente {
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
                 ", tarifa=" + tarifa +
+                ", llamadas=" + llamadas +
+                ", facturas=" + facturas +
                 '}';
     }
 }
