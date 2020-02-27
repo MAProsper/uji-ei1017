@@ -1,6 +1,6 @@
-package Direcciones;
+package Helpers;
 
-import Direcciones.Generadores.GeneradorDireccion;
+import Helpers.Generadores.GeneradorDireccion;
 import org.junit.jupiter.api.RepeatedTest;
 
 import static org.junit.jupiter.api.Assertions.*;

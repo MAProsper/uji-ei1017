@@ -2,7 +2,7 @@ package Helpers;
 
 import java.util.*;
 
-public class HelperGenerator {
+public class Generator {
     final static Random genBase = new Random();
 
     public Date nextFecha() {

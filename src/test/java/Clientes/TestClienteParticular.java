@@ -3,7 +3,7 @@ package Clientes;
 import java.util.Date;
 
 import Clientes.Generadores.GeneradorClienteParticular;
-import Direcciones.Direccion;
+import Helpers.Direccion;
 import Tarifas.Tarifa;
 import org.junit.jupiter.api.RepeatedTest;
 

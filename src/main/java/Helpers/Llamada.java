@@ -1,8 +1,8 @@
-package Llamadas;
+package Helpers;
 
 import java.util.*;
 
-import static Helpers.HelperArgument.*;
+import static Helpers.ValidatorArguments.*;
 
 public class Llamada {
     final String telefono;

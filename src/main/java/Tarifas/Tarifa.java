@@ -2,7 +2,7 @@ package Tarifas;
 
 import java.util.*;
 
-import static Helpers.HelperArgument.*;
+import static Helpers.ValidatorArguments.*;
 
 public class Tarifa {
 

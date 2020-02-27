@@ -1,10 +1,10 @@
-package Direcciones;
+package Helpers;
 
 import java.util.*;
 
 import com.google.common.collect.*;
 
-import static Helpers.HelperArgument.*;
+import static Helpers.ValidatorArguments.*;
 
 public class Direccion {
 

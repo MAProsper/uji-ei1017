@@ -1,6 +1,6 @@
-package Facturas;
+package Helpers;
 
-import Facturas.Generadores.GeneradorFactura;
+import Helpers.Generadores.GeneradorFactura;
 import Tarifas.Tarifa;
 import com.google.common.collect.Range;
 import org.junit.jupiter.api.RepeatedTest;

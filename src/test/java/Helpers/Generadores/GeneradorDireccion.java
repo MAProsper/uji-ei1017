@@ -1,6 +1,6 @@
-package Direcciones.Generadores;
+package Helpers.Generadores;
 
-import Direcciones.Direccion;
+import Helpers.Direccion;
 import es.uji.www.GeneradorDatosINE;
 
 public class GeneradorDireccion {

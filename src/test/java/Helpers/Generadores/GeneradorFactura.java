@@ -1,7 +1,7 @@
-package Facturas.Generadores;
+package Helpers.Generadores;
 
-import Facturas.Factura;
-import Helpers.HelperGenerator;
+import Helpers.Factura;
+import Helpers.Generator;
 import Tarifas.Generadores.GeneradorTarifa;
 import Tarifas.Tarifa;
 import com.google.common.collect.Range;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GeneradorFactura {
     static int codigos = 0;
-    final static HelperGenerator genHelper = new HelperGenerator();
+    final static Generator genHelper = new Generator();
     final static GeneradorTarifa genTarifa = new GeneradorTarifa();
 
     public int nextCodigo() {

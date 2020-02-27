@@ -1,7 +1,7 @@
 package Clientes;
 
 import Clientes.Generadores.GeneradorClienteEmpresa;
-import Direcciones.Direccion;
+import Helpers.Direccion;
 import Tarifas.Tarifa;
 import org.junit.jupiter.api.RepeatedTest;
 

@@ -3,9 +3,9 @@ package Clientes;
 import java.util.*;
 
 import Tarifas.Tarifa;
-import Direcciones.Direccion;
+import Helpers.Direccion;
 
-import static Helpers.HelperArgument.*;
+import static Helpers.ValidatorArguments.*;
 
 public class ClientePaticular extends Cliente {
     final String apellidos;

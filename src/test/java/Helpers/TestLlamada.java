@@ -1,6 +1,6 @@
-package Llamadas;
+package Helpers;
 
-import Llamadas.Generadores.GeneradorLlamada;
+import Helpers.Generadores.GeneradorLlamada;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;

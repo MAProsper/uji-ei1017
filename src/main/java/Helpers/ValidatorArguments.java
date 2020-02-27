@@ -1,7 +1,7 @@
 package Helpers;
 
-public final class HelperArgument {
-    private HelperArgument() {
+public final class ValidatorArguments {
+    private ValidatorArguments() {
     }
 
     public static void validate(final String message, final boolean valid) {

@@ -1,11 +1,11 @@
-package Facturas;
+package Helpers;
 
 import java.util.*;
 
 import Tarifas.Tarifa;
 import com.google.common.collect.*;
 
-import static Helpers.HelperArgument.*;
+import static Helpers.ValidatorArguments.*;
 
 public class Factura {
     final int codigo;

@@ -1,14 +1,14 @@
-package Llamadas.Generadores;
+package Helpers.Generadores;
 
-import Helpers.HelperGenerator;
-import Llamadas.Llamada;
+import Helpers.Generator;
+import Helpers.Llamada;
 
 import java.util.Date;
 import java.util.Random;
 
 public class GeneradorLlamada {
     final static Random genBase = new Random();
-    final static HelperGenerator genHelper = new HelperGenerator();
+    final static Generator genHelper = new Generator();
 
     public String nextTelefono() {
         return Integer.toString(100000000 + genBase.nextInt(899999999));

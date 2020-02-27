@@ -2,12 +2,12 @@ package Clientes;
 
 import java.util.*;
 
-import Facturas.Factura;
-import Llamadas.Llamada;
+import Helpers.Factura;
+import Helpers.Llamada;
 import Tarifas.Tarifa;
-import Direcciones.Direccion;
+import Helpers.Direccion;
 
-import static Helpers.HelperArgument.*;
+import static Helpers.ValidatorArguments.*;
 
 public class Cliente {
     final String nombre;

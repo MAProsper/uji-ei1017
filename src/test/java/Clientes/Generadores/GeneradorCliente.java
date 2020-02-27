@@ -1,9 +1,9 @@
 package Clientes.Generadores;
 
 import Clientes.Cliente;
-import Direcciones.Direccion;
-import Direcciones.Generadores.GeneradorDireccion;
-import Helpers.HelperGenerator;
+import Helpers.Direccion;
+import Helpers.Generadores.GeneradorDireccion;
+import Helpers.Generator;
 import Tarifas.Generadores.GeneradorTarifa;
 import Tarifas.Tarifa;
 import es.uji.www.GeneradorDatosINE;
@@ -11,7 +11,7 @@ import es.uji.www.GeneradorDatosINE;
 import java.util.Date;
 
 public class GeneradorCliente {
-    final static HelperGenerator genHelper = new HelperGenerator();
+    final static Generator genHelper = new Generator();
     final static GeneradorDatosINE genINE = new GeneradorDatosINE();
     final static GeneradorDireccion genDireccion = new GeneradorDireccion();
     final static GeneradorTarifa genTarifa = new GeneradorTarifa();
