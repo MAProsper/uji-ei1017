@@ -1,7 +1,6 @@
 package Helpers.Generadores;
 
 import Helpers.Factura;
-import Helpers.Generator;
 import Tarifas.Generadores.GeneradorTarifa;
 import Tarifas.Tarifa;
 import com.google.common.collect.Range;

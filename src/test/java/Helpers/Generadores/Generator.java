@@ -1,6 +1,7 @@
-package Helpers;
+package Helpers.Generadores;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Random;
 
 public class Generator {
     final static Random genBase = new Random();

@@ -6,7 +6,7 @@ import Helpers.Factura;
 import Helpers.Generadores.GeneradorDireccion;
 import Helpers.Generadores.GeneradorFactura;
 import Helpers.Generadores.GeneradorLlamada;
-import Helpers.Generator;
+import Helpers.Generadores.Generator;
 import Helpers.Llamada;
 import Tarifas.Generadores.GeneradorTarifa;
 import Tarifas.Tarifa;
