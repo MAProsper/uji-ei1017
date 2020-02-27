@@ -1,8 +1,9 @@
 package Helpers;
 
-import java.util.*;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
-import com.google.common.collect.*;
+import java.util.Objects;
 
 import static Helpers.ValidatorArguments.*;
 
@@ -24,15 +25,15 @@ public class Direccion {
         provinciaCodigo.put(provincia, codigoPostal);
     }
 
-    public int getCodigoPostal() {
+    final public int getCodigoPostal() {
         return codigoPostal;
     }
 
-    public String getProvincia() {
+    final public String getProvincia() {
         return provincia;
     }
 
-    public String getPoblacion() {
+    final public String getPoblacion() {
         return poblacion;
     }
 

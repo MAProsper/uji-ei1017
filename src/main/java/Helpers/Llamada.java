@@ -1,6 +1,7 @@
 package Helpers;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Objects;
 
 import static Helpers.ValidatorArguments.*;
 
@@ -15,20 +16,20 @@ public class Llamada {
         this.duracion = numberNotNegative("duracion", duracion);
     }
 
-    public String getTelefono() {
+    final public String getTelefono() {
         return telefono;
     }
 
-    public Date getFecha() {
+    final public Date getFecha() {
         return fecha;
     }
 
-    public double getDuracion() {
+    final public double getDuracion() {
         return duracion;
     }
 
     @Override
-    public boolean equals(final Object o) {
+    final public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final Llamada llamada = (Llamada) o;
@@ -38,7 +39,7 @@ public class Llamada {
     }
 
     @Override
-    public int hashCode() {
+    final public int hashCode() {
         return Objects.hash(telefono, fecha, duracion);
     }
 
