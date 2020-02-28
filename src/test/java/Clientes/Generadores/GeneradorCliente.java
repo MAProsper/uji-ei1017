@@ -19,6 +19,10 @@ public class GeneradorCliente {
     final static GeneradorServicio genServicio = new GeneradorServicio();
     final static GeneradorFactura genFactura = new GeneradorFactura();
 
+    private static String stripNonWord(final String s) {
+        return s.replaceAll("\\W", "_");
+    }
+
     public String nextNombre() {
         return genINE.getNombre();
     }
@@ -29,10 +33,6 @@ public class GeneradorCliente {
 
     public Direccion nextDireccion() {
         return genDireccion.nextDireccion();
-    }
-
-    private static String stripNonWord(final String s) {
-        return s.replaceAll("\\W", "_");
     }
 
     public String nextCorreo() {

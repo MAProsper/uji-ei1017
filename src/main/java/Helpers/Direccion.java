@@ -9,12 +9,11 @@ import static Helpers.ValidatorArguments.*;
 
 public class Direccion {
 
+    final static BiMap<String, Integer> provinciaCodigo = HashBiMap.create();
+    final static BiMap<Integer, String> codigoProvincia = provinciaCodigo.inverse();
     final int codigoPostal;
     final String provincia;
     final String poblacion;
-
-    final static BiMap<String, Integer> provinciaCodigo = HashBiMap.create();
-    final static BiMap<Integer, String> codigoProvincia = provinciaCodigo.inverse();
 
     public Direccion(final int codigoPostal, final String provincia, final String poblacion) {
         validate(provincia + " tiene multiples codigos postales", !provinciaCodigo.containsKey(provincia) || provinciaCodigo.get(provincia) == codigoPostal);

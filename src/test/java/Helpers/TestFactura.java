@@ -6,18 +6,19 @@ import com.google.common.collect.Range;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFactura {
-    static final GeneradorFactura genFactura = new GeneradorFactura();
+    static final GeneradorFactura generador = new GeneradorFactura();
 
     @RepeatedTest(3)
     public void testFactura() {
-        final int codigo = genFactura.nextCodigo();
-        final Tarifa tarifa = genFactura.nextTarifa();
-        final Date fechaEmision = genFactura.nextFecha();
-        final Range<Date> periodo = genFactura.nextPeriodo();
-        final double importe = genFactura.nextImporte();
+        final int codigo = generador.nextCodigo();
+        final Tarifa tarifa = generador.nextTarifa();
+        final Date fechaEmision = generador.nextFecha();
+        final Range<Date> periodo = generador.nextPeriodo();
+        final double importe = generador.nextImporte();
         System.out.println("Factura{" +
                 "codigo=" + codigo +
                 ", tarifa=" + tarifa +

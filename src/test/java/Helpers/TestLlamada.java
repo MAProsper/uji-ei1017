@@ -5,16 +5,16 @@ import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestLlamada {
-    static final GeneradorLlamada genLlamada = new GeneradorLlamada();
+    static final GeneradorLlamada generador = new GeneradorLlamada();
 
     @RepeatedTest(3)
     public void testLlamada() {
-        final String telefono = genLlamada.nextTelefono();
-        final Date fecha = genLlamada.nextFecha();
-        final double duracion = genLlamada.nextDuracion();
+        final String telefono = generador.nextTelefono();
+        final Date fecha = generador.nextFecha();
+        final double duracion = generador.nextDuracion();
         System.out.println("Llamada{" +
                 "telefono='" + telefono + '\'' +
                 ", fecha=" + fecha +

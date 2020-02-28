@@ -1,10 +1,10 @@
 package Helpers;
 
-import java.util.stream.Stream;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static Helpers.ValidatorArguments.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,13 +15,6 @@ public class TestHelperArgument {
                 Arguments.of("valid", true),
                 Arguments.of("invalid", false)
         );
-    }
-
-    @ParameterizedTest
-    @MethodSource("dataValidateVoid")
-    public void testValidate(final String message, final boolean valid) {
-        if (valid) assertDoesNotThrow(() -> validate(message, valid));
-        else assertThrows(IllegalArgumentException.class, () -> validate(message, valid));
     }
 
     public static Stream<Arguments> dataValidateValue() {
@@ -35,26 +28,12 @@ public class TestHelperArgument {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource("dataValidateValue")
-    public <T> void testValidate(final String message, final T value, final boolean valid) {
-        if (valid) assertEquals(value, validate(message, value, valid));
-        else assertThrows(IllegalArgumentException.class, () -> validate(message, value, valid));
-    }
-
     public static Stream<Arguments> dataNumberNotNegative() {
         return Stream.of(
                 Arguments.of("negative", -1, false),
                 Arguments.of("zero", 0, true),
                 Arguments.of("positive", 1, true)
         );
-    }
-
-    @ParameterizedTest
-    @MethodSource("dataNumberNotNegative")
-    public void testNumberNotNegative(final String message, final Number n, final boolean valid) {
-        if (valid) assertEquals(n, numberNotNegative(message, n));
-        else assertThrows(IllegalArgumentException.class, () -> numberNotNegative(message, n));
     }
 
     public static Stream<Arguments> dataReferenceNotNull() {
@@ -65,13 +44,6 @@ public class TestHelperArgument {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource("dataReferenceNotNull")
-    public <T> void testReferenceNotNull(final String message, final T value, final boolean valid) {
-        if (valid) assertEquals(value, referenceNotNull(message, value));
-        else assertThrows(IllegalArgumentException.class, () -> referenceNotNull(message, value));
-    }
-
     public static Stream<Arguments> dataStringNotEmpty() {
         return Stream.of(
                 Arguments.of("null", null, false),
@@ -80,19 +52,47 @@ public class TestHelperArgument {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource("dataStringNotEmpty")
-    public void testStringNotEmpty(final String message, final String s, final boolean valid) {
-        if (valid) assertEquals(s, stringNotEmpty(message, s));
-        else assertThrows(IllegalArgumentException.class, () -> stringNotEmpty(message, s));
-    }
-
     public static Stream<Arguments> dataStringMatchesPattern() {
         return Stream.of(
                 Arguments.of("valid", "0", "\\d", true),
                 Arguments.of("invalid", "00", "\\d", false),
                 Arguments.of("invalid", "a", "\\d", false)
         );
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataValidateVoid")
+    public void testValidate(final String message, final boolean valid) {
+        if (valid) assertDoesNotThrow(() -> validate(message, valid));
+        else assertThrows(IllegalArgumentException.class, () -> validate(message, valid));
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataValidateValue")
+    public <T> void testValidate(final String message, final T value, final boolean valid) {
+        if (valid) assertEquals(value, validate(message, value, valid));
+        else assertThrows(IllegalArgumentException.class, () -> validate(message, value, valid));
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataNumberNotNegative")
+    public void testNumberNotNegative(final String message, final Number n, final boolean valid) {
+        if (valid) assertEquals(n, numberNotNegative(message, n));
+        else assertThrows(IllegalArgumentException.class, () -> numberNotNegative(message, n));
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataReferenceNotNull")
+    public <T> void testReferenceNotNull(final String message, final T value, final boolean valid) {
+        if (valid) assertEquals(value, referenceNotNull(message, value));
+        else assertThrows(IllegalArgumentException.class, () -> referenceNotNull(message, value));
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataStringNotEmpty")
+    public void testStringNotEmpty(final String message, final String s, final boolean valid) {
+        if (valid) assertEquals(s, stringNotEmpty(message, s));
+        else assertThrows(IllegalArgumentException.class, () -> stringNotEmpty(message, s));
     }
 
     @ParameterizedTest

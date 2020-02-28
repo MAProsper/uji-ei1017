@@ -1,20 +1,22 @@
 package Helpers;
 
-import java.util.*;
-
 import Tarifas.Tarifa;
-import com.google.common.collect.*;
+import com.google.common.collect.Range;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import static Helpers.ValidatorArguments.*;
 
 public class Factura {
+    final static Set<Integer> codigos = new HashSet<>();
     final int codigo;
     final Tarifa tarifa;
     final Date fechaEmision;
     final Range<Date> periodo;
     final double importe;
-
-    final static Set<Integer> codigos = new HashSet<>();
 
     public Factura(final int codigo, final Tarifa tarifa, final Date fechaEmision, final Range<Date> periodo, final double importe) {
         validate("codigo de factura repetido", !codigos.contains(codigo));

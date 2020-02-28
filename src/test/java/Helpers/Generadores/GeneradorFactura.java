@@ -8,10 +8,10 @@ import com.google.common.collect.Range;
 import java.util.*;
 
 public class GeneradorFactura {
-    static int codigos = 0;
     final static Random genBase = new Random();
     final static Generator genHelper = new Generator();
     final static GeneradorTarifa genTarifa = new GeneradorTarifa();
+    static int codigos = 0;
 
     public int nextCodigo() {
         return codigos++;

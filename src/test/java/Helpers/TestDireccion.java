@@ -3,16 +3,16 @@ package Helpers;
 import Helpers.Generadores.GeneradorDireccion;
 import org.junit.jupiter.api.RepeatedTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestDireccion {
-    static final GeneradorDireccion genDireccion = new GeneradorDireccion();
+    static final GeneradorDireccion generador = new GeneradorDireccion();
 
     @RepeatedTest(3)
     public void testDirecion() {
-        final String provincia = genDireccion.nextProvincia();
-        final int codigoPostal = genDireccion.nextCodigoPostal(provincia);
-        final String poblacion = genDireccion.nextPoblacion(provincia);
+        final String provincia = generador.nextProvincia();
+        final int codigoPostal = generador.nextCodigoPostal(provincia);
+        final String poblacion = generador.nextPoblacion(provincia);
         System.out.println("Direccion{" +
                 "codigoPostal=" + codigoPostal +
                 ", provincia='" + provincia + '\'' +

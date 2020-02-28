@@ -7,11 +7,11 @@ import org.junit.jupiter.api.RepeatedTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTarifa {
-    static final GeneradorTarifa genTarifa = new GeneradorTarifa();
+    static final GeneradorTarifa generador = new GeneradorTarifa();
 
     @RepeatedTest(3)
     public void testTarifa() {
-        final double precio = genTarifa.nextPrecio();
+        final double precio = generador.nextPrecio();
         System.out.println("Tarifa{" +
                 "precio=" + precio +
                 '}');
@@ -21,8 +21,8 @@ public class TestTarifa {
 
     @RepeatedTest(3)
     public void testTarifaGetImporte() {
-        final Tarifa tarifa = genTarifa.nextTarifa();
-        final Llamada llamada = genTarifa.nextLlamada();
+        final Tarifa tarifa = generador.nextTarifa();
+        final Llamada llamada = generador.nextLlamada();
         final double importe = llamada.getDuracion() * tarifa.getPrecio();
         System.out.println(tarifa + "\n" + llamada);
         assertEquals(importe, tarifa.getImporte(llamada));

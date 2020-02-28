@@ -13,15 +13,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestClienteEmpresa extends TestCliente {
-    static final GeneradorClienteEmpresa genClienteEmpresa = new GeneradorClienteEmpresa();
+    static final GeneradorClienteEmpresa generador = new GeneradorClienteEmpresa();
 
     @RepeatedTest(3)
     public void testClienteEmpresa() {
-        final String NIF = genClienteEmpresa.nextNIF();
-        final String nombre = genClienteEmpresa.nextNombre();
-        final Direccion direccion = genClienteEmpresa.nextDireccion();
-        final String correo = genClienteEmpresa.nextCorreo();
-        final Date fechaAlta = genClienteEmpresa.nextFecha();
+        final String NIF = generador.nextNIF();
+        final String nombre = generador.nextNombre();
+        final Direccion direccion = generador.nextDireccion();
+        final String correo = generador.nextCorreo();
+        final Date fechaAlta = generador.nextFecha();
         final Servicio servicio = generador.nextServicio();
         final List<Factura> facturas = new LinkedList<>();
         System.out.println("ClienteEmpresa{" +

@@ -13,16 +13,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestClienteParticular extends TestCliente {
-    static final GeneradorClienteParticular genClienteParticular = new GeneradorClienteParticular();
+    static final GeneradorClienteParticular generador = new GeneradorClienteParticular();
 
     @RepeatedTest(3)
     public void testClienteParticular() {
-        final String NIF = genClienteParticular.nextNIF();
-        final String nombre = genClienteParticular.nextNombre();
-        final String apellidos = genClienteParticular.nextApellidos();
-        final Direccion direccion = genClienteParticular.nextDireccion();
-        final String correo = genClienteParticular.nextCorreo();
-        final Date fechaAlta = genClienteParticular.nextFecha();
+        final String NIF = generador.nextNIF();
+        final String nombre = generador.nextNombre();
+        final String apellidos = generador.nextApellidos();
+        final Direccion direccion = generador.nextDireccion();
+        final String correo = generador.nextCorreo();
+        final Date fechaAlta = generador.nextFecha();
         final Servicio servicio = generador.nextServicio();
         final List<Factura> facturas = new LinkedList<>();
         System.out.println("ClientePaticular{" +
