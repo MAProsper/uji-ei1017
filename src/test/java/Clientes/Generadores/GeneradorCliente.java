@@ -5,11 +5,9 @@ import Helpers.Direccion;
 import Helpers.Factura;
 import Helpers.Generadores.GeneradorDireccion;
 import Helpers.Generadores.GeneradorFactura;
-import Helpers.Generadores.GeneradorLlamada;
+import Helpers.Generadores.GeneradorServicio;
 import Helpers.Generadores.Generator;
-import Helpers.Llamada;
-import Tarifas.Generadores.GeneradorTarifa;
-import Tarifas.Tarifa;
+import Helpers.Servicio;
 import es.uji.www.GeneradorDatosINE;
 
 import java.util.Date;
@@ -18,8 +16,7 @@ public class GeneradorCliente {
     final static Generator genHelper = new Generator();
     final static GeneradorDatosINE genINE = new GeneradorDatosINE();
     final static GeneradorDireccion genDireccion = new GeneradorDireccion();
-    final static GeneradorTarifa genTarifa = new GeneradorTarifa();
-    final static GeneradorLlamada genLlamada = new GeneradorLlamada();
+    final static GeneradorServicio genServicio = new GeneradorServicio();
     final static GeneradorFactura genFactura = new GeneradorFactura();
 
     public String nextNombre() {
@@ -47,16 +44,12 @@ public class GeneradorCliente {
         return genHelper.nextFecha();
     }
 
-    public Tarifa nextTarifa() {
-        return genTarifa.nextTarifa();
+    public Servicio nextServicio() {
+        return genServicio.nextServicio();
     }
 
     public Cliente nextCliente() {
-        return new Cliente(nextNIF(), nextNombre(), nextDireccion(), nextCorreo(), nextFecha(), nextTarifa());
-    }
-
-    public Llamada nextLlamada() {
-        return genLlamada.nextLlamada();
+        return new Cliente(nextNIF(), nextNombre(), nextDireccion(), nextCorreo(), nextFecha(), nextServicio());
     }
 
     public Factura nextFactura() {

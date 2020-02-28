@@ -2,8 +2,7 @@ package Clientes;
 
 import Helpers.Direccion;
 import Helpers.Factura;
-import Helpers.Llamada;
-import Tarifas.Tarifa;
+import Helpers.Servicio;
 
 import java.util.*;
 
@@ -15,18 +14,16 @@ public class Cliente {
     final Direccion direccion;
     final String correo;
     final Date fechaAlta;
-    Tarifa tarifa;
-    final List<Llamada> llamadas;
+    final Servicio servicio;
     final List<Factura> facturas;
 
-    public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
+    public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Servicio servicio) {
         this.NIF = stringMatchesPattern("NIF", NIF, "\\d+[TRWAGMYFPDXBNJZSQVHLCKE]");
         this.nombre = stringNotEmpty("nombre", nombre);
         this.direccion = referenceNotNull("direccion", direccion);
         this.correo = stringMatchesPattern("correo", correo, "[\\w.]+@[\\w.]{2,}");
         this.fechaAlta = referenceNotNull("fechaAlta", fechaAlta);
-        setTarifa(tarifa);
-        llamadas = new LinkedList<>();
+        this.servicio = referenceNotNull("servicio", servicio);
         facturas = new LinkedList<>();
     }
 
@@ -50,20 +47,8 @@ public class Cliente {
         return fechaAlta;
     }
 
-    final public Tarifa getTarifa() {
-        return tarifa;
-    }
-
-    public void setTarifa(final Tarifa tarifa) {
-        this.tarifa = referenceNotNull("tarifa", tarifa);
-    }
-
-    final public List<Llamada> getLlamadas() {
-        return Collections.unmodifiableList(llamadas);
-    }
-
-    public void addLlamada(Llamada llamada) {
-        llamadas.add(referenceNotNull("llamada", llamada));
+    public Servicio getServicio() {
+        return servicio;
     }
 
     final public List<Factura> getFacturas() {
@@ -95,8 +80,7 @@ public class Cliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", tarifa=" + tarifa +
-                ", llamadas=" + llamadas +
+                ", servicio=" + servicio +
                 ", facturas=" + facturas +
                 '}';
     }

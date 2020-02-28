@@ -1,30 +1,28 @@
 package Clientes;
 
+import Clientes.Generadores.GeneradorCliente;
+import Helpers.Direccion;
+import Helpers.Factura;
+import Helpers.Servicio;
+import org.junit.jupiter.api.RepeatedTest;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import Clientes.Generadores.GeneradorCliente;
-import Helpers.Direccion;
-import Helpers.Factura;
-import Helpers.Llamada;
-import Tarifas.Tarifa;
-import org.junit.jupiter.api.RepeatedTest;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCliente {
-    static final GeneradorCliente genCliente = new GeneradorCliente();
+    static final GeneradorCliente generador = new GeneradorCliente();
 
     @RepeatedTest(3)
     public void testCliente() {
-        final String NIF = genCliente.nextNIF();
-        final String nombre = genCliente.nextNombre();
-        final Direccion direccion = genCliente.nextDireccion();
-        final String correo = genCliente.nextCorreo();
-        final Date fechaAlta = genCliente.nextFecha();
-        final Tarifa tarifa = genCliente.nextTarifa();
-        final List<Llamada> llamadas = new LinkedList<>();
+        final String NIF = generador.nextNIF();
+        final String nombre = generador.nextNombre();
+        final Direccion direccion = generador.nextDireccion();
+        final String correo = generador.nextCorreo();
+        final Date fechaAlta = generador.nextFecha();
+        final Servicio servicio = generador.nextServicio();
         final List<Factura> facturas = new LinkedList<>();
         System.out.println("Cliente{" +
                 "NIF='" + NIF + '\'' +
@@ -32,45 +30,23 @@ public class TestCliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", tarifa=" + tarifa +
-                ", llamadas=" + llamadas +
+                ", servicio=" + servicio +
                 ", facturas=" + facturas +
                 '}');
-        final Cliente cliente = new Cliente(NIF, nombre, direccion, correo, fechaAlta, tarifa);
+        final Cliente cliente = new Cliente(NIF, nombre, direccion, correo, fechaAlta, servicio);
         assertEquals(NIF, cliente.getNIF());
         assertEquals(nombre, cliente.getNombre());
         assertEquals(direccion, cliente.getDireccion());
         assertEquals(correo, cliente.getCorreo());
         assertEquals(fechaAlta, cliente.getFecha());
-        assertEquals(tarifa, cliente.getTarifa());
-        assertEquals(llamadas, cliente.getLlamadas());
+        assertEquals(servicio, cliente.getServicio());
         assertEquals(facturas, cliente.getFacturas());
     }
 
     @RepeatedTest(3)
-    public void testClienteSetTarifa() {
-        Cliente cliente = genCliente.nextCliente();
-        final Tarifa tarifa = genCliente.nextTarifa();
-        System.out.println(cliente + "\n" + tarifa);
-        cliente.setTarifa(tarifa);
-        assertEquals(tarifa, cliente.getTarifa());
-    }
-
-    @RepeatedTest(3)
-    public void testClienteAddLlamada() {
-        Cliente cliente = genCliente.nextCliente();
-        final Llamada llamada = genCliente.nextLlamada();
-        final List<Llamada> llamadas = new LinkedList<>();
-        llamadas.add(llamada);
-        System.out.println(cliente + "\n" + llamada);
-        cliente.addLlamada(llamada);
-        assertEquals(llamadas, cliente.getLlamadas());
-    }
-
-    @RepeatedTest(3)
     public void testClienteAddFactura() {
-        Cliente cliente = genCliente.nextCliente();
-        final Factura factura = genCliente.nextFactura();
+        Cliente cliente = generador.nextCliente();
+        final Factura factura = generador.nextFactura();
         final List<Factura> facturas = new LinkedList<>();
         facturas.add(factura);
         System.out.println(cliente + "\n" + factura);

@@ -3,8 +3,7 @@ package Clientes;
 import Clientes.Generadores.GeneradorClienteEmpresa;
 import Helpers.Direccion;
 import Helpers.Factura;
-import Helpers.Llamada;
-import Tarifas.Tarifa;
+import Helpers.Servicio;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
@@ -23,8 +22,7 @@ public class TestClienteEmpresa extends TestCliente {
         final Direccion direccion = genClienteEmpresa.nextDireccion();
         final String correo = genClienteEmpresa.nextCorreo();
         final Date fechaAlta = genClienteEmpresa.nextFecha();
-        final Tarifa tarifa = genClienteEmpresa.nextTarifa();
-        final List<Llamada> llamadas = new LinkedList<>();
+        final Servicio servicio = generador.nextServicio();
         final List<Factura> facturas = new LinkedList<>();
         System.out.println("ClienteEmpresa{" +
                 "NIF='" + NIF + '\'' +
@@ -32,18 +30,16 @@ public class TestClienteEmpresa extends TestCliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", tarifa=" + tarifa +
-                ", llamadas=" + llamadas +
+                ", servicio=" + servicio +
                 ", facturas=" + facturas +
                 '}');
-        final ClienteEmpresa clienteEmpresa = new ClienteEmpresa(NIF, nombre, direccion, correo, fechaAlta, tarifa);
+        final ClienteEmpresa clienteEmpresa = new ClienteEmpresa(NIF, nombre, direccion, correo, fechaAlta, servicio);
         assertEquals(NIF, clienteEmpresa.getNIF());
         assertEquals(nombre, clienteEmpresa.getNombre());
         assertEquals(direccion, clienteEmpresa.getDireccion());
         assertEquals(correo, clienteEmpresa.getCorreo());
         assertEquals(fechaAlta, clienteEmpresa.getFecha());
-        assertEquals(tarifa, clienteEmpresa.getTarifa());
-        assertEquals(llamadas, clienteEmpresa.getLlamadas());
+        assertEquals(servicio, clienteEmpresa.getServicio());
         assertEquals(facturas, clienteEmpresa.getFacturas());
     }
 }

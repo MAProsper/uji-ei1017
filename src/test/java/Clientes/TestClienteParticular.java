@@ -1,17 +1,16 @@
 package Clientes;
 
+import Clientes.Generadores.GeneradorClienteParticular;
+import Helpers.Direccion;
+import Helpers.Factura;
+import Helpers.Servicio;
+import org.junit.jupiter.api.RepeatedTest;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import Clientes.Generadores.GeneradorClienteParticular;
-import Helpers.Direccion;
-import Helpers.Factura;
-import Helpers.Llamada;
-import Tarifas.Tarifa;
-import org.junit.jupiter.api.RepeatedTest;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestClienteParticular extends TestCliente {
     static final GeneradorClienteParticular genClienteParticular = new GeneradorClienteParticular();
@@ -24,8 +23,7 @@ public class TestClienteParticular extends TestCliente {
         final Direccion direccion = genClienteParticular.nextDireccion();
         final String correo = genClienteParticular.nextCorreo();
         final Date fechaAlta = genClienteParticular.nextFecha();
-        final Tarifa tarifa = genClienteParticular.nextTarifa();
-        final List<Llamada> llamadas = new LinkedList<>();
+        final Servicio servicio = generador.nextServicio();
         final List<Factura> facturas = new LinkedList<>();
         System.out.println("ClientePaticular{" +
                 "NIF='" + NIF + '\'' +
@@ -34,19 +32,17 @@ public class TestClienteParticular extends TestCliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", tarifa=" + tarifa +
-                ", llamadas=" + llamadas +
+                ", servicio=" + servicio +
                 ", facturas=" + facturas +
                 '}');
-        final ClientePaticular clientePaticular = new ClientePaticular(NIF, nombre, apellidos, direccion, correo, fechaAlta, tarifa);
+        final ClientePaticular clientePaticular = new ClientePaticular(NIF, nombre, apellidos, direccion, correo, fechaAlta, servicio);
         assertEquals(NIF, clientePaticular.getNIF());
         assertEquals(nombre, clientePaticular.getNombre());
         assertEquals(apellidos, clientePaticular.getApellidos());
         assertEquals(direccion, clientePaticular.getDireccion());
         assertEquals(correo, clientePaticular.getCorreo());
         assertEquals(fechaAlta, clientePaticular.getFecha());
-        assertEquals(tarifa, clientePaticular.getTarifa());
-        assertEquals(llamadas, clientePaticular.getLlamadas());
+        assertEquals(servicio, clientePaticular.getServicio());
         assertEquals(facturas, clientePaticular.getFacturas());
     }
 }

@@ -1,13 +1,13 @@
 package Clientes;
 
-import java.util.*;
-
-import Tarifas.Tarifa;
 import Helpers.Direccion;
+import Helpers.Servicio;
+
+import java.util.Date;
 
 public class ClienteEmpresa extends Cliente {
-    public ClienteEmpresa(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
-        super(NIF, nombre, direccion, correo, fechaAlta, tarifa);
+    public ClienteEmpresa(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Servicio servicio) {
+        super(NIF, nombre, direccion, correo, fechaAlta, servicio);
     }
 
     @Override
@@ -18,8 +18,7 @@ public class ClienteEmpresa extends Cliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", tarifa=" + tarifa +
-                ", llamadas=" + llamadas +
+                ", servicio=" + servicio +
                 ", facturas=" + facturas +
                 '}';
     }
