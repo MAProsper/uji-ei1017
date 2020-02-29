@@ -72,34 +72,6 @@ public class Interfaz {
         return option;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public List<String> getList() {
-        return Collections.unmodifiableList(list);
-    }
-
-    public Map<String, String> getForm() {
-        return Collections.unmodifiableMap(formData);
-    }
-
-    void setForm(int index) {
-        final String key = form.get(index);
-
-        renderWindow();
-        System.out.format("%s: ", key);
-        formData.put(key, scanner.nextLine());
-    }
-
-    public List<String> getButtons() {
-        return Collections.unmodifiableList(buttons);
-    }
-
     public String nextButton() {
         clearForm();
         int option = -1;
@@ -111,5 +83,33 @@ public class Interfaz {
         }
 
         return buttons.get(option - form);
+    }
+
+    final public String getTitle() {
+        return title;
+    }
+
+    final public String getInfo() {
+        return info;
+    }
+
+    final public List<String> getList() {
+        return Collections.unmodifiableList(list);
+    }
+
+    final public Map<String, String> getForm() {
+        return Collections.unmodifiableMap(formData);
+    }
+
+    void setForm(int index) {
+        final String key = form.get(index);
+
+        renderWindow();
+        System.out.format("%s: ", key);
+        formData.put(key, scanner.nextLine());
+    }
+
+    final public List<String> getButtons() {
+        return Collections.unmodifiableList(buttons);
     }
 }
