@@ -31,7 +31,7 @@ public class Interfaz {
         clearForm();
     }
 
-    void clearForm() {
+    public void clearForm() {
         for (String key : form) formData.put(key, "");
     }
 
@@ -73,7 +73,6 @@ public class Interfaz {
     }
 
     public String nextButton() {
-        clearForm();
         int option = -1;
         final int form = this.form.size();
 
@@ -99,6 +98,11 @@ public class Interfaz {
 
     final public Map<String, String> getForm() {
         return Collections.unmodifiableMap(formData);
+    }
+
+    public void setForm(Map<String, String> form) {
+        validate("form no tiene el formato " + this.form, formData.keySet().equals(form.keySet()));
+        formData.putAll(form);
     }
 
     void setForm(int index) {
