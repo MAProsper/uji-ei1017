@@ -2,7 +2,8 @@ package Clientes;
 
 import Helpers.Direccion;
 import Helpers.Factura;
-import Helpers.Servicio;
+import Helpers.Llamada;
+import Tarifas.Tarifa;
 
 import java.util.*;
 
@@ -14,16 +15,18 @@ public class Cliente {
     final Direccion direccion;
     final String correo;
     final Date fechaAlta;
-    final Servicio servicio;
+    final List<Llamada> llamadas;
+    Tarifa tarifa;
     final List<Factura> facturas;
 
-    public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Servicio servicio) {
+    public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
         this.NIF = stringMatchesPattern("NIF", NIF, "\\d+[TRWAGMYFPDXBNJZSQVHLCKE]");
         this.nombre = stringNotEmpty("nombre", nombre);
         this.direccion = referenceNotNull("direccion", direccion);
         this.correo = stringMatchesPattern("correo", correo, "[\\w.]+@[\\w.]{2,}");
         this.fechaAlta = referenceNotNull("fechaAlta", fechaAlta);
-        this.servicio = referenceNotNull("servicio", servicio);
+        setTarifa(tarifa);
+        llamadas = new LinkedList<>();
         facturas = new LinkedList<>();
     }
 
@@ -47,8 +50,16 @@ public class Cliente {
         return fechaAlta;
     }
 
-    public Servicio getServicio() {
-        return servicio;
+    final public Tarifa getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(final Tarifa tarifa) {
+        this.tarifa = referenceNotNull("tarifa", tarifa);
+    }
+
+    final public List<Llamada> getLlamadas() {
+        return Collections.unmodifiableList(llamadas);
     }
 
     final public List<Factura> getFacturas() {
@@ -80,7 +91,8 @@ public class Cliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", servicio=" + servicio +
+                ", tarifa=" + tarifa +
+                ", llamadas=" + llamadas +
                 ", facturas=" + facturas +
                 '}';
     }

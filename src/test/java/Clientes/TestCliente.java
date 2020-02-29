@@ -3,7 +3,8 @@ package Clientes;
 import Clientes.Generadores.GeneradorCliente;
 import Helpers.Direccion;
 import Helpers.Factura;
-import Helpers.Servicio;
+import Helpers.Llamada;
+import Tarifas.Tarifa;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
@@ -22,7 +23,8 @@ public class TestCliente {
         final Direccion direccion = generador.nextDireccion();
         final String correo = generador.nextCorreo();
         final Date fechaAlta = generador.nextFecha();
-        final Servicio servicio = generador.nextServicio();
+        final Tarifa tarifa = generador.nextTarifa();
+        final List<Llamada> llamadas = new LinkedList<>();
         final List<Factura> facturas = new LinkedList<>();
         System.out.println("Cliente{" +
                 "NIF='" + NIF + '\'' +
@@ -30,17 +32,19 @@ public class TestCliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", servicio=" + servicio +
+                ", tarifa=" + tarifa +
+                ", llamadas=" + llamadas +
                 ", facturas=" + facturas +
                 '}');
-        final Cliente cliente = new Cliente(NIF, nombre, direccion, correo, fechaAlta, servicio);
+        final Cliente cliente = new Cliente(NIF, nombre, direccion, correo, fechaAlta, tarifa);
         assertEquals(NIF, cliente.getNIF());
         assertEquals(nombre, cliente.getNombre());
         assertEquals(direccion, cliente.getDireccion());
         assertEquals(correo, cliente.getCorreo());
         assertEquals(fechaAlta, cliente.getFecha());
-        assertEquals(servicio, cliente.getServicio());
+        assertEquals(tarifa, cliente.getTarifa());
         assertEquals(facturas, cliente.getFacturas());
+        assertEquals(llamadas, cliente.getLlamadas());
     }
 
     @RepeatedTest(3)

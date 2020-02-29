@@ -1,7 +1,7 @@
 package Clientes;
 
 import Helpers.Direccion;
-import Helpers.Servicio;
+import Tarifas.Tarifa;
 
 import java.util.Date;
 
@@ -10,8 +10,8 @@ import static Helpers.ValidatorArguments.stringNotEmpty;
 public class ClientePaticular extends Cliente {
     final String apellidos;
 
-    public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final Date fechaAlta, final Servicio servicio) {
-        super(NIF, nombre, direccion, correo, fechaAlta, servicio);
+    public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
+        super(NIF, nombre, direccion, correo, fechaAlta, tarifa);
         this.apellidos = stringNotEmpty("apellidos", apellidos);
     }
 
@@ -28,7 +28,8 @@ public class ClientePaticular extends Cliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", servicio=" + servicio +
+                ", tarifa=" + tarifa +
+                ", llamadas=" + llamadas +
                 ", facturas=" + facturas +
                 '}';
     }

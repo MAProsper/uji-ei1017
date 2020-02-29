@@ -3,7 +3,8 @@ package Clientes;
 import Clientes.Generadores.GeneradorClienteParticular;
 import Helpers.Direccion;
 import Helpers.Factura;
-import Helpers.Servicio;
+import Helpers.Llamada;
+import Tarifas.Tarifa;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
@@ -23,7 +24,8 @@ public class TestClienteParticular extends TestCliente {
         final Direccion direccion = generador.nextDireccion();
         final String correo = generador.nextCorreo();
         final Date fechaAlta = generador.nextFecha();
-        final Servicio servicio = generador.nextServicio();
+        final Tarifa tarifa = generador.nextTarifa();
+        final List<Llamada> llamadas = new LinkedList<>();
         final List<Factura> facturas = new LinkedList<>();
         System.out.println("ClientePaticular{" +
                 "NIF='" + NIF + '\'' +
@@ -32,17 +34,19 @@ public class TestClienteParticular extends TestCliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", servicio=" + servicio +
+                ", tarifa=" + tarifa +
+                ", llamadas=" + llamadas +
                 ", facturas=" + facturas +
                 '}');
-        final ClientePaticular clientePaticular = new ClientePaticular(NIF, nombre, apellidos, direccion, correo, fechaAlta, servicio);
+        final ClientePaticular clientePaticular = new ClientePaticular(NIF, nombre, apellidos, direccion, correo, fechaAlta, tarifa);
         assertEquals(NIF, clientePaticular.getNIF());
         assertEquals(nombre, clientePaticular.getNombre());
         assertEquals(apellidos, clientePaticular.getApellidos());
         assertEquals(direccion, clientePaticular.getDireccion());
         assertEquals(correo, clientePaticular.getCorreo());
         assertEquals(fechaAlta, clientePaticular.getFecha());
-        assertEquals(servicio, clientePaticular.getServicio());
+        assertEquals(tarifa, clientePaticular.getTarifa());
         assertEquals(facturas, clientePaticular.getFacturas());
+        assertEquals(llamadas, clientePaticular.getLlamadas());
     }
 }

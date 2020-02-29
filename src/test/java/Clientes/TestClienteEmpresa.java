@@ -3,7 +3,8 @@ package Clientes;
 import Clientes.Generadores.GeneradorClienteEmpresa;
 import Helpers.Direccion;
 import Helpers.Factura;
-import Helpers.Servicio;
+import Helpers.Llamada;
+import Tarifas.Tarifa;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.Date;
@@ -22,7 +23,8 @@ public class TestClienteEmpresa extends TestCliente {
         final Direccion direccion = generador.nextDireccion();
         final String correo = generador.nextCorreo();
         final Date fechaAlta = generador.nextFecha();
-        final Servicio servicio = generador.nextServicio();
+        final Tarifa tarifa = generador.nextTarifa();
+        final List<Llamada> llamadas = new LinkedList<>();
         final List<Factura> facturas = new LinkedList<>();
         System.out.println("ClienteEmpresa{" +
                 "NIF='" + NIF + '\'' +
@@ -30,16 +32,18 @@ public class TestClienteEmpresa extends TestCliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", servicio=" + servicio +
+                ", tarifa=" + tarifa +
+                ", llamadas=" + llamadas +
                 ", facturas=" + facturas +
                 '}');
-        final ClienteEmpresa clienteEmpresa = new ClienteEmpresa(NIF, nombre, direccion, correo, fechaAlta, servicio);
+        final ClienteEmpresa clienteEmpresa = new ClienteEmpresa(NIF, nombre, direccion, correo, fechaAlta, tarifa);
         assertEquals(NIF, clienteEmpresa.getNIF());
         assertEquals(nombre, clienteEmpresa.getNombre());
         assertEquals(direccion, clienteEmpresa.getDireccion());
         assertEquals(correo, clienteEmpresa.getCorreo());
         assertEquals(fechaAlta, clienteEmpresa.getFecha());
-        assertEquals(servicio, clienteEmpresa.getServicio());
+        assertEquals(tarifa, clienteEmpresa.getTarifa());
         assertEquals(facturas, clienteEmpresa.getFacturas());
+        assertEquals(llamadas, clienteEmpresa.getLlamadas());
     }
 }
