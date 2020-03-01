@@ -1,5 +1,7 @@
 package Helpers;
 
+import java.util.Collection;
+
 public final class ValidatorArguments {
     private ValidatorArguments() {
     }
@@ -27,5 +29,9 @@ public final class ValidatorArguments {
 
     public static String stringMatchesPattern(final String name, final String s, final String regex) {
         return validate(name + " no sigue el patron " + regex, referenceNotNull(name, s), s.matches(regex));
+    }
+
+    public static <T extends Collection<?>> T collectionWithoutNull(final String name, final T ref) {
+        return validate(name + " contiene algun nulo", referenceNotNull(name, ref), !ref.contains(null));
     }
 }

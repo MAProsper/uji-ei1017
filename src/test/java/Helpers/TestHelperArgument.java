@@ -4,6 +4,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 import static Helpers.ValidatorArguments.*;
@@ -60,6 +63,15 @@ public class TestHelperArgument {
         );
     }
 
+    public static Stream<Arguments> dataCollectionWithoutNull() {
+        return Stream.of(
+                Arguments.of("valid", Collections.emptyList(), true),
+                Arguments.of("valid", Arrays.asList(1, 2), true),
+                Arguments.of("invalid", Arrays.asList(1, null), false),
+                Arguments.of("invalid", null, false)
+        );
+    }
+
     @ParameterizedTest
     @MethodSource("dataValidateVoid")
     public void testValidate(final String message, final boolean valid) {
@@ -100,5 +112,12 @@ public class TestHelperArgument {
     public void testStringMatchesPattern(final String message, final String s, final String regex, final boolean valid) {
         if (valid) assertEquals(s, stringMatchesPattern(message, s, regex));
         else assertThrows(IllegalArgumentException.class, () -> stringMatchesPattern(message, s, regex));
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataCollectionWithoutNull")
+    public void testCollectionWithoutNull(final String message, final Collection<?> ref, final boolean valid) {
+        if (valid) assertEquals(ref, collectionWithoutNull(message, ref));
+        else assertThrows(IllegalArgumentException.class, () -> collectionWithoutNull(message, ref));
     }
 }
