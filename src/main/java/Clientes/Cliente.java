@@ -62,11 +62,15 @@ public class Cliente {
         return Collections.unmodifiableList(llamadas);
     }
 
+    public void addLlamada(final Llamada llamada) {
+        llamadas.add(referenceNotNull("llamada", llamada));
+    }
+
     final public List<Factura> getFacturas() {
         return Collections.unmodifiableList(facturas);
     }
 
-    public void addFactura(Factura factura) {
+    public void addFactura(final Factura factura) {
         facturas.add(referenceNotNull("factura", factura));
     }
 

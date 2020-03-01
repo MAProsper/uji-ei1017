@@ -48,6 +48,17 @@ public class TestCliente {
     }
 
     @RepeatedTest(3)
+    public void testClienteAddLlamada() {
+        Cliente cliente = generador.nextCliente();
+        final Llamada llamada = generador.nextLlamada();
+        final List<Llamada> llamadas = new LinkedList<>();
+        llamadas.add(llamada);
+        System.out.println(cliente + "\n" + llamada);
+        cliente.addLlamada(llamada);
+        assertEquals(llamadas, cliente.getLlamadas());
+    }
+
+    @RepeatedTest(3)
     public void testClienteAddFactura() {
         Cliente cliente = generador.nextCliente();
         final Factura factura = generador.nextFactura();

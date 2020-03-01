@@ -8,6 +8,7 @@ import java.util.*;
 
 import static Helpers.ValidatorArguments.*;
 
+
 abstract public class Ventana {
     final static Scanner scanner = new Scanner(System.in);
     final String title;
@@ -30,7 +31,7 @@ abstract public class Ventana {
         this.buttons = buttons;
 
         textboxesContent = new HashMap<>();
-        clearTextboxes();
+        if (!textboxes.isEmpty()) clearTextboxes();
     }
 
     abstract public void update();
@@ -146,5 +147,16 @@ abstract public class Ventana {
             if (option < separator) dialogTextbox(textboxes.get(option));
             else return handle(buttons.get(option - separator));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Ventana{" +
+                "title='" + title + '\'' +
+                ", info='" + info + '\'' +
+                ", list=" + (list != null) +
+                ", textboxes=" + textboxes +
+                ", buttons=" + buttons +
+                '}';
     }
 }

@@ -10,7 +10,7 @@ public class VentanaPrincipal extends Ventana {
                 "Bienvenido a gestor de clientes AkiCode",
                 false,
                 Collections.emptyList(),
-                Arrays.asList("Ver clientes", "Ver facturas", "Buscar cliente", "Buscar factura", "Nuevo cliente", "Cerrar"));
+                Arrays.asList("Ver clientes", "Buscar cliente", "Buscar factura", "Cerrar"));
     }
 
     @Override
@@ -23,14 +23,13 @@ public class VentanaPrincipal extends Ventana {
 
         switch (button) {
             case "Ver clientes":
-                ventana = new VentanaListaClientes();
-            case "Ver facturas":
+                ventana = new VentanaClientes();
                 break;
             case "Buscar cliente":
+                ventana = new VentanaClienteBuscar();
                 break;
             case "Buscar factura":
-                break;
-            case "Nuevo cliente":
+                ventana = new VentanaFacturaBuscar();
                 break;
             case "Cerrar":
                 break;

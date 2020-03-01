@@ -7,6 +7,8 @@ import com.google.common.collect.Range;
 
 import java.util.*;
 
+import static Helpers.Fecha.getPeriodo;
+
 public class GeneradorFactura {
     final static Random genBase = new Random();
     final static Generator genHelper = new Generator();
@@ -27,7 +29,7 @@ public class GeneradorFactura {
 
     public Range<Date> nextPeriodo() {
         final List<Date> fechas = Arrays.asList(genHelper.nextFecha(), genHelper.nextFecha());
-        return Range.closedOpen(Collections.min(fechas), Collections.max(fechas));
+        return getPeriodo(Collections.min(fechas), Collections.max(fechas));
     }
 
     public double nextImporte() {
