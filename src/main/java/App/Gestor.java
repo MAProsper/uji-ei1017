@@ -25,8 +25,4 @@ public class Gestor {
             else stack.push(result);
         }
     }
-
-    public void remove() {
-        stack.pop();
-    }
 }
