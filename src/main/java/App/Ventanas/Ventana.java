@@ -16,7 +16,7 @@ abstract public class Ventana {
     final Map<String, String> textboxesContent;
     final List<String> buttons;
     Gestor gestor;
-    List<String> list;
+    final List<String> list;
 
     public Ventana(final String title, final String info, final boolean list, final List<String> textboxes, final List<String> buttons) {
         gestor = null;
@@ -43,7 +43,9 @@ abstract public class Ventana {
 
     public void setList(final List<String> list) {
         validate("list no esta definida", this.list != null);
-        this.list = referenceNotNull("list", list);
+        collectionWithoutNull("list", list);
+        this.list.clear();
+        this.list.addAll(list);
     }
 
     String validateTextbox(final String name) {
@@ -52,7 +54,7 @@ abstract public class Ventana {
 
     public void clearTextboxes() {
         validate("textboxes no esta definido", !textboxes.isEmpty());
-        for (String name : textboxes) textboxesContent.put(name, "");
+        for (String name : textboxes) setTextbox(name, "");
     }
 
     public void setTextbox(final String name, final String content) {
@@ -63,7 +65,7 @@ abstract public class Ventana {
         return textboxesContent.get(validateTextbox(name));
     }
 
-    void render() {
+    void renderWindow() {
         int index = 0;
         final StringBuilder window = new StringBuilder();
 
@@ -94,7 +96,7 @@ abstract public class Ventana {
         final Range<Integer> range = Range.closedOpen(0, textboxes.size() + buttons.size());
 
         while (!range.contains(option)) {
-            render();
+            renderWindow();
             System.out.print("Seleciona opcion: ");
             try {
                 option = scanner.nextInt();
@@ -107,8 +109,8 @@ abstract public class Ventana {
         return option;
     }
 
-    void dialogTextbox(String name) {
-        render();
+    void dialogTextbox(final String name) {
+        renderWindow();
         System.out.format("Contenido de %s: ", name);
         textboxesContent.put(name, scanner.nextLine());
     }

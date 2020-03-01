@@ -3,8 +3,8 @@ package App.Ventanas;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class MenuPrincipal extends Ventana {
-    public MenuPrincipal() {
+public class VentanaPrincipal extends Ventana {
+    public VentanaPrincipal() {
         super(
                 "Menu principal",
                 "Bienvenido a gestor de clientes AkiCode",
@@ -23,7 +23,7 @@ public class MenuPrincipal extends Ventana {
 
         switch (button) {
             case "Ver clientes":
-                ventana = new ListaClientes();
+                ventana = new VentanaListaClientes();
             case "Ver facturas":
                 break;
             case "Buscar cliente":

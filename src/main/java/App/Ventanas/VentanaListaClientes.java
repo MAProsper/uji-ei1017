@@ -3,8 +3,8 @@ package App.Ventanas;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class ListaClientes extends Ventana {
-    public ListaClientes() {
+public class VentanaListaClientes extends Ventana {
+    public VentanaListaClientes() {
         super(
                 "Clientes",
                 "Listado de clientes",
@@ -24,7 +24,7 @@ public class ListaClientes extends Ventana {
 
         switch (button) {
             case "Ver clientes":
-                ventana = new ListaClientes();
+                ventana = new VentanaListaClientes();
             case "Ver facturas":
                 break;
             case "Buscar cliente":
