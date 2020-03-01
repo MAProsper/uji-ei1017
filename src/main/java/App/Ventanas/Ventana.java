@@ -41,6 +41,18 @@ abstract public class Ventana {
         return validate("gestor no esta asignado", gestor, gestor != null);
     }
 
+    final public String getTitle() {
+        return title;
+    }
+
+    final public String getInfo() {
+        return info;
+    }
+
+    final public List<String> getList() {
+        return Collections.unmodifiableList(list);
+    }
+
     public void setList(final List<String> list) {
         validate("list no esta definida", this.list != null);
         collectionWithoutNull("list", list);
@@ -50,6 +62,10 @@ abstract public class Ventana {
 
     String validateTextbox(final String name) {
         return validate("textbox " + name + " no esta definida", referenceNotNull("name", name), textboxes.contains(name));
+    }
+
+    final public List<String> getTextboxes() {
+        return Collections.unmodifiableList(textboxes);
     }
 
     public void clearTextboxes() {
@@ -63,6 +79,10 @@ abstract public class Ventana {
 
     final public String getTextbox(final String name) {
         return textboxesContent.get(validateTextbox(name));
+    }
+
+    final public List<String> getButtons() {
+        return Collections.unmodifiableList(buttons);
     }
 
     void renderWindow() {
