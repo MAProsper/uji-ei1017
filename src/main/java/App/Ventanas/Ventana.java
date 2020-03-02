@@ -10,14 +10,14 @@ import static Helpers.ValidatorArguments.*;
 
 
 abstract public class Ventana {
-    final static Scanner scanner = new Scanner(System.in);
-    final String title;
-    final String info;
-    final List<String> textboxes;
-    final Map<String, String> textboxesContent;
-    final List<String> buttons;
-    Gestor gestor;
-    final List<String> list;
+    private final static Scanner scanner = new Scanner(System.in);
+    private final String title;
+    private final String info;
+    private final List<String> textboxes;
+    private final Map<String, String> textboxesContent;
+    private final List<String> buttons;
+    private final List<String> list;
+    private Gestor gestor;
 
     public Ventana(final String title, final String info, final boolean list, final List<String> textboxes, final List<String> buttons) {
         gestor = null;
@@ -38,6 +38,15 @@ abstract public class Ventana {
 
     abstract public Ventana handle(final String button);
 
+    private List<String> validateList() {
+        return validate("list no esta definida", list, list != null);
+    }
+
+
+    private String validateTextbox(final String name) {
+        return validate("textbox " + name + " no esta definida", referenceNotNull("name", name), textboxes.contains(name));
+    }
+
     final public Gestor getGestor() {
         return validate("gestor no esta asignado", gestor, gestor != null);
     }
@@ -50,27 +59,28 @@ abstract public class Ventana {
         return info;
     }
 
-    List<String> validateList() {
-        return validate("list no esta definida", list, this.list != null);
-    }
-
     final public List<String> getList() {
         return Collections.unmodifiableList(validateList());
     }
 
     public void setList(final List<String> list) {
-        validateList();
+        final List<String> ignored = validateList();  // Warning: result ignored
         collectionWithoutNull("list", list);
         this.list.clear();
         this.list.addAll(list);
     }
 
-    String validateTextbox(final String name) {
-        return validate("textbox " + name + " no esta definida", referenceNotNull("name", name), textboxes.contains(name));
-    }
 
     final public List<String> getTextboxes() {
         return Collections.unmodifiableList(textboxes);
+    }
+
+    final public String getTextbox(final String name) {
+        return textboxesContent.get(validateTextbox(name));
+    }
+
+    public void setTextbox(final String name, final String content) {
+        textboxesContent.put(validateTextbox(name), referenceNotNull("content", content));
     }
 
     public void clearTextboxes() {
@@ -78,19 +88,11 @@ abstract public class Ventana {
         for (String name : textboxes) setTextbox(name, "");
     }
 
-    public void setTextbox(final String name, final String content) {
-        textboxesContent.put(validateTextbox(name), referenceNotNull("content", content));
-    }
-
-    final public String getTextbox(final String name) {
-        return textboxesContent.get(validateTextbox(name));
-    }
-
     final public List<String> getButtons() {
         return Collections.unmodifiableList(buttons);
     }
 
-    void renderWindow() {
+    private void renderWindow() {
         int index = 0;
         final StringBuilder window = new StringBuilder();
 
@@ -116,7 +118,7 @@ abstract public class Ventana {
         System.out.print(window);
     }
 
-    int dialogSelect() {
+    private int dialogSelect() {
         int option = -1;
         final Range<Integer> range = Range.closedOpen(0, textboxes.size() + buttons.size());
 
@@ -134,7 +136,7 @@ abstract public class Ventana {
         return option;
     }
 
-    void dialogTextbox(final String name) {
+    private void dialogTextbox(final String name) {
         renderWindow();
         System.out.format("Contenido de %s: ", name);
         textboxesContent.put(name, scanner.nextLine());
