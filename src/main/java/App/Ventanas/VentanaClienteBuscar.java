@@ -1,5 +1,6 @@
 package App.Ventanas;
 
+import App.Gestor;
 import Clientes.Cliente;
 
 import java.util.Arrays;
@@ -25,7 +26,8 @@ public class VentanaClienteBuscar extends Ventana {
 
         switch (button) {
             case "Buscar":
-                Cliente cliente = getGestor().getCliente(getTextbox("NIF"));
+                Gestor gestor = getGestor();
+                Cliente cliente = gestor.getCliente(getTextbox("NIF"));
                 ventana = (cliente != null) ? gestor.getVisor(cliente) : new VentanaError();
                 gestor.setClienteSelecionado(cliente);
                 break;

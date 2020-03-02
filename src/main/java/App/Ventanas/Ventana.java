@@ -50,12 +50,16 @@ abstract public class Ventana {
         return info;
     }
 
+    List<String> validateList() {
+        return validate("list no esta definida", list, this.list != null);
+    }
+
     final public List<String> getList() {
-        return Collections.unmodifiableList(list);
+        return Collections.unmodifiableList(validateList());
     }
 
     public void setList(final List<String> list) {
-        validate("list no esta definida", this.list != null);
+        validateList();
         collectionWithoutNull("list", list);
         this.list.clear();
         this.list.addAll(list);

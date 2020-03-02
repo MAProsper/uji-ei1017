@@ -1,5 +1,6 @@
 package App.Ventanas;
 
+import App.Gestor;
 import Clientes.Cliente;
 
 import java.util.Arrays;
@@ -25,8 +26,9 @@ public class VentanaFacturaBuscar extends Ventana {
 
         switch (button) {
             case "Buscar":
-                Cliente cliente = getGestor().getCliente(getCodigo());
-                ventana = (cliente != null) ? new VentanaFacturas() : new VentanaError();
+                Gestor gestor = getGestor();
+                Cliente cliente = gestor.getCliente(getCodigo());
+                ventana = (cliente != null) ? gestor.getVisor(cliente) : new VentanaError();
                 gestor.setClienteSelecionado(cliente);
                 break;
             case "Volver":
