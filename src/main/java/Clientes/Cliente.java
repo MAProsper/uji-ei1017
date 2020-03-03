@@ -31,6 +31,7 @@ public class Cliente {
         setTarifa(tarifa);
         llamadas = new LinkedList<>();
         facturas = new LinkedList<>();
+        NIFs.add(NIF);
     }
 
     final public String getNombre() {
