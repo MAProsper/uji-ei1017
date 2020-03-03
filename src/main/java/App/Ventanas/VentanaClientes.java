@@ -26,7 +26,7 @@ public class VentanaClientes extends Ventana {
     @Override
     public Ventana handle(final String button) {
         Ventana ventana = null;
-        Gestor gestor = getGestor();
+        final Gestor gestor = getGestor();
 
         switch (button) {
             case "Ver cliente":

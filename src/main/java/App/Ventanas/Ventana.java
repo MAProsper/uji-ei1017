@@ -46,11 +46,11 @@ abstract public class Ventana {
         return validate("textbox " + name + " no esta definida", referenceNotNull("name", name), textboxes.contains(name));
     }
 
-    final public Gestor getGestor() {
+    public static Gestor getGestor() {
         return validate("gestor no esta asignado", gestor, gestor != null);
     }
 
-    final public void setGestor(final Gestor gestor) {
+    public static void setGestor(final Gestor gestor) {
         Ventana.gestor = referenceNotNull("gestor", gestor);
     }
 

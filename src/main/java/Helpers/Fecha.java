@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import static Helpers.ValidatorArguments.validate;
 
@@ -22,5 +24,11 @@ final public class Fecha {
 
     public static Date parseDate(final String date) throws ParseException {
         return dateFormat.parse(date);
+    }
+
+    public static <T extends Interfaces.Fecha> List<T> filterRange(List<T> lista, Range<Date> periodo) {
+        List<T> filtered = new LinkedList<>();
+        for (T item : lista) if (periodo.contains(item.getFecha())) filtered.add(item);
+        return filtered;
     }
 }

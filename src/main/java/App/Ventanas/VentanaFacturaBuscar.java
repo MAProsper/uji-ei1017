@@ -26,8 +26,8 @@ public class VentanaFacturaBuscar extends Ventana {
 
         switch (button) {
             case "Buscar":
-                Gestor gestor = getGestor();
-                Cliente cliente = gestor.getCliente(getCodigo());
+                final Gestor gestor = getGestor();
+                final Cliente cliente = gestor.getCliente(getCodigo());
                 ventana = (cliente != null) ? gestor.getVisor(cliente) : new VentanaError();
                 gestor.setClienteSelecionado(cliente);
                 break;

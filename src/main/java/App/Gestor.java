@@ -6,8 +6,6 @@ import Clientes.ClienteEmpresa;
 import Clientes.ClientePaticular;
 import Helpers.Factura;
 import Helpers.Llamada;
-import Interfaces.Fecha;
-import com.google.common.collect.Range;
 
 import java.util.*;
 
@@ -31,12 +29,6 @@ public class Gestor {
         facturas = new LinkedList<>();
         llamadas = new LinkedList<>();
         clienteSelecionado = null;
-    }
-
-    public <T extends Fecha> List<T> filterRange(List<T> lista, Range<Date> periodo) {
-        List<T> filtered = new LinkedList<>();
-        for (T item : lista) if (periodo.contains(item.getFecha())) filtered.add(item);
-        return filtered;
     }
 
     public List<Cliente> getClientes() {
@@ -112,7 +104,8 @@ public class Gestor {
     public void run() {
         validate("gestor ya esta en uso", stack.empty());
 
-        stack.push(new VentanaPrincipal(this));
+        Ventana.setGestor(this);
+        stack.push(new VentanaPrincipal());
         while (!stack.empty()) {
             Ventana result = stack.peek().run();
             if (result == null) stack.pop();

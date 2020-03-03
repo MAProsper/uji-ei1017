@@ -10,15 +10,14 @@ import java.util.Date;
 import static Helpers.Fecha.parseDate;
 
 public class VentanaRangoBuscar extends Ventana {
-
     final String tipo;
 
     public VentanaRangoBuscar(final String tipo) {
         super(
-                "Busqueda en Rango",
-                "Introduce un rango de fechas para buscar" + tipo,
+                "Busqueda en rango",
+                "Introduce un rango de fechas para buscar " + tipo,
                 false,
-                Arrays.asList("Fechha_inicial (YYYY-MM-DD)", "Fecha_final (YYYY-MM-DD)"),
+                Arrays.asList("Fecha inicial (YYYY-MM-DD)", "Fecha final (YYYY-MM-DD)"),
                 Arrays.asList("Buscar", "Volver"));
         this.tipo = tipo;
     }
@@ -43,17 +42,17 @@ public class VentanaRangoBuscar extends Ventana {
     }
 
     Ventana getVentana(final Range<Date> periodo) {
-        Ventana ventana = null;
+        final Ventana ventana;
 
         switch (tipo) {
             case "clientes":
-                //ventana = new VentanaClientesRango(periodo);
+                ventana = new VentanaClientesRango(periodo);
                 break;
             case "facturas":
-                //ventana = new VentanaFacturasRango(periodo);
+                ventana = new VentanaFacturasRango(periodo);
                 break;
             case "llamadas":
-                //ventana = new VentanaLlamadasRango(periodo);
+                ventana = new VentanaLlamadasRango(periodo);
                 break;
             default:
                 ventana = new VentanaError();
@@ -66,7 +65,7 @@ public class VentanaRangoBuscar extends Ventana {
         Range<Date> periodo = null;
 
         try {
-            periodo = Fecha.getPeriodo(parseDate(getTextbox("Fechha_inicial (YYYY-MM-DD)")), parseDate(getTextbox("Fechha_final (YYYY-MM-DD)")));
+            periodo = Fecha.getPeriodo(parseDate(getTextbox("Fecha inicial (YYYY-MM-DD)")), parseDate(getTextbox("Fecha final (YYYY-MM-DD)")));
         } catch (ParseException | IllegalArgumentException ignored) {
         }
 
