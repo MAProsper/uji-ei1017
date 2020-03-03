@@ -1,16 +1,19 @@
 package App.Ventanas;
 
+import App.Gestor;
+
 import java.util.Arrays;
 import java.util.Collections;
 
 public class VentanaPrincipal extends Ventana {
-    public VentanaPrincipal() {
+    public VentanaPrincipal(final Gestor gestor) {
         super(
                 "Menu principal",
                 "Bienvenido a gestor de clientes AkiCode",
                 false,
                 Collections.emptyList(),
                 Arrays.asList("Ver clientes", "Buscar cliente (NIF)", "Buscar cliente (factura)", "Cerrar"));
+        setGestor(gestor);
     }
 
     @Override

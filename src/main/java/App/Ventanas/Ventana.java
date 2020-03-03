@@ -17,10 +17,9 @@ abstract public class Ventana {
     private final Map<String, String> textboxesContent;
     private final List<String> buttons;
     private final List<String> list;
-    private Gestor gestor;
+    private static Gestor gestor;
 
     public Ventana(final String title, final String info, final boolean list, final List<String> textboxes, final List<String> buttons) {
-        gestor = null;
         this.title = stringNotEmpty("header", title);
         this.info = stringNotEmpty("info", info);
         this.list = list ? new LinkedList<>() : null;
@@ -49,6 +48,10 @@ abstract public class Ventana {
 
     final public Gestor getGestor() {
         return validate("gestor no esta asignado", gestor, gestor != null);
+    }
+
+    final public void setGestor(final Gestor gestor) {
+        Ventana.gestor = referenceNotNull("gestor", gestor);
     }
 
     final public String getTitle() {
@@ -142,9 +145,7 @@ abstract public class Ventana {
         textboxesContent.put(name, scanner.nextLine());
     }
 
-    public Ventana run(final Gestor gestor) {
-        this.gestor = referenceNotNull("gestor", gestor);
-
+    public Ventana run() {
         update();
         final int separator = textboxes.size();
 

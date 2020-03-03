@@ -83,9 +83,9 @@ public class Gestor {
     public void run() {
         validate("gestor ya esta en uso", stack.empty());
 
-        stack.push(new VentanaPrincipal());
+        stack.push(new VentanaPrincipal(this));
         while (!stack.empty()) {
-            Ventana result = stack.peek().run(this);
+            Ventana result = stack.peek().run();
             if (result == null) stack.pop();
             else stack.push(result);
         }
@@ -94,7 +94,7 @@ public class Gestor {
     @Override
     public String toString() {
         return "Gestor{" +
-                "clientes=" + clientes.keySet() +
+                "clientes=" + getClientes() +
                 '}';
     }
 }
