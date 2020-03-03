@@ -25,7 +25,6 @@ public class VentanaRangoBuscar extends Ventana {
 
     @Override
     public void update() {
-
     }
 
     @Override
@@ -43,7 +42,7 @@ public class VentanaRangoBuscar extends Ventana {
         return ventana;
     }
 
-    public Ventana getVentana(final Range<Date> periodo) {
+    Ventana getVentana(final Range<Date> periodo) {
         Ventana ventana = null;
 
         switch (tipo) {
@@ -63,7 +62,7 @@ public class VentanaRangoBuscar extends Ventana {
         return ventana;
     }
 
-    public Range<Date> getPeriodo() {
+    Range<Date> getPeriodo() {
         Range<Date> periodo = null;
 
         try {
