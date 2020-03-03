@@ -16,14 +16,20 @@ import static Helpers.ValidatorArguments.validate;
 
 public class Gestor {
     final Stack<Ventana> stack;
-    final HashMap<String, Cliente> clientes;
-    final HashMap<Integer, Cliente> facturas;
+    final HashMap<String, Cliente> id2cliente;
+    final HashMap<Integer, Cliente> factura2cliente;
+    final List<Cliente> clientes;
+    final List<Factura> facturas;
+    final List<Llamada> llamadas;
     Cliente clienteSelecionado;
 
     public Gestor() {
-        this.stack = new Stack<>();
-        this.clientes = new HashMap<>();
-        this.facturas = new HashMap<>();
+        stack = new Stack<>();
+        id2cliente = new HashMap<>();
+        factura2cliente = new HashMap<>();
+        clientes = new LinkedList<>();
+        facturas = new LinkedList<>();
+        llamadas = new LinkedList<>();
         clienteSelecionado = null;
     }
 
@@ -34,15 +40,23 @@ public class Gestor {
     }
 
     public List<Cliente> getClientes() {
-        return Collections.unmodifiableList(new LinkedList<>(clientes.values()));
+        return Collections.unmodifiableList(clientes);
+    }
+
+    public List<Factura> getFacturas() {
+        return Collections.unmodifiableList(facturas);
+    }
+
+    public List<Llamada> getLlamadas() {
+        return Collections.unmodifiableList(llamadas);
     }
 
     public Cliente getCliente(final String NIF) {
-        return clientes.get(NIF);
+        return id2cliente.get(NIF);
     }
 
     public Cliente getCliente(final int codigo) {
-        return facturas.get(codigo);
+        return factura2cliente.get(codigo);
     }
 
     public Cliente getClienteSelecionado() {
@@ -55,23 +69,24 @@ public class Gestor {
 
     public void addCliente(final Cliente cliente) {
         referenceNotNull("cliente", cliente);
-        clientes.put(cliente.getNIF(), cliente);
-
-        final Cliente selecionado = getClienteSelecionado();
-        setClienteSelecionado(cliente);
-        for (Factura factura : cliente.getFacturas()) addFactura(factura);
-        setClienteSelecionado(selecionado);
+        validate("cliente tiene que ser nuevo", cliente.getLlamadas().isEmpty() && cliente.getFacturas().isEmpty());
+        id2cliente.put(cliente.getNIF(), cliente);
+        clientes.add(cliente);
     }
 
     public void addLlamada(final Llamada llamada) {
         referenceNotNull("clienteSelecionado", clienteSelecionado);
-        clienteSelecionado.addLlamada(referenceNotNull("llamada", llamada));
+        referenceNotNull("llamada", llamada);
+        clienteSelecionado.addLlamada(llamada);
+        llamadas.add(llamada);
     }
 
     public void addFactura(final Factura factura) {
         referenceNotNull("clienteSelecionado", clienteSelecionado);
-        clienteSelecionado.addFactura(referenceNotNull("factura", factura));
-        facturas.put(factura.getCodigo(), clienteSelecionado);
+        referenceNotNull("factura", factura);
+        clienteSelecionado.addFactura(factura);
+        factura2cliente.put(factura.getCodigo(), clienteSelecionado);
+        facturas.add(factura);
     }
 
     public Ventana getVisor(final Cliente cliente) {
@@ -83,8 +98,14 @@ public class Gestor {
 
     public void removeCliente() {
         final Cliente cliente = getClienteSelecionado();
-        clientes.remove(cliente.getNIF());
-        for (Factura factura : cliente.getFacturas()) facturas.remove(factura.getCodigo());
+        id2cliente.remove(cliente.getNIF());
+        clientes.remove(cliente);
+        for (Factura factura : cliente.getFacturas()) {
+            factura2cliente.remove(factura.getCodigo());
+            facturas.remove(factura);
+        }
+        for (Llamada llamada : cliente.getLlamadas())
+            llamadas.remove(llamada);
         clienteSelecionado = null;
     }
 
