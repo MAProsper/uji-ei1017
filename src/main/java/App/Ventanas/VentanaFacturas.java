@@ -1,12 +1,10 @@
 package App.Ventanas;
 
+import App.Formato;
 import Clientes.Cliente;
-import Helpers.Factura;
-import com.google.common.collect.Range;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 public class VentanaFacturas extends Ventana {
@@ -22,12 +20,7 @@ public class VentanaFacturas extends Ventana {
     @Override
     public void update() {
         Cliente cliente = getGestor().getClienteSelecionado();
-        setList(cliente.getFacturas().stream().map(this::resumirFactura).collect(Collectors.toList()));
-    }
-
-    String resumirFactura(final Factura factura) {
-        final Range<Date> periodo = factura.getPeriodo();
-        return String.format("[%s-%s] [%s-%s] %s (%s euros/min)", factura.getCodigo(), factura.getFecha(), periodo.lowerEndpoint(), periodo.upperEndpoint(), factura.getImporte(), factura.getTarifa().getPrecio());
+        setList(cliente.getFacturas().stream().map(Formato::factura).collect(Collectors.toList()));
     }
 
     @Override

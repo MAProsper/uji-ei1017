@@ -1,14 +1,12 @@
 package App.Ventanas;
 
+import App.Formato;
 import App.Gestor;
 import Clientes.Cliente;
-import Clientes.ClienteEmpresa;
-import Clientes.ClientePaticular;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.stream.Collectors;
 
 public class VentanaClientes extends Ventana {
     public VentanaClientes() {
@@ -22,26 +20,7 @@ public class VentanaClientes extends Ventana {
 
     @Override
     public void update() {
-        List<String> clientes = new LinkedList<>();
-        for (Cliente cliente : getGestor().getClientes())
-            clientes.add(resumirCliente(cliente));
-        setList(clientes);
-    }
-
-    String resumirCliente(final Cliente cliente) {
-        String tipo = "Otros";
-        String nombre = cliente.getNombre();
-
-        if (cliente instanceof ClientePaticular) {
-            final ClientePaticular particular = (ClientePaticular) cliente;
-            tipo = "Particular";
-            nombre = String.format("%s, %s", particular.getApellidos(), particular.getNombre());
-        } else if (cliente instanceof ClienteEmpresa) {
-            final ClienteEmpresa empresa = (ClienteEmpresa) cliente;
-            tipo = "Empresa";
-        }
-
-        return String.format("[%s] [%s] %s", cliente.getNIF(), tipo, nombre);
+        setList(getGestor().getClientes().stream().map(Formato::cliente).collect(Collectors.toList()));
     }
 
     @Override

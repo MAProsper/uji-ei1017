@@ -1,7 +1,7 @@
 package App.Ventanas;
 
+import App.Formato;
 import Clientes.Cliente;
-import Helpers.Llamada;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,11 +20,7 @@ public class VentanaLlamadas extends Ventana {
     @Override
     public void update() {
         Cliente cliente = getGestor().getClienteSelecionado();
-        setList(cliente.getLlamadas().stream().map(this::resumirLlamda).collect(Collectors.toList()));
-    }
-
-    String resumirLlamda(final Llamada llamada) {
-        return String.format("[%s] %s (%s min)", llamada.getFecha(), llamada.getTelefono(), llamada.getDuracion());
+        setList(cliente.getLlamadas().stream().map(Formato::llamda).collect(Collectors.toList()));
     }
 
     @Override
