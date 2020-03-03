@@ -6,6 +6,8 @@ import Clientes.ClienteEmpresa;
 import Clientes.ClientePaticular;
 import Helpers.Factura;
 import Helpers.Llamada;
+import Interfaces.Fecha;
+import com.google.common.collect.Range;
 
 import java.util.*;
 
@@ -23,6 +25,12 @@ public class Gestor {
         this.clientes = new HashMap<>();
         this.facturas = new HashMap<>();
         clienteSelecionado = null;
+    }
+
+    public <T extends Fecha> List<T> filterRange(List<T> lista, Range<Date> periodo) {
+        List<T> filtered = new LinkedList<>();
+        for (T item : lista) if (periodo.contains(item.getFecha())) filtered.add(item);
+        return filtered;
     }
 
     public List<Cliente> getClientes() {

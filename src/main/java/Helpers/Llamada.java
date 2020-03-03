@@ -1,11 +1,13 @@
 package Helpers;
 
+import Interfaces.Fecha;
+
 import java.util.Date;
 import java.util.Objects;
 
 import static Helpers.ValidatorArguments.*;
 
-public class Llamada {
+public class Llamada implements Fecha {
     final String telefono;
     final Date fecha;
     final double duracion;

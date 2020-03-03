@@ -3,13 +3,14 @@ package Clientes;
 import Helpers.Direccion;
 import Helpers.Factura;
 import Helpers.Llamada;
+import Interfaces.Fecha;
 import Tarifas.Tarifa;
 
 import java.util.*;
 
 import static Helpers.ValidatorArguments.*;
 
-public class Cliente {
+public class Cliente implements Fecha {
     final String NIF;
     final String nombre;
     final Direccion direccion;

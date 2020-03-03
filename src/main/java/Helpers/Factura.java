@@ -1,5 +1,6 @@
 package Helpers;
 
+import Interfaces.Fecha;
 import Tarifas.Tarifa;
 import com.google.common.collect.Range;
 
@@ -10,7 +11,7 @@ import java.util.Set;
 
 import static Helpers.ValidatorArguments.*;
 
-public class Factura {
+public class Factura implements Fecha {
     final static Set<Integer> codigos = new HashSet<>();
     final int codigo;
     final Tarifa tarifa;
