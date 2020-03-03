@@ -31,6 +31,7 @@ public class VentanaRangoBuscar extends Ventana {
     @Override
     public Ventana handle(final String button) {
         Ventana ventana = null;
+
         switch (button) {
             case "Buscar":
                 ventana = getVentana(getPeriodo());
@@ -38,31 +39,38 @@ public class VentanaRangoBuscar extends Ventana {
             case "Volver":
                 break;
         }
+
         return ventana;
     }
 
     public Ventana getVentana(final Range<Date> periodo) {
         Ventana ventana = null;
+
         switch (tipo) {
             case "clientes":
                 //ventana = new VentanaClientesRango(periodo);
                 break;
             case "facturas":
+                //ventana = new VentanaFacturasRango(periodo);
                 break;
             case "llamadas":
+                //ventana = new VentanaLlamadasRango(periodo);
                 break;
             default:
                 ventana = new VentanaError();
         }
+
         return ventana;
     }
 
     public Range<Date> getPeriodo() {
         Range<Date> periodo = null;
+
         try {
             periodo = Fecha.getPeriodo(parseDate(getTextbox("Fechha_inicial (YYYY-MM-DD)")), parseDate(getTextbox("Fechha_final (YYYY-MM-DD)")));
         } catch (ParseException | IllegalArgumentException ignored) {
         }
+
         return periodo;
     }
 }
