@@ -19,7 +19,10 @@ public class Cliente {
     Tarifa tarifa;
     final List<Factura> facturas;
 
+    final static Set<String> NIFs = new HashSet<>();
+
     public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
+        validate("NIF del cliente repetido", !NIFs.contains(NIF));
         this.NIF = stringMatchesPattern("NIF", NIF, "\\d+[TRWAGMYFPDXBNJZSQVHLCKE]");
         this.nombre = stringNotEmpty("nombre", nombre);
         this.direccion = referenceNotNull("direccion", direccion);
