@@ -62,10 +62,12 @@ public class VentanaRangoBuscar extends Ventana {
     }
 
     Range<Date> getPeriodo() {
+        final String fechaInicio = getTextbox("Fecha inicial (YYYY-MM-DD)");
+        final String fechaFinal = getTextbox("Fecha final (YYYY-MM-DD)");
         Range<Date> periodo = null;
 
         try {
-            periodo = Fecha.getPeriodo(parseDate(getTextbox("Fecha inicial (YYYY-MM-DD)")), parseDate(getTextbox("Fecha final (YYYY-MM-DD)")));
+            periodo = Fecha.getPeriodo(parseDate(fechaInicio), parseDate(fechaFinal));
         } catch (ParseException | IllegalArgumentException ignored) {
         }
 
