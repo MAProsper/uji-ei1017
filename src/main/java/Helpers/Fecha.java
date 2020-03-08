@@ -26,7 +26,7 @@ final public class Fecha {
         return dateFormat.parse(date);
     }
 
-    public static <T extends Interfaces.Fecha> List<T> filterRange(List<T> lista, Range<Date> periodo) {
+    public static <T extends Cronologico> List<T> filterRange(List<T> lista, Range<Date> periodo) {
         List<T> filtered = new LinkedList<>();
         for (T item : lista) if (periodo.contains(item.getFecha())) filtered.add(item);
         return filtered;

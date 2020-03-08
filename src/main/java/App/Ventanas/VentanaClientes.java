@@ -4,18 +4,13 @@ import App.Formato;
 import App.Gestor;
 import Clientes.Cliente;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.stream.Collectors;
+
+import static Helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaClientes extends Ventana {
     public VentanaClientes() {
-        super(
-                "Clientes",
-                "Listado de clientes",
-                true,
-                Collections.singletonList("Selecionado NIF"),
-                Arrays.asList("Ver cliente", "Nuevo cliente", "Nuevo particular", "Nueva empresa", "Volver"));
+        super("Clientes", "Listado de clientes", true, Textbox.values(), Button.values());
     }
 
     @Override
@@ -24,29 +19,61 @@ public class VentanaClientes extends Ventana {
     }
 
     @Override
-    public Ventana handle(final String button) {
+    public Ventana handle(final App.Button button) {
         Ventana ventana = null;
         final Gestor gestor = getGestor();
 
-        switch (button) {
-            case "Ver cliente":
-                final Cliente cliente = gestor.getCliente(getTextbox("Selecionado NIF"));
+        switch ((Button) button) {
+            case VER_CLIENTE:
+                final Cliente cliente = gestor.getCliente(getTextbox(Textbox.SELECIONADO_NIF));
                 ventana = (cliente != null) ? gestor.getVisor(cliente) : new VentanaError();
                 gestor.setClienteSelecionado(cliente);
                 break;
-            case "Nuevo cliente":
+            case NUEVO_CLIENTE:
                 ventana = new VentanaClienteNuevo();
                 break;
-            case "Nuevo particular":
+            case NUEVO_PARTICULAR:
                 ventana = new VentanaClienteParticularNuevo();
                 break;
-            case "Nuevo empresa":
+            case NUEVO_EMPRESA:
                 ventana = new VentanaClienteEmpresaNuevo();
                 break;
-            case "Volver":
+            case VOLVER:
                 break;
         }
 
         return ventana;
+    }
+
+    enum Textbox implements App.Textbox {
+        SELECIONADO_NIF("Selecionado NIF");
+
+        final String descripcion;
+
+        Textbox(final String descripcion) {
+            this.descripcion = stringNotEmpty("descripcion", descripcion);
+        }
+
+        public String getDescripcion() {
+            return descripcion;
+        }
+    }
+
+    enum Button implements App.Button {
+        VER_CLIENTE("Ver cliente"),
+        NUEVO_CLIENTE("Nuevo cliente"),
+        NUEVO_PARTICULAR("Nuevo particular"),
+        NUEVO_EMPRESA("Nuevo empresa"),
+        VOLVER("Volver");
+
+        final String descripcion;
+
+        Button(final String descripcion) {
+            this.descripcion = stringNotEmpty("descripcion", descripcion);
+        }
+
+        public String getDescripcion() {
+            return descripcion;
+        }
     }
 }

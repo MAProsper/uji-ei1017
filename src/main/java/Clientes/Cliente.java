@@ -1,16 +1,16 @@
 package Clientes;
 
+import Helpers.Cronologico;
 import Helpers.Direccion;
 import Helpers.Factura;
 import Helpers.Llamada;
-import Interfaces.Fecha;
 import Tarifas.Tarifa;
 
 import java.util.*;
 
 import static Helpers.ValidatorArguments.*;
 
-public class Cliente implements Fecha {
+public class Cliente implements Cronologico {
     final String NIF;
     final String nombre;
     final Direccion direccion;

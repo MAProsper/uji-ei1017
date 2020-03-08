@@ -1,7 +1,7 @@
-package Interfaces;
+package Helpers;
 
 import java.util.Date;
 
-public interface Fecha {
+public interface Cronologico {
     Date getFecha();
 }

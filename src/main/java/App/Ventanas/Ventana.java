@@ -1,6 +1,8 @@
 package App.Ventanas;
 
+import App.Button;
 import App.Gestor;
+import App.Textbox;
 import com.google.common.base.Strings;
 import com.google.common.collect.Range;
 
@@ -13,13 +15,13 @@ abstract public class Ventana {
     private final static Scanner scanner = new Scanner(System.in);
     private final String title;
     private final String info;
-    private final List<String> textboxes;
-    private final Map<String, String> textboxesContent;
-    private final List<String> buttons;
+    private final List<Textbox> textboxes;
+    private final Map<Textbox, String> textboxesContent;
+    private final List<Button> buttons;
     private final List<String> list;
     private static Gestor gestor;
 
-    public Ventana(final String title, final String info, final boolean list, final List<String> textboxes, final List<String> buttons) {
+    public Ventana(final String title, final String info, final boolean list, final List<Textbox> textboxes, final List<Button> buttons) {
         this.title = stringNotEmpty("header", title);
         this.info = stringNotEmpty("info", info);
         this.list = list ? new LinkedList<>() : null;
@@ -33,16 +35,20 @@ abstract public class Ventana {
         if (!textboxes.isEmpty()) clearTextboxes();
     }
 
+    public Ventana(final String title, final String info, final boolean list, final Textbox[] textboxes, final Button[] buttons) {
+        this(title, info, list, Arrays.asList(referenceNotNull("textboxes", textboxes)), Arrays.asList(referenceNotNull("buttons", buttons)));
+    }
+
     abstract public void update();
 
-    abstract public Ventana handle(final String button);
+    abstract public Ventana handle(final Button button);
 
     private List<String> validateList() {
         return validate("list no esta definida", list, list != null);
     }
 
 
-    private String validateTextbox(final String name) {
+    private Textbox validateTextbox(final Textbox name) {
         return validate("textbox " + name + " no esta definida", referenceNotNull("name", name), textboxes.contains(name));
     }
 
@@ -73,25 +79,24 @@ abstract public class Ventana {
         this.list.addAll(list);
     }
 
-
-    final public List<String> getTextboxes() {
+    final public List<Textbox> getTextboxes() {
         return Collections.unmodifiableList(textboxes);
     }
 
-    final public String getTextbox(final String name) {
+    final public String getTextbox(final Textbox name) {
         return textboxesContent.get(validateTextbox(name));
     }
 
-    public void setTextbox(final String name, final String content) {
+    public void setTextbox(final Textbox name, final String content) {
         textboxesContent.put(validateTextbox(name), referenceNotNull("content", content));
     }
 
     public void clearTextboxes() {
         validate("textboxes no esta definido", !textboxes.isEmpty());
-        for (String name : textboxes) setTextbox(name, "");
+        for (Textbox name : textboxes) setTextbox(name, "");
     }
 
-    final public List<String> getButtons() {
+    final public List<Button> getButtons() {
         return Collections.unmodifiableList(buttons);
     }
 
@@ -110,12 +115,12 @@ abstract public class Ventana {
         }
 
         if (textboxes.size() != 0) {
-            for (String name : textboxes)
-                window.append(String.format("(%d) %s: %s\n", index++, name, textboxesContent.get(name)));
+            for (Textbox name : textboxes)
+                window.append(String.format("(%d) %s: %s\n", index++, name.getDescripcion(), textboxesContent.get(name)));
             window.append("\n");
         }
 
-        for (String button : buttons) window.append(String.format("(%d) %s\n", index++, button));
+        for (Button button : buttons) window.append(String.format("(%d) %s\n", index++, button.getDescripcion()));
         window.append("\n\n");
 
         System.out.print(window);
@@ -139,9 +144,9 @@ abstract public class Ventana {
         return option;
     }
 
-    private void dialogTextbox(final String name) {
+    private void dialogTextbox(final Textbox name) {
         renderWindow();
-        System.out.format("Contenido de %s: ", name);
+        System.out.format("Contenido de %s: ", name.getDescripcion());
         textboxesContent.put(name, scanner.nextLine());
     }
 
