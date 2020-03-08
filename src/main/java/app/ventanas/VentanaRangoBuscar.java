@@ -1,24 +1,20 @@
 package app.ventanas;
 
 import com.google.common.collect.Range;
+import helpers.Description;
 import helpers.Fecha;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static helpers.Fecha.parse;
+import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaRangoBuscar extends Ventana {
-    final String tipo;
+    final Tipo tipo;
 
-    public VentanaRangoBuscar(final String tipo) {
-        super(
-                "Busqueda en rango",
-                "Introduce un rango de fechas para buscar " + tipo,
-                false,
-                Arrays.asList("Fecha inicial (YYYY-MM-DD)", "Fecha final (YYYY-MM-DD)"),
-                Arrays.asList("Buscar", "Volver"));
+    public VentanaRangoBuscar(final Tipo tipo) {
+        super("Busqueda en rango", "Introduce un rango de fechas para buscar " + tipo.getDescription(), false, Textbox.values(), Button.values());
         this.tipo = tipo;
     }
 
@@ -27,14 +23,14 @@ public class VentanaRangoBuscar extends Ventana {
     }
 
     @Override
-    public Ventana handle(final String button) {
+    public Ventana handle(final app.Button button) {
         Ventana ventana = null;
 
-        switch (button) {
-            case "Buscar":
+        switch ((Button) button) {
+            case BUSCAR:
                 ventana = getVentana(getPeriodo());
                 break;
-            case "Volver":
+            case VOLVER:
                 break;
         }
 
@@ -45,13 +41,13 @@ public class VentanaRangoBuscar extends Ventana {
         final Ventana ventana;
 
         switch (tipo) {
-            case "clientes":
+            case CLIENTES:
                 ventana = new VentanaClientesRango(periodo);
                 break;
-            case "facturas":
+            case FACTURAS:
                 ventana = new VentanaFacturasRango(periodo);
                 break;
-            case "llamadas":
+            case LLAMADAS:
                 ventana = new VentanaLlamadasRango(periodo);
                 break;
             default:
@@ -62,8 +58,8 @@ public class VentanaRangoBuscar extends Ventana {
     }
 
     Range<LocalDate> getPeriodo() {
-        final String fechaInicio = getTextbox("Fecha inicial (YYYY-MM-DD)");
-        final String fechaFinal = getTextbox("Fecha final (YYYY-MM-DD)");
+        final String fechaInicio = getTextbox(Textbox.FECHA_INICIAL);
+        final String fechaFinal = getTextbox(Textbox.FECHA_FINAL);
         Range<LocalDate> periodo = null;
 
         try {
@@ -72,5 +68,51 @@ public class VentanaRangoBuscar extends Ventana {
         }
 
         return periodo;
+    }
+
+    public enum Tipo implements Description {
+        CLIENTES("clientes"),
+        FACTURAS("Facturas"),
+        LLAMADAS("llamadas");
+
+        final String description;
+
+        Tipo(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    enum Textbox implements app.Textbox {
+        FECHA_INICIAL("Fecha inicial (YYYY-MM-DD)"),
+        FECHA_FINAL("Fecha final (YYYY-MM-DD)");
+
+        final String description;
+
+        Textbox(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    enum Button implements app.Button {
+        BUSCAR("Buscar"),
+        VOLVER("Volver");
+
+        final String description;
+
+        Button(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 }

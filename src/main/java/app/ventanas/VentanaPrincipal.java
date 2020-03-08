@@ -28,13 +28,13 @@ public class VentanaPrincipal extends Ventana {
                 ventana = new VentanaFacturaBuscar();
                 break;
             case BUSCAR_CLIENTE_RANGO:
-                ventana = new VentanaRangoBuscar("clientes");
+                ventana = new VentanaRangoBuscar(VentanaRangoBuscar.Tipo.CLIENTES);
                 break;
             case BUSCAR_FACTURA_RANGO:
-                ventana = new VentanaRangoBuscar("facturas");
+                ventana = new VentanaRangoBuscar(VentanaRangoBuscar.Tipo.FACTURAS);
                 break;
             case BUSCAR_LLAMADAS_RANGO:
-                ventana = new VentanaRangoBuscar("llamadas");
+                ventana = new VentanaRangoBuscar(VentanaRangoBuscar.Tipo.LLAMADAS);
                 break;
             case CERRAR:
                 break;
@@ -52,14 +52,14 @@ public class VentanaPrincipal extends Ventana {
         BUSCAR_LLAMADAS_RANGO("Buscar llamadas (rango)"),
         CERRAR("Cerrar");
 
-        final String descripcion;
+        final String description;
 
-        Button(final String descripcion) {
-            this.descripcion = stringNotEmpty("descripcion", descripcion);
+        Button(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
         }
 
-        public String getDescripcion() {
-            return descripcion;
+        public String getDescription() {
+            return description;
         }
     }
 }

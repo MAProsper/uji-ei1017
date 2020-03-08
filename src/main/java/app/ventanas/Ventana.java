@@ -116,11 +116,11 @@ abstract public class Ventana {
 
         if (textboxes.size() != 0) {
             for (Textbox name : textboxes)
-                window.append(String.format("(%d) %s: %s\n", index++, name.getDescripcion(), textboxesContent.get(name)));
+                window.append(String.format("(%d) %s: %s\n", index++, name.getDescription(), textboxesContent.get(name)));
             window.append("\n");
         }
 
-        for (Button button : buttons) window.append(String.format("(%d) %s\n", index++, button.getDescripcion()));
+        for (Button button : buttons) window.append(String.format("(%d) %s\n", index++, button.getDescription()));
         window.append("\n\n");
 
         System.out.print(window);
@@ -146,7 +146,7 @@ abstract public class Ventana {
 
     private void dialogTextbox(final Textbox name) {
         renderWindow();
-        System.out.format("Contenido de %s: ", name.getDescripcion());
+        System.out.format("Contenido de %s: ", name.getDescription());
         textboxesContent.put(name, scanner.nextLine());
     }
 

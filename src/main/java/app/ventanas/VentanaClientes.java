@@ -26,8 +26,8 @@ public class VentanaClientes extends Ventana {
         switch ((Button) button) {
             case VER_CLIENTE:
                 final Cliente cliente = gestor.getCliente(getTextbox(Textbox.SELECIONADO_NIF));
-                ventana = (cliente != null) ? gestor.getVisor(cliente) : new VentanaError();
                 gestor.setClienteSelecionado(cliente);
+                ventana = gestor.getVisor();
                 break;
             case NUEVO_CLIENTE:
                 ventana = new VentanaClienteNuevo();
@@ -48,14 +48,14 @@ public class VentanaClientes extends Ventana {
     enum Textbox implements app.Textbox {
         SELECIONADO_NIF("Selecionado NIF");
 
-        final String descripcion;
+        final String description;
 
-        Textbox(final String descripcion) {
-            this.descripcion = stringNotEmpty("descripcion", descripcion);
+        Textbox(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
         }
 
-        public String getDescripcion() {
-            return descripcion;
+        public String getDescription() {
+            return description;
         }
     }
 
@@ -66,14 +66,14 @@ public class VentanaClientes extends Ventana {
         NUEVO_EMPRESA("Nuevo empresa"),
         VOLVER("Volver");
 
-        final String descripcion;
+        final String description;
 
-        Button(final String descripcion) {
-            this.descripcion = stringNotEmpty("descripcion", descripcion);
+        Button(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
         }
 
-        public String getDescripcion() {
-            return descripcion;
+        public String getDescription() {
+            return description;
         }
     }
 }

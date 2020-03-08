@@ -19,7 +19,7 @@ public class VentanaFacturas extends Ventana {
 
     @Override
     public void update() {
-        Cliente cliente = getGestor().getClienteSelecionado();
+        final Cliente cliente = getGestor().getClienteSelecionado();
         setList(cliente.getFacturas().stream().map(Formato::factura).collect(Collectors.toList()));
     }
 

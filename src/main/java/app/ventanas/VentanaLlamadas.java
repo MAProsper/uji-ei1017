@@ -19,7 +19,7 @@ public class VentanaLlamadas extends Ventana {
 
     @Override
     public void update() {
-        Cliente cliente = getGestor().getClienteSelecionado();
+        final Cliente cliente = getGestor().getClienteSelecionado();
         setList(cliente.getLlamadas().stream().map(Formato::llamda).collect(Collectors.toList()));
     }
 

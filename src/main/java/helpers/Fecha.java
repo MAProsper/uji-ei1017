@@ -4,8 +4,8 @@ import com.google.common.collect.Range;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static helpers.ValidatorArguments.validate;
 
@@ -23,8 +23,6 @@ final public class Fecha {
     }
 
     public static <T extends Cronologico> List<T> filterRange(List<T> lista, Range<LocalDate> periodo) {
-        List<T> filtered = new LinkedList<>();
-        for (T item : lista) if (periodo.contains(item.getFecha())) filtered.add(item);
-        return filtered;
+        return lista.stream().filter(item -> periodo.contains(item.getFecha())).collect(Collectors.toList());
     }
 }

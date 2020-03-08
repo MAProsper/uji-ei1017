@@ -38,8 +38,8 @@ public class VentanaClientesRango extends Ventana {
         switch (button) {
             case "Ver cliente":
                 final Cliente cliente = gestor.getCliente(getTextbox("Selecionado NIF"));
-                ventana = (cliente != null) ? gestor.getVisor(cliente) : new VentanaError();
                 gestor.setClienteSelecionado(cliente);
+                ventana = gestor.getVisor();
                 break;
             case "Volver":
                 break;

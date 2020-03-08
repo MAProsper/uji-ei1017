@@ -81,11 +81,11 @@ public class Gestor {
         facturas.add(factura);
     }
 
-    public Ventana getVisor(final Cliente cliente) {
-        referenceNotNull("cliente", cliente);
-        if (cliente instanceof ClientePaticular) return new VentanaClienteParticular();
-        else if (cliente instanceof ClienteEmpresa) return new VentanaClienteEmpresa();
-        else return new VentanaCliente();
+    public Ventana getVisor() {
+        if (clienteSelecionado instanceof ClientePaticular) return new VentanaClienteParticular();
+        else if (clienteSelecionado instanceof ClienteEmpresa) return new VentanaClienteEmpresa();
+        else if (clienteSelecionado != null) return new VentanaCliente();
+        else return new VentanaError();
     }
 
     public void removeCliente() {
