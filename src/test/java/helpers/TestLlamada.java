@@ -3,7 +3,7 @@ package helpers;
 import helpers.generadores.GeneradorLlamada;
 import org.junit.jupiter.api.RepeatedTest;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +13,7 @@ public class TestLlamada {
     @RepeatedTest(3)
     public void testLlamada() {
         final String telefono = generador.nextTelefono();
-        final Date fecha = generador.nextFecha();
+        final LocalDate fecha = generador.nextFecha();
         final double duracion = generador.nextDuracion();
         System.out.println("Llamada{" +
                 "telefono='" + telefono + '\'' +

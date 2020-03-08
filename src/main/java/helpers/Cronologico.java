@@ -1,7 +1,7 @@
 package helpers;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public interface Cronologico {
-    Date getFecha();
+    LocalDate getFecha();
 }

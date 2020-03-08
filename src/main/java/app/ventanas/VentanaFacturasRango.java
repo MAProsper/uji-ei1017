@@ -5,15 +5,15 @@ import com.google.common.collect.Range;
 import helpers.Factura;
 import helpers.Fecha;
 
+import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class VentanaFacturasRango extends Ventana {
-    final Range<Date> periodo;
+    final Range<LocalDate> periodo;
 
-    public VentanaFacturasRango(final Range<Date> perido) {
+    public VentanaFacturasRango(final Range<LocalDate> perido) {
         super(
                 "Facturas (rango)",
                 "Las facturas en el periodo " + Formato.periodo(perido),

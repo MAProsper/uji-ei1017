@@ -5,15 +5,15 @@ import com.google.common.collect.Range;
 import helpers.Fecha;
 import helpers.Llamada;
 
+import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class VentanaLlamadasRango extends Ventana {
-    final Range<Date> periodo;
+    final Range<LocalDate> periodo;
 
-    public VentanaLlamadasRango(final Range<Date> perido) {
+    public VentanaLlamadasRango(final Range<LocalDate> perido) {
         super(
                 "Llamadas (rango)",
                 "Las llamadas en el periodo " + Formato.periodo(perido),

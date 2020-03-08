@@ -3,10 +3,10 @@ package clientes;
 import helpers.Direccion;
 import tarifas.Tarifa;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ClienteEmpresa extends Cliente {
-    public ClienteEmpresa(final String NIF, final String nombre, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
+    public ClienteEmpresa(final String NIF, final String nombre, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {
         super(NIF, nombre, direccion, correo, fechaAlta, tarifa);
     }
 

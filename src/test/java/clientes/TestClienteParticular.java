@@ -7,7 +7,7 @@ import helpers.Llamada;
 import org.junit.jupiter.api.RepeatedTest;
 import tarifas.Tarifa;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class TestClienteParticular extends TestCliente {
         final String apellidos = generador.nextApellidos();
         final Direccion direccion = generador.nextDireccion();
         final String correo = generador.nextCorreo();
-        final Date fechaAlta = generador.nextFecha();
+        final LocalDate fechaAlta = generador.nextFecha();
         final Tarifa tarifa = generador.nextTarifa();
         final List<Llamada> llamadas = new LinkedList<>();
         final List<Factura> facturas = new LinkedList<>();

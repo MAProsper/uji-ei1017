@@ -7,7 +7,7 @@ import tarifas.Tarifa;
 import java.text.ParseException;
 import java.util.Arrays;
 
-import static helpers.Fecha.parseDate;
+import static helpers.Fecha.parse;
 
 public class VentanaClienteNuevo extends Ventana {
     public VentanaClienteNuevo() {
@@ -54,7 +54,7 @@ public class VentanaClienteNuevo extends Ventana {
         try {
             final Tarifa tarifa = new Tarifa(Double.parseDouble(tarifaBase));
             final Direccion direccion = new Direccion(Integer.parseInt(codigoPostal), porvincia, poblacion);
-            cliente = new Cliente(NIF, nombre, direccion, correo, parseDate(fechaAlta), tarifa);
+            cliente = new Cliente(NIF, nombre, direccion, correo, parse(fechaAlta), tarifa);
         } catch (ParseException | IllegalArgumentException ignored) {
         }
 

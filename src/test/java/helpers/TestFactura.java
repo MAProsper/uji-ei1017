@@ -5,7 +5,7 @@ import helpers.generadores.GeneradorFactura;
 import org.junit.jupiter.api.RepeatedTest;
 import tarifas.Tarifa;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,8 +16,8 @@ public class TestFactura {
     public void testFactura() {
         final int codigo = generador.nextCodigo();
         final Tarifa tarifa = generador.nextTarifa();
-        final Date fechaEmision = generador.nextFecha();
-        final Range<Date> periodo = generador.nextPeriodo();
+        final LocalDate fechaEmision = generador.nextFecha();
+        final Range<LocalDate> periodo = generador.nextPeriodo();
         final double importe = generador.nextImporte();
         System.out.println("Factura{" +
                 "codigo=" + codigo +

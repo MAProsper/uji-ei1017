@@ -6,16 +6,16 @@ import clientes.Cliente;
 import com.google.common.collect.Range;
 import helpers.Fecha;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class VentanaClientesRango extends Ventana {
-    Range<Date> periodo;
+    Range<LocalDate> periodo;
 
-    public VentanaClientesRango(final Range<Date> periodo) {
+    public VentanaClientesRango(final Range<LocalDate> periodo) {
         super("Clientes (rango)",
                 "Los clientes en el periodo " + Formato.periodo(periodo),
                 true,

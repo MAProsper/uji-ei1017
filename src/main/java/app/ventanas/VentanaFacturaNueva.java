@@ -6,12 +6,12 @@ import helpers.Llamada;
 import tarifas.Tarifa;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import static helpers.Fecha.parseDate;
+import static helpers.Fecha.parse;
 
 public class VentanaFacturaNueva extends Ventana {
     public VentanaFacturaNueva() {
@@ -54,15 +54,15 @@ public class VentanaFacturaNueva extends Ventana {
         final String fechaFinal = getTextbox("Fecha de final (YYYY-MM-DD)");
 
         try {
-            final Range<Date> periodo = Range.closedOpen(parseDate(fechaInicio), parseDate(fechaFinal));
-            factura = new Factura(Integer.parseInt(codigo), tarifa, parseDate(fachaEmision), periodo, getImporte(getLlamadas(periodo)));
+            final Range<LocalDate> periodo = Range.closedOpen(parse(fechaInicio), parse(fechaFinal));
+            factura = new Factura(Integer.parseInt(codigo), tarifa, parse(fachaEmision), periodo, getImporte(getLlamadas(periodo)));
         } catch (ParseException | IllegalArgumentException ignored) {
         }
 
         return factura;
     }
 
-    List<Llamada> getLlamadas(final Range<Date> periodo) {
+    List<Llamada> getLlamadas(final Range<LocalDate> periodo) {
         final List<Llamada> llamadas = new LinkedList<>();
         for (Llamada llamada : getGestor().getClienteSelecionado().getLlamadas())
             if (periodo.contains(llamada.getFecha())) llamadas.add(llamada);

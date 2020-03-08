@@ -8,14 +8,14 @@ import helpers.Llamada;
 import helpers.generadores.GeneradorDireccion;
 import helpers.generadores.GeneradorFactura;
 import helpers.generadores.GeneradorLlamada;
-import helpers.generadores.Generator;
+import helpers.generadores.GeneratorFecha;
 import tarifas.Tarifa;
 import tarifas.generadores.GeneradorTarifa;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class GeneradorCliente {
-    final static Generator genHelper = new Generator();
+    final static GeneratorFecha genHelper = new GeneratorFecha();
     final static GeneradorDatosINE genINE = new GeneradorDatosINE();
     final static GeneradorDireccion genDireccion = new GeneradorDireccion();
     final static GeneradorTarifa genTarifa = new GeneradorTarifa();
@@ -43,7 +43,7 @@ public class GeneradorCliente {
         return stripNonWord(genINE.getNombre()) + "@" + stripNonWord(genINE.getPoblacion(provincia)) + "." + stripNonWord(provincia);
     }
 
-    public Date nextFecha() {
+    public LocalDate nextFecha() {
         return genHelper.nextFecha();
     }
 

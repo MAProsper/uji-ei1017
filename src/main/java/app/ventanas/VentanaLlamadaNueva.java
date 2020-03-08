@@ -5,7 +5,7 @@ import helpers.Llamada;
 import java.text.ParseException;
 import java.util.Arrays;
 
-import static helpers.Fecha.parseDate;
+import static helpers.Fecha.parse;
 
 public class VentanaLlamadaNueva extends Ventana {
     public VentanaLlamadaNueva() {
@@ -45,7 +45,7 @@ public class VentanaLlamadaNueva extends Ventana {
         final String duracion = getTextbox("Duracion (minutos)");
 
         try {
-            llamada = new Llamada(telefono, parseDate(fecha), Double.parseDouble(duracion));
+            llamada = new Llamada(telefono, parse(fecha), Double.parseDouble(duracion));
         } catch (ParseException | IllegalArgumentException ignored) {
         }
 

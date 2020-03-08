@@ -3,14 +3,14 @@ package clientes;
 import helpers.Direccion;
 import tarifas.Tarifa;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class ClientePaticular extends Cliente {
     final String apellidos;
 
-    public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final Date fechaAlta, final Tarifa tarifa) {
+    public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {
         super(NIF, nombre, direccion, correo, fechaAlta, tarifa);
         this.apellidos = stringNotEmpty("apellidos", apellidos);
     }

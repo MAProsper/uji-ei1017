@@ -5,13 +5,16 @@ import helpers.Factura;
 import tarifas.Tarifa;
 import tarifas.generadores.GeneradorTarifa;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import static helpers.Fecha.getPeriodo;
 
 public class GeneradorFactura {
     final static Random genBase = new Random();
-    final static Generator genHelper = new Generator();
+    final static GeneratorFecha genHelper = new GeneratorFecha();
     final static GeneradorTarifa genTarifa = new GeneradorTarifa();
     static int codigos = 0;
 
@@ -23,12 +26,12 @@ public class GeneradorFactura {
         return genTarifa.nextTarifa();
     }
 
-    public Date nextFecha() {
+    public LocalDate nextFecha() {
         return genHelper.nextFecha();
     }
 
-    public Range<Date> nextPeriodo() {
-        final List<Date> fechas = Arrays.asList(genHelper.nextFecha(), genHelper.nextFecha());
+    public Range<LocalDate> nextPeriodo() {
+        final List<LocalDate> fechas = Arrays.asList(genHelper.nextFecha(), genHelper.nextFecha());
         return getPeriodo(Collections.min(fechas), Collections.max(fechas));
     }
 

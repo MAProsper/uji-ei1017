@@ -1,16 +1,16 @@
 package helpers;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import static helpers.ValidatorArguments.*;
 
 public class Llamada implements Cronologico {
     final String telefono;
-    final Date fecha;
+    final LocalDate fecha;
     final double duracion;
 
-    public Llamada(final String telefono, final Date fecha, final double duracion) {
+    public Llamada(final String telefono, final LocalDate fecha, final double duracion) {
         this.telefono = stringMatchesPattern("telefono", telefono, "\\d{9}");
         this.fecha = referenceNotNull("fecha", fecha);
         this.duracion = numberNotNegative("duracion", duracion);
@@ -20,7 +20,7 @@ public class Llamada implements Cronologico {
         return telefono;
     }
 
-    final public Date getFecha() {
+    final public LocalDate getFecha() {
         return fecha;
     }
 

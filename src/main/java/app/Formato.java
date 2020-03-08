@@ -7,7 +7,7 @@ import com.google.common.collect.Range;
 import helpers.Factura;
 import helpers.Llamada;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static helpers.ValidatorArguments.referenceNotNull;
 
@@ -39,7 +39,7 @@ final public class Formato {
         return String.format("[%s] [%s] %s", cliente.getNIF(), tipo, nombre);
     }
 
-    public static String periodo(final Range<Date> periodo) {
+    public static String periodo(final Range<LocalDate> periodo) {
         return String.format("%s-%s", periodo.lowerEndpoint(), periodo.upperEndpoint());
     }
 }

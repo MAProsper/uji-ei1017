@@ -3,7 +3,7 @@ package helpers;
 import com.google.common.collect.Range;
 import tarifas.Tarifa;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,11 +14,11 @@ public class Factura implements Cronologico {
     final static Set<Integer> codigos = new HashSet<>();
     final int codigo;
     final Tarifa tarifa;
-    final Date fechaEmision;
-    final Range<Date> periodo;
+    final LocalDate fechaEmision;
+    final Range<LocalDate> periodo;
     final double importe;
 
-    public Factura(final int codigo, final Tarifa tarifa, final Date fechaEmision, final Range<Date> periodo, final double importe) {
+    public Factura(final int codigo, final Tarifa tarifa, final LocalDate fechaEmision, final Range<LocalDate> periodo, final double importe) {
         validate("codigo de factura repetido", !codigos.contains(codigo));
         this.codigo = numberNotNegative("codigo", codigo);
         this.tarifa = referenceNotNull("tarifa", tarifa);
@@ -36,11 +36,11 @@ public class Factura implements Cronologico {
         return tarifa;
     }
 
-    final public Date getFecha() {
+    final public LocalDate getFecha() {
         return fechaEmision;
     }
 
-    final public Range<Date> getPeriodo() {
+    final public Range<LocalDate> getPeriodo() {
         return periodo;
     }
 

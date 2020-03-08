@@ -2,18 +2,18 @@ package helpers.generadores;
 
 import helpers.Llamada;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Random;
 
 public class GeneradorLlamada {
     final static Random genBase = new Random();
-    final static Generator genHelper = new Generator();
+    final static GeneratorFecha genHelper = new GeneratorFecha();
 
     public String nextTelefono() {
         return Integer.toString(100000000 + genBase.nextInt(899999999));
     }
 
-    public Date nextFecha() {
+    public LocalDate nextFecha() {
         return genHelper.nextFecha();
     }
 

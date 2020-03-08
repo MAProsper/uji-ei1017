@@ -4,10 +4,10 @@ import com.google.common.collect.Range;
 import helpers.Fecha;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 
-import static helpers.Fecha.parseDate;
+import static helpers.Fecha.parse;
 
 public class VentanaRangoBuscar extends Ventana {
     final String tipo;
@@ -41,7 +41,7 @@ public class VentanaRangoBuscar extends Ventana {
         return ventana;
     }
 
-    Ventana getVentana(final Range<Date> periodo) {
+    Ventana getVentana(final Range<LocalDate> periodo) {
         final Ventana ventana;
 
         switch (tipo) {
@@ -61,13 +61,13 @@ public class VentanaRangoBuscar extends Ventana {
         return ventana;
     }
 
-    Range<Date> getPeriodo() {
+    Range<LocalDate> getPeriodo() {
         final String fechaInicio = getTextbox("Fecha inicial (YYYY-MM-DD)");
         final String fechaFinal = getTextbox("Fecha final (YYYY-MM-DD)");
-        Range<Date> periodo = null;
+        Range<LocalDate> periodo = null;
 
         try {
-            periodo = Fecha.getPeriodo(parseDate(fechaInicio), parseDate(fechaFinal));
+            periodo = Fecha.getPeriodo(parse(fechaInicio), parse(fechaFinal));
         } catch (ParseException | IllegalArgumentException ignored) {
         }
 
