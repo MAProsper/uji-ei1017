@@ -6,7 +6,10 @@ import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaPrincipal extends Ventana {
     public VentanaPrincipal() {
-        super("Menu principal", "Bienvenido a gestor de clientes AkiCode", false, Textbox.empty(), Button.values());
+        super(
+                "Menu principal",
+                "Bienvenido a gestor de clientes AkiCode",
+                false, Textbox.empty(), Button.values());
     }
 
     @Override

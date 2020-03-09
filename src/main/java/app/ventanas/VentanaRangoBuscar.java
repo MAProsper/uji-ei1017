@@ -8,13 +8,17 @@ import java.text.ParseException;
 import java.time.LocalDate;
 
 import static helpers.Fecha.parse;
+import static helpers.ValidatorArguments.referenceNotNull;
 import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaRangoBuscar extends Ventana {
     final Tipo tipo;
 
     public VentanaRangoBuscar(final Tipo tipo) {
-        super("Busqueda en rango", "Introduce un rango de fechas para buscar " + tipo.getDescription(), false, Textbox.values(), Button.values());
+        super(
+                "Busqueda en rango",
+                "Introduce un rango de fechas para buscar " + referenceNotNull("tipo", tipo).getDescription(),
+                false, Textbox.values(), Button.values());
         this.tipo = tipo;
     }
 

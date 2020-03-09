@@ -10,7 +10,10 @@ import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaClientes extends Ventana {
     public VentanaClientes() {
-        super("Clientes", "Listado de clientes", true, Textbox.values(), Button.values());
+        super(
+                "Clientes",
+                "Listado de clientes",
+                true, Textbox.values(), Button.values());
     }
 
     @Override
