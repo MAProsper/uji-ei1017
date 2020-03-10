@@ -1,19 +1,19 @@
 package app.ventanas;
 
+import app.Textbox;
 import clientes.ClientePaticular;
 import helpers.Direccion;
 
 import java.util.Arrays;
-import java.util.Collections;
+
+import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaClienteParticular extends Ventana {
     public VentanaClienteParticular() {
         super(
                 "Cliente (particular)",
                 "Gestion del cliente",
-                true,
-                Collections.emptyList(),
-                Arrays.asList("Ver llamadas", "Ver facturas", "Borrar cliente", "Volver"));
+                true, Textbox.empty(), Button.values());
     }
 
     @Override
@@ -35,23 +35,40 @@ public class VentanaClienteParticular extends Ventana {
     }
 
     @Override
-    public Ventana handle(final String button) {
+    public Ventana handle(final app.Button button) {
         Ventana ventana = null;
 
-        switch (button) {
-            case "Ver llamadas":
+        switch ((VentanaClienteEmpresa.Button) button) {
+            case VER_LLAMADAS:
                 ventana = new VentanaLlamadas();
                 break;
-            case "Ver facturas":
+            case VAR_FACTURAS:
                 ventana = new VentanaFacturas();
                 break;
-            case "Borrar cliente":
+            case BORRAR_CLIENTE:
                 getGestor().removeCliente();
                 break;
-            case "Volver":
+            case VOLVER:
                 break;
         }
 
         return ventana;
+    }
+
+    enum Button implements app.Button {
+        VER_LLAMADAS("Ver llamadas"),
+        VAR_FACTURAS("Ver facturas"),
+        BORRAR_CLIENTE("Borrar cliente"),
+        VOLVER("Volver");
+
+        final String description;
+
+        Button(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 }

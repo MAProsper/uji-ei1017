@@ -7,10 +7,10 @@ import com.google.common.collect.Range;
 import helpers.Fecha;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaClientesRango extends Ventana {
     Range<LocalDate> periodo;
@@ -18,9 +18,7 @@ public class VentanaClientesRango extends Ventana {
     public VentanaClientesRango(final Range<LocalDate> periodo) {
         super("Clientes (rango)",
                 "Los clientes en el periodo " + Formato.periodo(periodo),
-                true,
-                Collections.singletonList("Selecionado NIF"),
-                Arrays.asList("Ver cliente", "Volver"));
+                true, Textbox.values(), Button.values());
         this.periodo = periodo;
     }
 
@@ -31,20 +29,49 @@ public class VentanaClientesRango extends Ventana {
     }
 
     @Override
-    public Ventana handle(String button) {
+    public Ventana handle(final app.Button button) {
         Ventana ventana = null;
         final Gestor gestor = getGestor();
 
-        switch (button) {
-            case "Ver cliente":
-                final Cliente cliente = gestor.getCliente(getTextbox("Selecionado NIF"));
+        switch ((Button) button) {
+            case VER_CLIENTE:
+                final Cliente cliente = gestor.getCliente(getTextbox(Textbox.SELECIONAR_NIF));
                 gestor.setClienteSelecionado(cliente);
                 ventana = gestor.getVisor();
                 break;
-            case "Volver":
+            case VOLVER:
                 break;
         }
 
         return ventana;
+    }
+
+    enum Textbox implements app.Textbox {
+        SELECIONAR_NIF("NIF");
+
+        final String description;
+
+        Textbox(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    enum Button implements app.Button {
+        VER_CLIENTE("Ver cliente"),
+        VOLVER("Volver");
+
+        final String description;
+
+        Button(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 }
