@@ -1,12 +1,12 @@
 package tarifas;
 
-import helpers.Llamada;
+import helpers.clases.Llamada;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import static helpers.ValidatorArguments.numberNotNegative;
-import static helpers.ValidatorArguments.referenceNotNull;
+import static helpers.estaticos.ValidatorArguments.numberNotNegative;
+import static helpers.estaticos.ValidatorArguments.referenceNotNull;
 
 public class Tarifa implements Serializable {
 

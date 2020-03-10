@@ -1,5 +1,6 @@
 package helpers;
 
+import helpers.clases.Direccion;
 import helpers.generadores.GeneradorDireccion;
 import org.junit.jupiter.api.RepeatedTest;
 

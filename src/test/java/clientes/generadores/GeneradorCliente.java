@@ -2,9 +2,9 @@ package clientes.generadores;
 
 import clientes.Cliente;
 import es.uji.www.GeneradorDatosINE;
-import helpers.Direccion;
-import helpers.Factura;
-import helpers.Llamada;
+import helpers.clases.Direccion;
+import helpers.clases.Factura;
+import helpers.clases.Llamada;
 import helpers.generadores.GeneradorDireccion;
 import helpers.generadores.GeneradorFactura;
 import helpers.generadores.GeneradorLlamada;

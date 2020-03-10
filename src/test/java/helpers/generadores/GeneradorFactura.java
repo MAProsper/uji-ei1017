@@ -1,7 +1,7 @@
 package helpers.generadores;
 
 import com.google.common.collect.Range;
-import helpers.Factura;
+import helpers.clases.Factura;
 import tarifas.Tarifa;
 import tarifas.generadores.GeneradorTarifa;
 
@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static helpers.Fecha.getPeriodo;
+import static helpers.estaticos.Fecha.getPeriodo;
 
 public class GeneradorFactura {
     final static Random genBase = new Random();

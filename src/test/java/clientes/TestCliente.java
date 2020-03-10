@@ -1,9 +1,9 @@
 package clientes;
 
 import clientes.generadores.GeneradorCliente;
-import helpers.Direccion;
-import helpers.Factura;
-import helpers.Llamada;
+import helpers.clases.Direccion;
+import helpers.clases.Factura;
+import helpers.clases.Llamada;
 import org.junit.jupiter.api.RepeatedTest;
 import tarifas.Tarifa;
 

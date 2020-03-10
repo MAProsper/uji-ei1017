@@ -1,16 +1,16 @@
 package clientes;
 
-import helpers.Cronologico;
-import helpers.Direccion;
-import helpers.Factura;
-import helpers.Llamada;
+import helpers.clases.Direccion;
+import helpers.clases.Factura;
+import helpers.clases.Llamada;
+import helpers.interfaces.Cronologico;
 import tarifas.Tarifa;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-import static helpers.ValidatorArguments.*;
+import static helpers.estaticos.ValidatorArguments.*;
 
 public class Cliente implements Cronologico, Serializable {
     private static final long serialVersionUID = -9007760874300103710L;

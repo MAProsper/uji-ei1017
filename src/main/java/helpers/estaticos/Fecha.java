@@ -1,0 +1,24 @@
+package helpers.estaticos;
+
+import com.google.common.collect.Range;
+import helpers.interfaces.Cronologico;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static helpers.estaticos.ValidatorArguments.validate;
+
+final public class Fecha {
+    private Fecha() {
+    }
+
+    public static Range<LocalDate> getPeriodo(final LocalDate inicio, final LocalDate fin) {
+        validate("final debe ser posterior a inicio", fin.compareTo(inicio) > 0);
+        return Range.closedOpen(inicio, fin);
+    }
+
+    public static <T extends Cronologico> List<T> filterRange(List<T> lista, Range<LocalDate> periodo) {
+        return lista.stream().filter(item -> periodo.contains(item.getFecha())).collect(Collectors.toList());
+    }
+}

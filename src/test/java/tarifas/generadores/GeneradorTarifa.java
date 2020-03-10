@@ -1,6 +1,6 @@
 package tarifas.generadores;
 
-import helpers.Llamada;
+import helpers.clases.Llamada;
 import helpers.generadores.GeneradorLlamada;
 import tarifas.Tarifa;
 

@@ -1,18 +1,20 @@
 package app;
 
-import app.ventanas.*;
+import app.ventanas.abstractas.Ventana;
+import app.ventanas.claeses.*;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
-import helpers.Factura;
-import helpers.Llamada;
+import helpers.clases.Factura;
+import helpers.clases.Llamada;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-import static helpers.ValidatorArguments.referenceNotNull;
+import static helpers.estaticos.ValidatorArguments.referenceNotNull;
+import static helpers.estaticos.ValidatorArguments.validate;
 
 public class Gestor {
     final Stack<Ventana> stack;
@@ -21,7 +23,6 @@ public class Gestor {
     List<Cliente> clientes;
     List<Factura> facturas;
     List<Llamada> llamadas;
-    Cliente clienteSelecionado;
 
     public Gestor() {
         stack = new Stack<>();
@@ -34,7 +35,6 @@ public class Gestor {
         clientes = new LinkedList<>();
         facturas = new LinkedList<>();
         llamadas = new LinkedList<>();
-        clienteSelecionado = null;
     }
 
     public List<Cliente> getClientes() {
@@ -57,63 +57,46 @@ public class Gestor {
         return factura2cliente.get(codigo);
     }
 
-    public Cliente getClienteSelecionado() {
-        return clienteSelecionado;
-    }
-
-    public void setClienteSelecionado(final Cliente cliente) {
-        this.clienteSelecionado = cliente;
-    }
-
     public void addCliente(final Cliente cliente) {
         referenceNotNull("cliente", cliente);
         id2cliente.put(cliente.getNIF(), cliente);
         clientes.add(cliente);
-        for (final Llamada llamada : cliente.getLlamadas()) gestionarLlamada(cliente, llamada);
-        for (final Factura factura : cliente.getFacturas()) gestionarFactura(cliente, factura);
+        for (final Llamada llamada : cliente.getLlamadas()) addLlamada(cliente, llamada);
+        for (final Factura factura : cliente.getFacturas()) addFactura(cliente, factura);
     }
 
-    void gestionarLlamada(final Cliente cliente, final Llamada llamada) {
-        referenceNotNull("cliente", clienteSelecionado);
+    public void addLlamada(final Cliente cliente, final Llamada llamada) {
+        referenceNotNull("cliente", cliente);
         referenceNotNull("llamada", llamada);
         llamadas.add(llamada);
     }
 
-    public void addLlamada(final Llamada llamada) {
-        gestionarLlamada(clienteSelecionado, llamada);
-        clienteSelecionado.addLlamada(llamada);
-    }
-
-    void gestionarFactura(final Cliente cliente, final Factura factura) {
+    public void addFactura(final Cliente cliente, final Factura factura) {
         referenceNotNull("cliente", cliente);
         referenceNotNull("factura", factura);
         factura2cliente.put(factura.getCodigo(), cliente);
         facturas.add(factura);
     }
 
-    public void addFactura(final Factura factura) {
-        gestionarFactura(clienteSelecionado, factura);
-        clienteSelecionado.addFactura(factura);
+    public Ventana getVisor(final Cliente cliente) {
+        if (cliente instanceof ClientePaticular) return new VentanaClienteParticular((ClientePaticular) cliente);
+        else if (cliente instanceof ClienteEmpresa) return new VentanaClienteEmpresa((ClienteEmpresa) cliente);
+        else if (cliente != null) return new VentanaCliente(cliente);
+        else return new VentanaError("cliente no encotrado");
     }
 
-    public Ventana getVisor() {
-        if (clienteSelecionado instanceof ClientePaticular) return new VentanaClienteParticular();
-        else if (clienteSelecionado instanceof ClienteEmpresa) return new VentanaClienteEmpresa();
-        else if (clienteSelecionado != null) return new VentanaCliente();
-        else return new VentanaError();
-    }
-
-    public void removeCliente() {
-        final Cliente cliente = getClienteSelecionado();
+    public void removeCliente(final Cliente cliente) {
+        referenceNotNull("cliente", cliente);
         id2cliente.remove(cliente.getNIF());
         clientes.remove(cliente);
+
         for (Factura factura : cliente.getFacturas()) {
             factura2cliente.remove(factura.getCodigo());
             facturas.remove(factura);
         }
+
         for (Llamada llamada : cliente.getLlamadas())
             llamadas.remove(llamada);
-        setClienteSelecionado(null);
     }
 
     public void run() {
@@ -129,23 +112,38 @@ public class Gestor {
         Ventana.setGestor(null);
     }
 
-    @SuppressWarnings("unchecked")
-    public void load(final Path path) throws IOException, ClassNotFoundException {
-        final InputStream stream = Files.newInputStream(path);
-        final ObjectInputStream ois = new ObjectInputStream(stream);
-        final Object datos = ois.readObject();
-        if (datos == null || datos.getClass() != clientes.getClass()) throw new IllegalTypeException();
-        ois.close();
+    public void load(final Path path) {
+        Object datos = null;
 
-        clearClientes();
-        for (Cliente cliente : (List<Cliente>) datos) addCliente(cliente);
+        try {
+            final InputStream stream = Files.newInputStream(path);
+            final ObjectInputStream ois = new ObjectInputStream(stream);
+            datos = ois.readObject();
+            ois.close();
+        } catch (IOException | ClassNotFoundException ignored) {
+        }
+
+        if (datos instanceof Cliente[]) {
+            clearClientes();
+            for (Cliente cliente : (Cliente[]) datos) addCliente(cliente);
+        }
+
+        validate("la ruta no contiene un archivo valido", datos != null);
     }
 
-    public void save(final Path path) throws IOException {
-        final OutputStream stream = Files.newOutputStream(path);
-        final ObjectOutputStream oos = new ObjectOutputStream(stream);
-        oos.writeObject(clientes);
-        oos.close();
+    public void save(final Path path) {
+        boolean saved = false;
+
+        try {
+            final OutputStream stream = Files.newOutputStream(path);
+            final ObjectOutputStream oos = new ObjectOutputStream(stream);
+            oos.writeObject(getClientes().toArray(new Cliente[0]));
+            oos.close();
+            saved = true;
+        } catch (IOException ignored) {
+        }
+
+        validate("no se ha podido guardar en la ruta", saved);
     }
 
     @Override
@@ -153,10 +151,6 @@ public class Gestor {
         return "Gestor{" +
                 "clientes=" + getClientes() +
                 '}';
-    }
-
-    public static class IllegalTypeException extends RuntimeException {
-        private static final long serialVersionUID = 3075951094401260324L;
     }
 
     public static class OverlappingVentanaException extends IllegalStateException {

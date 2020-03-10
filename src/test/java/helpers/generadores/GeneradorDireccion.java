@@ -1,7 +1,7 @@
 package helpers.generadores;
 
 import es.uji.www.GeneradorDatosINE;
-import helpers.Direccion;
+import helpers.clases.Direccion;
 
 public class GeneradorDireccion {
     final static GeneradorDatosINE genINE = new GeneradorDatosINE();

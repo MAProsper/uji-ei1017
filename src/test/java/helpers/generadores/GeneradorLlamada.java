@@ -1,6 +1,6 @@
 package helpers.generadores;
 
-import helpers.Llamada;
+import helpers.clases.Llamada;
 
 import java.time.LocalDate;
 import java.util.Random;

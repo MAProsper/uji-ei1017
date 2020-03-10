@@ -4,12 +4,12 @@ import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
 import com.google.common.collect.Range;
-import helpers.Factura;
-import helpers.Llamada;
+import helpers.clases.Factura;
+import helpers.clases.Llamada;
 
 import java.time.LocalDate;
 
-import static helpers.ValidatorArguments.referenceNotNull;
+import static helpers.estaticos.ValidatorArguments.referenceNotNull;
 
 final public class Formato {
     public static String llamda(final Llamada llamada) {

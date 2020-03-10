@@ -1,6 +1,6 @@
 package tarifas;
 
-import helpers.Llamada;
+import helpers.clases.Llamada;
 import org.junit.jupiter.api.RepeatedTest;
 import tarifas.generadores.GeneradorTarifa;
 

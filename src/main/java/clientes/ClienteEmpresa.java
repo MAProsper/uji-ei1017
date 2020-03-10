@@ -1,6 +1,6 @@
 package clientes;
 
-import helpers.Direccion;
+import helpers.clases.Direccion;
 import tarifas.Tarifa;
 
 import java.time.LocalDate;

@@ -1,5 +1,6 @@
 package helpers;
 
+import helpers.clases.Llamada;
 import helpers.generadores.GeneradorLlamada;
 import org.junit.jupiter.api.RepeatedTest;
 
