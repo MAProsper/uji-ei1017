@@ -7,6 +7,6 @@ public class GeneratorFecha {
     final static Random genBase = new Random();
 
     public LocalDate nextFecha() {
-        return LocalDate.ofEpochDay(genBase.nextLong());
+        return LocalDate.ofEpochDay(genBase.nextLong() / 86400000L);
     }
 }
