@@ -79,7 +79,7 @@ public class Gestor {
         llamadas.add(llamada);
     }
 
-    public void gestionarLlamada(final Llamada llamada) {
+    public void addLlamada(final Llamada llamada) {
         gestionarLlamada(clienteSelecionado, llamada);
         clienteSelecionado.addLlamada(llamada);
     }
@@ -91,7 +91,7 @@ public class Gestor {
         facturas.add(factura);
     }
 
-    public void gestionarFactura(final Factura factura) {
+    public void addFactura(final Factura factura) {
         gestionarFactura(clienteSelecionado, factura);
         clienteSelecionado.addFactura(factura);
     }
