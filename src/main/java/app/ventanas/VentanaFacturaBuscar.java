@@ -3,17 +3,14 @@ package app.ventanas;
 import app.Gestor;
 import clientes.Cliente;
 
-import java.util.Arrays;
-import java.util.Collections;
+import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaFacturaBuscar extends Ventana {
     public VentanaFacturaBuscar() {
         super(
                 "Busqueda",
                 "Intoduzca el codigo de la factura",
-                false,
-                Collections.singletonList("Codigo"),
-                Arrays.asList("Buscar", "Volver"));
+                false, Textbox.values(), Button.values());
     }
 
     @Override
@@ -21,17 +18,17 @@ public class VentanaFacturaBuscar extends Ventana {
     }
 
     @Override
-    public Ventana handle(String button) {
+    public Ventana handle(final app.Button button) {
         Ventana ventana = null;
 
-        switch (button) {
-            case "Buscar":
+        switch ((Button) button) {
+            case BUSCAR:
                 final Gestor gestor = getGestor();
                 final Cliente cliente = gestor.getCliente(getCodigo());
                 gestor.setClienteSelecionado(cliente);
                 ventana = gestor.getVisor();
                 break;
-            case "Volver":
+            case VOLVER:
                 break;
         }
 
@@ -39,7 +36,7 @@ public class VentanaFacturaBuscar extends Ventana {
     }
 
     Integer getCodigo() {
-        final String codigo = getTextbox("Codigo");
+        final String codigo = getTextbox(Textbox.CODIGO);
 
         try {
             return Integer.parseInt(codigo);
@@ -48,4 +45,33 @@ public class VentanaFacturaBuscar extends Ventana {
 
         return null;
     }
+
+    enum Button implements app.Button {
+        BUSCAR("Buscar"),
+        VOLVER("Volver");
+
+        final String description;
+
+        Button(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    enum Textbox implements app.Textbox {
+        CODIGO("Codigo");
+        final String description;
+
+        Textbox(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
 }

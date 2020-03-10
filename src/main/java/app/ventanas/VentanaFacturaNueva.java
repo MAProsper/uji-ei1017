@@ -7,20 +7,18 @@ import tarifas.Tarifa;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import static helpers.Fecha.parse;
+import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaFacturaNueva extends Ventana {
     public VentanaFacturaNueva() {
         super(
                 "Facturas",
                 "Rellena los datos de la nueva factura",
-                false,
-                Arrays.asList("Codigo", "Fecha de emision (YYYY-MM-DD)", "Fecha de inicio (YYYY-MM-DD)", "Fecha de final (YYYY-MM-DD)"),
-                Arrays.asList("Crear", "Volver"));
+                false, Textbox.values(), Button.values());
     }
 
     @Override
@@ -28,16 +26,16 @@ public class VentanaFacturaNueva extends Ventana {
     }
 
     @Override
-    public Ventana handle(final String button) {
+    public Ventana handle(final app.Button button) {
         Ventana ventana = null;
 
-        switch (button) {
-            case "Crear":
+        switch ((Button) button) {
+            case CREAR:
                 Factura factura = crearFactura();
                 if (factura == null) ventana = new VentanaError();
                 else getGestor().gestionarFactura(factura);
                 break;
-            case "Volver":
+            case VOLVER:
                 break;
         }
 
@@ -48,10 +46,10 @@ public class VentanaFacturaNueva extends Ventana {
         final Tarifa tarifa = getGestor().getClienteSelecionado().getTarifa();
         Factura factura = null;
 
-        final String codigo = getTextbox("Codigo");
-        final String fachaEmision = getTextbox("Fecha de emision (YYYY-MM-DD)");
-        final String fechaInicio = getTextbox("Fecha de inicio (YYYY-MM-DD)");
-        final String fechaFinal = getTextbox("Fecha de final (YYYY-MM-DD)");
+        final String codigo = getTextbox(Textbox.CODIGO);
+        final String fachaEmision = getTextbox(Textbox.FECHA_EMISION);
+        final String fechaInicio = getTextbox(Textbox.FECHA_INICIO);
+        final String fechaFinal = getTextbox(Textbox.FECHA_FINAL);
 
         try {
             final Range<LocalDate> periodo = Range.closedOpen(parse(fechaInicio), parse(fechaFinal));
@@ -75,4 +73,37 @@ public class VentanaFacturaNueva extends Ventana {
         for (Llamada llamada : llamadas) importe += tarifa.getImporte(llamada);
         return importe;
     }
+
+    enum Button implements app.Button {
+        CREAR("crear"),
+        VOLVER("volver");
+
+        final String description;
+
+        Button(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    enum Textbox implements app.Textbox {
+        CODIGO("codigo"),
+        FECHA_EMISION("Fecha de emision (YYYY-MM-DD)"),
+        FECHA_INICIO("Fecha de inicio (YYYY-MM-DD)"),
+        FECHA_FINAL("Fecha de final (YYYY-MM-DD)");
+        final String description;
+
+        Textbox(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+
 }

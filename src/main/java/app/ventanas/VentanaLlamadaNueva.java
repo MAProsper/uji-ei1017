@@ -3,18 +3,16 @@ package app.ventanas;
 import helpers.Llamada;
 
 import java.text.ParseException;
-import java.util.Arrays;
 
 import static helpers.Fecha.parse;
+import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class VentanaLlamadaNueva extends Ventana {
     public VentanaLlamadaNueva() {
         super(
                 "Llamadas",
                 "Rellena los datos de la nueva llamada",
-                false,
-                Arrays.asList("Telefono", "Fecha (YYYY-MM-DD)", "Duracion (minutos)"),
-                Arrays.asList("Crear", "Volver"));
+                false, Textbox.values(), Button.values());
     }
 
     @Override
@@ -22,16 +20,16 @@ public class VentanaLlamadaNueva extends Ventana {
     }
 
     @Override
-    public Ventana handle(final String button) {
+    public Ventana handle(final app.Button button) {
         Ventana ventana = null;
 
-        switch (button) {
-            case "Crear":
+        switch ((Button) button) {
+            case CREAR:
                 Llamada llamada = crearLlamada();
                 if (llamada == null) ventana = new VentanaError();
                 else getGestor().gestionarLlamada(llamada);
                 break;
-            case "Volver":
+            case VOLVER:
                 break;
         }
 
@@ -40,9 +38,9 @@ public class VentanaLlamadaNueva extends Ventana {
 
     Llamada crearLlamada() {
         Llamada llamada = null;
-        final String telefono = getTextbox("Telefono");
-        final String fecha = getTextbox("Fecha (YYYY-MM-DD)");
-        final String duracion = getTextbox("Duracion (minutos)");
+        final String telefono = getTextbox(Textbox.TELEFONO);
+        final String fecha = getTextbox(Textbox.FECHA);
+        final String duracion = getTextbox(Textbox.DURACION);
 
         try {
             llamada = new Llamada(telefono, parse(fecha), Double.parseDouble(duracion));
@@ -50,5 +48,35 @@ public class VentanaLlamadaNueva extends Ventana {
         }
 
         return llamada;
+    }
+
+    enum Button implements app.Button {
+        CREAR("crear"),
+        VOLVER("volver");
+
+        final String description;
+
+        Button(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    enum Textbox implements app.Textbox {
+        TELEFONO("Telefono"),
+        FECHA("Fecha (YYYY-MM-DD)"),
+        DURACION("Duracion");
+        final String description;
+
+        Textbox(final String description) {
+            this.description = stringNotEmpty("descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 }
