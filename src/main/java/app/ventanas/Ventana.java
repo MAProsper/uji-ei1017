@@ -53,7 +53,11 @@ abstract public class Ventana {
     }
 
     public static Gestor getGestor() {
-        return gestor;
+        return validate("gestor no esta asignado", gestor, gestor != null);
+    }
+
+    public static boolean hasGestor() {
+        return gestor != null;
     }
 
     public static void setGestor(final Gestor gestor) {

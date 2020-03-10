@@ -110,7 +110,7 @@ public class Gestor {
     }
 
     public void run() {
-        if (Ventana.getGestor() != null) throw new OverlappingVentanaException();
+        if (Ventana.hasGestor()) throw new OverlappingVentanaException();
 
         Ventana.setGestor(this);
         stack.push(new VentanaPrincipal());
