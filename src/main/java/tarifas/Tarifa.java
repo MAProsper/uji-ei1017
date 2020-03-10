@@ -10,6 +10,7 @@ import static helpers.ValidatorArguments.referenceNotNull;
 
 public class Tarifa implements Serializable {
 
+    private static final long serialVersionUID = -4829115908149179461L;
     final double precio;
 
     public Tarifa(final double precio) {

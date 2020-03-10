@@ -12,6 +12,7 @@ public class Direccion implements Serializable {
 
     final static BiMap<String, Integer> provinciaCodigo = HashBiMap.create();
     final static BiMap<Integer, String> codigoProvincia = provinciaCodigo.inverse();
+    private static final long serialVersionUID = -8103908310482470417L;
     final int codigoPostal;
     final String provincia;
     final String poblacion;

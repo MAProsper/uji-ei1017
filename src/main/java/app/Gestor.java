@@ -7,6 +7,7 @@ import clientes.ClientePaticular;
 import helpers.Factura;
 import helpers.Llamada;
 
+import java.nio.file.Path;
 import java.util.*;
 
 import static helpers.ValidatorArguments.referenceNotNull;
@@ -109,7 +110,7 @@ public class Gestor {
         setClienteSelecionado(null);
     }
 
-    public void run() {
+    public void run(final Path path) {
         if (Ventana.hasGestor()) throw new OverlappingVentanaException();
 
         Ventana.setGestor(this);
@@ -130,5 +131,6 @@ public class Gestor {
     }
 
     public static class OverlappingVentanaException extends IllegalStateException {
+        private static final long serialVersionUID = -4234327239149123858L;
     }
 }

@@ -7,6 +7,7 @@ import java.util.Objects;
 import static helpers.ValidatorArguments.*;
 
 public class Llamada implements Cronologico, Serializable {
+    private static final long serialVersionUID = 9196325539442745850L;
     final String telefono;
     final LocalDate fecha;
     final double duracion;

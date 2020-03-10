@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import static helpers.ValidatorArguments.stringNotEmpty;
 
 public class ClientePaticular extends Cliente {
+    private static final long serialVersionUID = 9112248928365815263L;
     final String apellidos;
 
     public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {

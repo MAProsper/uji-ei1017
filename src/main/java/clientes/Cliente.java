@@ -13,6 +13,7 @@ import java.util.*;
 import static helpers.ValidatorArguments.*;
 
 public class Cliente implements Cronologico, Serializable {
+    private static final long serialVersionUID = -9007760874300103710L;
     final String NIF;
     final String nombre;
     final Direccion direccion;

@@ -13,6 +13,7 @@ import static helpers.ValidatorArguments.*;
 
 public class Factura implements Cronologico, Serializable {
     final static Set<Integer> codigos = new HashSet<>();
+    private static final long serialVersionUID = 4248121609591730120L;
     final int codigo;
     final Tarifa tarifa;
     final LocalDate fechaEmision;
