@@ -106,7 +106,7 @@ public class Gestor {
         }
         for (Llamada llamada : cliente.getLlamadas())
             llamadas.remove(llamada);
-        clienteSelecionado = null;
+        setClienteSelecionado(null);
     }
 
     public void run() {

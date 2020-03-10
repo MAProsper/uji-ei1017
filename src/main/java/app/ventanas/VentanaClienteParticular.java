@@ -1,5 +1,6 @@
 package app.ventanas;
 
+import app.Gestor;
 import app.Textbox;
 import clientes.ClientePaticular;
 import helpers.Direccion;
@@ -37,6 +38,7 @@ public class VentanaClienteParticular extends Ventana {
     @Override
     public Ventana handle(final app.Button button) {
         Ventana ventana = null;
+        final Gestor gestor = getGestor();
 
         switch ((VentanaClienteEmpresa.Button) button) {
             case VER_LLAMADAS:
@@ -46,9 +48,10 @@ public class VentanaClienteParticular extends Ventana {
                 ventana = new VentanaFacturas();
                 break;
             case BORRAR_CLIENTE:
-                getGestor().removeCliente();
+                gestor.removeCliente();
                 break;
             case VOLVER:
+                gestor.setClienteSelecionado(null);
                 break;
         }
 
