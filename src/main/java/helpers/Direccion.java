@@ -3,11 +3,12 @@ package helpers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import static helpers.ValidatorArguments.*;
 
-public class Direccion {
+public class Direccion implements Serializable {
 
     final static BiMap<String, Integer> provinciaCodigo = HashBiMap.create();
     final static BiMap<Integer, String> codigoProvincia = provinciaCodigo.inverse();

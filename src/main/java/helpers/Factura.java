@@ -3,6 +3,7 @@ package helpers;
 import com.google.common.collect.Range;
 import tarifas.Tarifa;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Set;
 
 import static helpers.ValidatorArguments.*;
 
-public class Factura implements Cronologico {
+public class Factura implements Cronologico, Serializable {
     final static Set<Integer> codigos = new HashSet<>();
     final int codigo;
     final Tarifa tarifa;

@@ -2,12 +2,13 @@ package tarifas;
 
 import helpers.Llamada;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import static helpers.ValidatorArguments.numberNotNegative;
 import static helpers.ValidatorArguments.referenceNotNull;
 
-public class Tarifa {
+public class Tarifa implements Serializable {
 
     final double precio;
 

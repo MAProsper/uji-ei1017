@@ -6,12 +6,13 @@ import helpers.Factura;
 import helpers.Llamada;
 import tarifas.Tarifa;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
 import static helpers.ValidatorArguments.*;
 
-public class Cliente implements Cronologico {
+public class Cliente implements Cronologico, Serializable {
     final String NIF;
     final String nombre;
     final Direccion direccion;

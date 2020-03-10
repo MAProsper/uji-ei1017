@@ -1,11 +1,12 @@
 package helpers;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 import static helpers.ValidatorArguments.*;
 
-public class Llamada implements Cronologico {
+public class Llamada implements Cronologico, Serializable {
     final String telefono;
     final LocalDate fecha;
     final double duracion;
