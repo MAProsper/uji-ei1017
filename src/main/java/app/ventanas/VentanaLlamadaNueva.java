@@ -29,7 +29,7 @@ public class VentanaLlamadaNueva extends Ventana {
             case "Crear":
                 Llamada llamada = crearLlamada();
                 if (llamada == null) ventana = new VentanaError();
-                else getGestor().addLlamada(llamada);
+                else getGestor().gestionarLlamada(llamada);
                 break;
             case "Volver":
                 break;

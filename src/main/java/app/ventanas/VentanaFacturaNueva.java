@@ -35,7 +35,7 @@ public class VentanaFacturaNueva extends Ventana {
             case "Crear":
                 Factura factura = crearFactura();
                 if (factura == null) ventana = new VentanaError();
-                else getGestor().addFactura(factura);
+                else getGestor().gestionarFactura(factura);
                 break;
             case "Volver":
                 break;

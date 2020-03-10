@@ -57,7 +57,7 @@ abstract public class Ventana {
     }
 
     public static void setGestor(final Gestor gestor) {
-        Ventana.gestor = referenceNotNull("gestor", gestor);
+        Ventana.gestor = gestor;
     }
 
     final public String getTitle() {

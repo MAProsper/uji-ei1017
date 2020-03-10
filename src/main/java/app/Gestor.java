@@ -10,7 +10,6 @@ import helpers.Llamada;
 import java.util.*;
 
 import static helpers.ValidatorArguments.referenceNotNull;
-import static helpers.ValidatorArguments.validate;
 
 public class Gestor {
     final Stack<Ventana> stack;
@@ -61,24 +60,33 @@ public class Gestor {
 
     public void addCliente(final Cliente cliente) {
         referenceNotNull("cliente", cliente);
-        validate("cliente tiene que ser nuevo", cliente.getLlamadas().isEmpty() && cliente.getFacturas().isEmpty());
         id2cliente.put(cliente.getNIF(), cliente);
         clientes.add(cliente);
+        for (final Llamada llamada : cliente.getLlamadas()) gestionarLlamada(cliente, llamada);
+        for (final Factura factura : cliente.getFacturas()) gestionarFactura(cliente, factura);
     }
 
-    public void addLlamada(final Llamada llamada) {
-        referenceNotNull("clienteSelecionado", clienteSelecionado);
+    void gestionarLlamada(final Cliente cliente, final Llamada llamada) {
+        referenceNotNull("cliente", clienteSelecionado);
         referenceNotNull("llamada", llamada);
-        clienteSelecionado.addLlamada(llamada);
         llamadas.add(llamada);
     }
 
-    public void addFactura(final Factura factura) {
-        referenceNotNull("clienteSelecionado", clienteSelecionado);
+    public void gestionarLlamada(final Llamada llamada) {
+        gestionarLlamada(clienteSelecionado, llamada);
+        clienteSelecionado.addLlamada(llamada);
+    }
+
+    void gestionarFactura(final Cliente cliente, final Factura factura) {
+        referenceNotNull("cliente", cliente);
         referenceNotNull("factura", factura);
-        clienteSelecionado.addFactura(factura);
-        factura2cliente.put(factura.getCodigo(), clienteSelecionado);
+        factura2cliente.put(factura.getCodigo(), cliente);
         facturas.add(factura);
+    }
+
+    public void gestionarFactura(final Factura factura) {
+        gestionarFactura(clienteSelecionado, factura);
+        clienteSelecionado.addFactura(factura);
     }
 
     public Ventana getVisor() {
@@ -102,7 +110,7 @@ public class Gestor {
     }
 
     public void run() {
-        validate("gestor ya esta en uso", stack.empty());
+        if (Ventana.getGestor() != null) throw new OverlappingVentanaException();
 
         Ventana.setGestor(this);
         stack.push(new VentanaPrincipal());
@@ -111,6 +119,7 @@ public class Gestor {
             if (result == null) stack.pop();
             else stack.push(result);
         }
+        Ventana.setGestor(null);
     }
 
     @Override
@@ -118,5 +127,8 @@ public class Gestor {
         return "Gestor{" +
                 "clientes=" + getClientes() +
                 '}';
+    }
+
+    public static class OverlappingVentanaException extends IllegalStateException {
     }
 }
