@@ -5,7 +5,7 @@ import clientes.ClientePaticular;
 import helpers.Direccion;
 import tarifas.Tarifa;
 
-import java.text.ParseException;
+import java.time.format.DateTimeParseException;
 
 import static helpers.Fecha.parse;
 import static helpers.ValidatorArguments.stringNotEmpty;
@@ -26,7 +26,7 @@ public class VentanaClienteParticularNuevo extends Ventana {
     public Ventana handle(final app.Button button) {
         Ventana ventana = null;
 
-        switch ((VentanaClienteEmpresaNuevo.Button) button) {
+        switch ((Button) button) {
             case CREAR:
                 Cliente cliente = crearCliente();
                 if (cliente == null) ventana = new VentanaError();
@@ -55,7 +55,7 @@ public class VentanaClienteParticularNuevo extends Ventana {
             final Tarifa tarifa = new Tarifa(Double.parseDouble(tarifaBase));
             final Direccion direccion = new Direccion(Integer.parseInt(codigoPostal), porvincia, poblacion);
             cliente = new ClientePaticular(NIF, apellidos, nombre, direccion, correo, parse(fechaAlta), tarifa);
-        } catch (ParseException | IllegalArgumentException ignored) {
+        } catch (DateTimeParseException | IllegalArgumentException ignored) {
         }
 
         return cliente;

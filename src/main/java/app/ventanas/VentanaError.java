@@ -22,7 +22,7 @@ public class VentanaError extends Ventana {
     }
 
     enum Button implements app.Button {
-        ERROR("Error");
+        VOLVER("Volver");
 
         final String description;
 

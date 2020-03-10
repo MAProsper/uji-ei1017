@@ -5,8 +5,8 @@ import helpers.Factura;
 import helpers.Llamada;
 import tarifas.Tarifa;
 
-import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class VentanaFacturaNueva extends Ventana {
         try {
             final Range<LocalDate> periodo = Range.closedOpen(parse(fechaInicio), parse(fechaFinal));
             factura = new Factura(Integer.parseInt(codigo), tarifa, parse(fachaEmision), periodo, getImporte(getLlamadas(periodo)));
-        } catch (ParseException | IllegalArgumentException ignored) {
+        } catch (DateTimeParseException | IllegalArgumentException ignored) {
         }
 
         return factura;

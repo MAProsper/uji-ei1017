@@ -7,6 +7,8 @@ import clientes.ClientePaticular;
 import helpers.Factura;
 import helpers.Llamada;
 
+import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -14,15 +16,19 @@ import static helpers.ValidatorArguments.referenceNotNull;
 
 public class Gestor {
     final Stack<Ventana> stack;
-    final HashMap<String, Cliente> id2cliente;
-    final HashMap<Integer, Cliente> factura2cliente;
-    final List<Cliente> clientes;
-    final List<Factura> facturas;
-    final List<Llamada> llamadas;
+    HashMap<String, Cliente> id2cliente;
+    HashMap<Integer, Cliente> factura2cliente;
+    List<Cliente> clientes;
+    List<Factura> facturas;
+    List<Llamada> llamadas;
     Cliente clienteSelecionado;
 
     public Gestor() {
         stack = new Stack<>();
+        clearClientes();
+    }
+
+    public void clearClientes() {
         id2cliente = new HashMap<>();
         factura2cliente = new HashMap<>();
         clientes = new LinkedList<>();
@@ -110,7 +116,7 @@ public class Gestor {
         setClienteSelecionado(null);
     }
 
-    public void run(final Path path) {
+    public void run() {
         if (Ventana.hasGestor()) throw new OverlappingVentanaException();
 
         Ventana.setGestor(this);
@@ -123,11 +129,34 @@ public class Gestor {
         Ventana.setGestor(null);
     }
 
+    @SuppressWarnings("unchecked")
+    public void load(final Path path) throws IOException, ClassNotFoundException {
+        final InputStream stream = Files.newInputStream(path);
+        final ObjectInputStream ois = new ObjectInputStream(stream);
+        final Object datos = ois.readObject();
+        if (datos == null || datos.getClass() != clientes.getClass()) throw new IllegalTypeException();
+        ois.close();
+
+        clearClientes();
+        for (Cliente cliente : (List<Cliente>) datos) addCliente(cliente);
+    }
+
+    public void save(final Path path) throws IOException {
+        final OutputStream stream = Files.newOutputStream(path);
+        final ObjectOutputStream oos = new ObjectOutputStream(stream);
+        oos.writeObject(clientes);
+        oos.close();
+    }
+
     @Override
     public String toString() {
         return "Gestor{" +
                 "clientes=" + getClientes() +
                 '}';
+    }
+
+    public static class IllegalTypeException extends RuntimeException {
+        private static final long serialVersionUID = 3075951094401260324L;
     }
 
     public static class OverlappingVentanaException extends IllegalStateException {

@@ -40,7 +40,7 @@ public class VentanaClienteParticular extends Ventana {
         Ventana ventana = null;
         final Gestor gestor = getGestor();
 
-        switch ((VentanaClienteEmpresa.Button) button) {
+        switch ((Button) button) {
             case VER_LLAMADAS:
                 ventana = new VentanaLlamadas();
                 break;

@@ -2,8 +2,8 @@ package helpers;
 
 import com.google.common.collect.Range;
 
-import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +18,7 @@ final public class Fecha {
         return Range.closedOpen(inicio, fin);
     }
 
-    public static LocalDate parse(final String date) throws ParseException {
+    public static LocalDate parse(final String date) throws DateTimeParseException {
         return LocalDate.parse(date);
     }
 

@@ -39,6 +39,12 @@ public class VentanaPrincipal extends Ventana {
             case BUSCAR_LLAMADAS_RANGO:
                 ventana = new VentanaRangoBuscar(VentanaRangoBuscar.Tipo.LLAMADAS);
                 break;
+            case CARGAR:
+                ventana = new VentanaLoad();
+                break;
+            case GUARDAR:
+                ventana = new VentanaSave();
+                break;
             case CERRAR:
                 break;
         }
@@ -53,6 +59,8 @@ public class VentanaPrincipal extends Ventana {
         BUSCAR_CLIENTE_RANGO("Buscar clientes (rango)"),
         BUSCAR_FACTURA_RANGO("Buscar facturas (rango)"),
         BUSCAR_LLAMADAS_RANGO("Buscar llamadas (rango)"),
+        CARGAR("Cargar clientes"),
+        GUARDAR("Guardar clientes"),
         CERRAR("Cerrar");
 
         final String description;

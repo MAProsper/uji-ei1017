@@ -2,7 +2,7 @@ package app.ventanas;
 
 import helpers.Llamada;
 
-import java.text.ParseException;
+import java.time.format.DateTimeParseException;
 
 import static helpers.Fecha.parse;
 import static helpers.ValidatorArguments.stringNotEmpty;
@@ -44,7 +44,7 @@ public class VentanaLlamadaNueva extends Ventana {
 
         try {
             llamada = new Llamada(telefono, parse(fecha), Double.parseDouble(duracion));
-        } catch (ParseException | IllegalArgumentException ignored) {
+        } catch (DateTimeParseException | IllegalArgumentException ignored) {
         }
 
         return llamada;

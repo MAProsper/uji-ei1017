@@ -4,8 +4,8 @@ import com.google.common.collect.Range;
 import helpers.Description;
 import helpers.Fecha;
 
-import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import static helpers.Fecha.parse;
 import static helpers.ValidatorArguments.referenceNotNull;
@@ -68,7 +68,7 @@ public class VentanaRangoBuscar extends Ventana {
 
         try {
             periodo = Fecha.getPeriodo(parse(fechaInicio), parse(fechaFinal));
-        } catch (ParseException | IllegalArgumentException ignored) {
+        } catch (DateTimeParseException | IllegalArgumentException ignored) {
         }
 
         return periodo;
