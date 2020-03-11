@@ -5,7 +5,7 @@ import tarifas.Tarifa;
 
 import java.time.LocalDate;
 
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class ClientePaticular extends Cliente {
     private static final long serialVersionUID = 9112248928365815263L;

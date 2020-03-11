@@ -6,7 +6,7 @@ import helpers.clases.Direccion;
 import helpers.estaticos.Parse;
 import tarifas.Tarifa;
 
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaClienteNuevo extends VentanaNuevo {
     public VentanaClienteNuevo() {

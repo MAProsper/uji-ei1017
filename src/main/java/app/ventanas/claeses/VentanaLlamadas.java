@@ -7,8 +7,8 @@ import clientes.Cliente;
 
 import java.util.stream.Collectors;
 
-import static helpers.estaticos.ValidatorArguments.referenceNotNull;
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.referenceNotNull;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaLlamadas extends Ventana {
     final Cliente cliente;

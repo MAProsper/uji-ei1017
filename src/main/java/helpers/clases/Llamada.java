@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static helpers.estaticos.ValidatorArguments.*;
+import static helpers.estaticos.Arguments.*;
 
 public class Llamada implements Cronologico, Serializable {
     private static final long serialVersionUID = 9196325539442745850L;

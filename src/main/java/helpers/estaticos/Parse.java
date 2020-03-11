@@ -8,8 +8,8 @@ final public class Parse {
     }
 
     static <T> T validate(final String name, final T value) {
-        ValidatorArguments.referenceNotNull("name", name);
-        return ValidatorArguments.validate(name + " no tiene el formato correcto", value, value != null);
+        Arguments.referenceNotNull("name", name);
+        return Arguments.validate(name + " no tiene el formato correcto", value, value != null);
     }
 
     public static LocalDate fecha(final String name, final String fecha) {

@@ -8,8 +8,8 @@ import helpers.interfaces.Description;
 
 import java.util.stream.Collectors;
 
-import static helpers.estaticos.ValidatorArguments.referenceNotNull;
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.referenceNotNull;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaFacturas extends Ventana {
     private final Cliente cliente;

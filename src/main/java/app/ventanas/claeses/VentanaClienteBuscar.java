@@ -4,7 +4,7 @@ import app.Gestor;
 import app.ventanas.abstractas.Ventana;
 import clientes.Cliente;
 
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaClienteBuscar extends Ventana {
     public VentanaClienteBuscar() {

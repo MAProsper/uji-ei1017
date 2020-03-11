@@ -6,7 +6,7 @@ import com.google.common.collect.HashBiMap;
 import java.io.Serializable;
 import java.util.Objects;
 
-import static helpers.estaticos.ValidatorArguments.*;
+import static helpers.estaticos.Arguments.*;
 
 public class Direccion implements Serializable {
 

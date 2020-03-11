@@ -4,8 +4,8 @@ import app.Gestor;
 import app.ventanas.abstractas.Ventana;
 import helpers.estaticos.Parse;
 
-import static helpers.estaticos.ValidatorArguments.ValidationException;
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.ValidationException;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaFacturaBuscar extends Ventana {
     public VentanaFacturaBuscar() {

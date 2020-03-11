@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-import static helpers.estaticos.ValidatorArguments.*;
+import static helpers.estaticos.Arguments.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestHelperArgument {

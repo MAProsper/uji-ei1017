@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static helpers.estaticos.ValidatorArguments.validate;
+import static helpers.estaticos.Arguments.validate;
 
 final public class Fecha {
     private Fecha() {

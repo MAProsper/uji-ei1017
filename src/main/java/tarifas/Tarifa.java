@@ -5,8 +5,8 @@ import helpers.clases.Llamada;
 import java.io.Serializable;
 import java.util.Objects;
 
-import static helpers.estaticos.ValidatorArguments.numberNotNegative;
-import static helpers.estaticos.ValidatorArguments.referenceNotNull;
+import static helpers.estaticos.Arguments.numberNotNegative;
+import static helpers.estaticos.Arguments.referenceNotNull;
 
 public class Tarifa implements Serializable {
 

@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static helpers.estaticos.ValidatorArguments.*;
+import static helpers.estaticos.Arguments.*;
 
 public class Factura implements Cronologico, Serializable {
     final static Set<Integer> codigos = new HashSet<>();

@@ -9,7 +9,7 @@ import helpers.clases.Llamada;
 
 import java.time.LocalDate;
 
-import static helpers.estaticos.ValidatorArguments.referenceNotNull;
+import static helpers.estaticos.Arguments.referenceNotNull;
 
 final public class Formato {
     public static String llamda(final Llamada llamada) {

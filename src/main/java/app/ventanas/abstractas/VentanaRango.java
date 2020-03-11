@@ -5,8 +5,8 @@ import com.google.common.collect.Range;
 
 import java.time.LocalDate;
 
-import static helpers.estaticos.ValidatorArguments.referenceNotNull;
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.referenceNotNull;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public abstract class VentanaRango extends Ventana {
     private final Range<LocalDate> periodo;

@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-import static helpers.estaticos.ValidatorArguments.*;
+import static helpers.estaticos.Arguments.*;
 
 public class Cliente implements Cronologico, Serializable {
     private static final long serialVersionUID = -9007760874300103710L;

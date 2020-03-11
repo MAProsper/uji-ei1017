@@ -8,7 +8,7 @@ import com.google.common.collect.Range;
 
 import java.util.*;
 
-import static helpers.estaticos.ValidatorArguments.*;
+import static helpers.estaticos.Arguments.*;
 
 
 abstract public class Ventana {

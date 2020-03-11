@@ -12,9 +12,9 @@ import tarifas.Tarifa;
 import java.time.LocalDate;
 import java.util.List;
 
+import static helpers.estaticos.Arguments.referenceNotNull;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 import static helpers.estaticos.Fecha.filterRange;
-import static helpers.estaticos.ValidatorArguments.referenceNotNull;
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
 
 public class VentanaFacturaNueva extends VentanaNuevo {
     private final Cliente cliente;

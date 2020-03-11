@@ -2,8 +2,8 @@ package helpers.estaticos;
 
 import java.util.Collection;
 
-public final class ValidatorArguments {
-    private ValidatorArguments() {
+public final class Arguments {
+    private Arguments() {
     }
 
     public static void validate(final String message, final boolean valid) {

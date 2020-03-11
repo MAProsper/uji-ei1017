@@ -8,8 +8,8 @@ import helpers.clases.Direccion;
 
 import java.util.Arrays;
 
-import static helpers.estaticos.ValidatorArguments.referenceNotNull;
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.referenceNotNull;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaCliente extends Ventana {
     private final Cliente cliente;

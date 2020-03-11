@@ -5,8 +5,8 @@ import clientes.Cliente;
 import helpers.clases.Llamada;
 import helpers.estaticos.Parse;
 
-import static helpers.estaticos.ValidatorArguments.referenceNotNull;
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.referenceNotNull;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaLlamadaNueva extends VentanaNuevo {
     private final Cliente cliente;

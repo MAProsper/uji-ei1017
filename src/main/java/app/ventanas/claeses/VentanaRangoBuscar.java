@@ -8,7 +8,7 @@ import helpers.interfaces.Description;
 
 import java.time.LocalDate;
 
-import static helpers.estaticos.ValidatorArguments.*;
+import static helpers.estaticos.Arguments.*;
 
 public class VentanaRangoBuscar extends Ventana {
     private final Tipo tipo;

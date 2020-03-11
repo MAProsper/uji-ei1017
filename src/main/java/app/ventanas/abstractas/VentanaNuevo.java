@@ -3,8 +3,8 @@ package app.ventanas.abstractas;
 import app.ventanas.claeses.VentanaError;
 import app.ventanas.interfaces.Textbox;
 
-import static helpers.estaticos.ValidatorArguments.ValidationException;
-import static helpers.estaticos.ValidatorArguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.ValidationException;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public abstract class VentanaNuevo extends Ventana {
     public VentanaNuevo(final Textbox[] textboxes) {
