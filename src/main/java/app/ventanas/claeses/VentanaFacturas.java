@@ -20,7 +20,7 @@ public class VentanaFacturas extends Ventana {
                 "Gestion de facturas",
                 true, Textbox.empty(), Button.values());
 
-        this.cliente = referenceNotNull("cliente", cliente);
+        this.cliente = referenceNotNull("Cliente", cliente);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class VentanaFacturas extends Ventana {
         final String description;
 
         Tipo(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {
@@ -66,7 +66,7 @@ public class VentanaFacturas extends Ventana {
         final String description;
 
         Button(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {

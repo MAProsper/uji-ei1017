@@ -58,7 +58,7 @@ public class Gestor {
     }
 
     public void addCliente(final Cliente cliente) {
-        referenceNotNull("cliente", cliente);
+        referenceNotNull("Cliente", cliente);
         id2cliente.put(cliente.getNIF(), cliente);
         clientes.add(cliente);
         for (final Llamada llamada : cliente.getLlamadas()) addLlamada(cliente, llamada);
@@ -66,14 +66,14 @@ public class Gestor {
     }
 
     public void addLlamada(final Cliente cliente, final Llamada llamada) {
-        referenceNotNull("cliente", cliente);
-        referenceNotNull("llamada", llamada);
+        referenceNotNull("Cliente", cliente);
+        referenceNotNull("Llamada", llamada);
         llamadas.add(llamada);
     }
 
     public void addFactura(final Cliente cliente, final Factura factura) {
-        referenceNotNull("cliente", cliente);
-        referenceNotNull("factura", factura);
+        referenceNotNull("Cliente", cliente);
+        referenceNotNull("Factura", factura);
         factura2cliente.put(factura.getCodigo(), cliente);
         facturas.add(factura);
     }
@@ -86,7 +86,7 @@ public class Gestor {
     }
 
     public void removeCliente(final Cliente cliente) {
-        referenceNotNull("cliente", cliente);
+        referenceNotNull("Cliente", cliente);
         id2cliente.remove(cliente.getNIF());
         clientes.remove(cliente);
 
@@ -128,7 +128,7 @@ public class Gestor {
             for (Cliente cliente : (Cliente[]) datos) addCliente(cliente);
         }
 
-        validate("la ruta no contiene un archivo valido", datos != null);
+        validate("La ruta no contiene un archivo valido", datos != null);
     }
 
     public void save(final Path path) {
@@ -143,7 +143,7 @@ public class Gestor {
         } catch (IOException ignored) {
         }
 
-        validate("no se ha podido guardar en la ruta", saved);
+        validate("No se ha podido guardar en la ruta", saved);
     }
 
     @Override

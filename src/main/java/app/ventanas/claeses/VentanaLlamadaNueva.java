@@ -13,7 +13,7 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
 
     public VentanaLlamadaNueva(final Cliente cliente) {
         super(Textbox.values());
-        this.cliente = referenceNotNull("cliente", cliente);
+        this.cliente = referenceNotNull("Cliente", cliente);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
         final String description;
 
         Textbox(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {

@@ -14,7 +14,7 @@ public class Tarifa implements Serializable {
     final double precio;
 
     public Tarifa(final double precio) {
-        this.precio = numberNotNegative("precio", precio);
+        this.precio = numberNotNegative("Precio", precio);
     }
 
     public double getPrecio() {
@@ -22,7 +22,7 @@ public class Tarifa implements Serializable {
     }
 
     public double getImporte(Llamada llamada) {
-        referenceNotNull("llamada", llamada);
+        referenceNotNull("Llamada", llamada);
         return llamada.getDuracion() * precio;
     }
 

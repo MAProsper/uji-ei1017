@@ -18,7 +18,7 @@ public class VentanaRangoBuscar extends Ventana {
                 "Busqueda en rango",
                 "Introduce un rango de fechas para buscar",
                 false, Textbox.values(), Button.values());
-        this.tipo = referenceNotNull("tipo", tipo);
+        this.tipo = referenceNotNull("Tipo", tipo);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class VentanaRangoBuscar extends Ventana {
     }
 
     protected Ventana getVentana(final Range<LocalDate> periodo) {
-        referenceNotNull("periodo", periodo);
+        referenceNotNull("Periodo", periodo);
         Ventana ventana = null;
 
         switch (tipo) {
@@ -85,7 +85,7 @@ public class VentanaRangoBuscar extends Ventana {
         final String description;
 
         Tipo(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {
@@ -100,7 +100,7 @@ public class VentanaRangoBuscar extends Ventana {
         final String description;
 
         Textbox(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {
@@ -115,7 +115,7 @@ public class VentanaRangoBuscar extends Ventana {
         final String description;
 
         Button(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {

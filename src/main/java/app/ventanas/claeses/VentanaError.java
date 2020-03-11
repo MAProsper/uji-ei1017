@@ -10,7 +10,7 @@ public class VentanaError extends Ventana {
     public VentanaError(final String message) {
         super(
                 "Error",
-                stringNotEmpty("message", message),
+                stringNotEmpty("Message", message),
                 false, Textbox.empty(), Button.values());
     }
 
@@ -33,7 +33,7 @@ public class VentanaError extends Ventana {
         final String description;
 
         Button(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {

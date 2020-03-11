@@ -13,7 +13,7 @@ public class ClientePaticular extends Cliente {
 
     public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {
         super(NIF, nombre, direccion, correo, fechaAlta, tarifa);
-        this.apellidos = stringNotEmpty("apellidos", apellidos);
+        this.apellidos = stringNotEmpty("Apellidos", apellidos);
     }
 
     final public String getApellidos() {

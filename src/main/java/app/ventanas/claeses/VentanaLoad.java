@@ -59,7 +59,7 @@ public class VentanaLoad extends Ventana {
         final String description;
 
         Textbox(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {
@@ -74,7 +74,7 @@ public class VentanaLoad extends Ventana {
         final String description;
 
         Button(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {

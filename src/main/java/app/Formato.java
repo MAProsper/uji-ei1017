@@ -13,17 +13,17 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 
 final public class Formato {
     public static String llamda(final Llamada llamada) {
-        referenceNotNull("llamada", llamada);
+        referenceNotNull("Llamada", llamada);
         return String.format("[%s] %s (%s min)", llamada.getFecha(), llamada.getTelefono(), llamada.getDuracion());
     }
 
     public static String factura(final Factura factura) {
-        referenceNotNull("factura", factura);
+        referenceNotNull("Factura", factura);
         return String.format("[%s-%s] [%s] %s (%s euros/min)", factura.getCodigo(), factura.getFecha(), periodo(factura.getPeriodo()), factura.getImporte(), factura.getTarifa().getPrecio());
     }
 
     public static String cliente(final Cliente cliente) {
-        referenceNotNull("cliente", cliente);
+        referenceNotNull("Cliente", cliente);
         String tipo = "Otros";
         String nombre = cliente.getNombre();
 

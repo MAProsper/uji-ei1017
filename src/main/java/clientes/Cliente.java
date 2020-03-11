@@ -28,10 +28,10 @@ public class Cliente implements Cronologico, Serializable {
     public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {
         validate("NIF del cliente repetido", !NIFs.contains(NIF));
         this.NIF = stringMatchesPattern("NIF", NIF, "\\d+[TRWAGMYFPDXBNJZSQVHLCKE]");
-        this.nombre = stringNotEmpty("nombre", nombre);
-        this.direccion = referenceNotNull("direccion", direccion);
-        this.correo = stringMatchesPattern("correo", correo, "[\\w.]+@[\\w.]{2,}");
-        this.fechaAlta = referenceNotNull("fechaAlta", fechaAlta);
+        this.nombre = stringNotEmpty("Nombre", nombre);
+        this.direccion = referenceNotNull("Direccion", direccion);
+        this.correo = stringMatchesPattern("Correo", correo, "[\\w.]+@[\\w.]{2,}");
+        this.fechaAlta = referenceNotNull("Fecha de alta", fechaAlta);
         setTarifa(tarifa);
         llamadas = new LinkedList<>();
         facturas = new LinkedList<>();
@@ -63,7 +63,7 @@ public class Cliente implements Cronologico, Serializable {
     }
 
     public void setTarifa(final Tarifa tarifa) {
-        this.tarifa = referenceNotNull("tarifa", tarifa);
+        this.tarifa = referenceNotNull("Tarifa", tarifa);
     }
 
     final public List<Llamada> getLlamadas() {
@@ -71,7 +71,7 @@ public class Cliente implements Cronologico, Serializable {
     }
 
     public void addLlamada(final Llamada llamada) {
-        llamadas.add(referenceNotNull("llamada", llamada));
+        llamadas.add(referenceNotNull("Llamada", llamada));
     }
 
     final public List<Factura> getFacturas() {
@@ -79,7 +79,7 @@ public class Cliente implements Cronologico, Serializable {
     }
 
     public void addFactura(final Factura factura) {
-        facturas.add(referenceNotNull("factura", factura));
+        facturas.add(referenceNotNull("Factura", factura));
     }
 
     @Override

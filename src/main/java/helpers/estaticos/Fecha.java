@@ -14,7 +14,7 @@ final public class Fecha {
     }
 
     public static Range<LocalDate> getPeriodo(final LocalDate inicio, final LocalDate fin) {
-        validate("final debe ser posterior a inicio", fin.compareTo(inicio) > 0);
+        validate("Final debe ser posterior a inicio", fin.compareTo(inicio) > 0);
         return Range.closedOpen(inicio, fin);
     }
 

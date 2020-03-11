@@ -17,7 +17,7 @@ public abstract class VentanaRango extends Ventana {
                 "Reultados encontrados en el periodo",
                 true, Textbox.empty(), Button.values());
 
-        this.periodo = referenceNotNull("periodo", perido);
+        this.periodo = referenceNotNull("Periodo", perido);
     }
 
     @Override
@@ -38,7 +38,7 @@ public abstract class VentanaRango extends Ventana {
         final String description;
 
         Button(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {

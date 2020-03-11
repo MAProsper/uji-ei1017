@@ -22,12 +22,12 @@ public class Factura implements Cronologico, Serializable {
     final double importe;
 
     public Factura(final int codigo, final Tarifa tarifa, final LocalDate fechaEmision, final Range<LocalDate> periodo, final double importe) {
-        validate("codigo de factura repetido", !codigos.contains(codigo));
-        this.codigo = numberNotNegative("codigo", codigo);
-        this.tarifa = referenceNotNull("tarifa", tarifa);
-        this.fechaEmision = referenceNotNull("fecha", fechaEmision);
-        this.periodo = referenceNotNull("periodo", periodo);
-        this.importe = numberNotNegative("importe", importe);
+        validate("Codigo de factura repetido", !codigos.contains(codigo));
+        this.codigo = numberNotNegative("Codigo", codigo);
+        this.tarifa = referenceNotNull("Tarifa", tarifa);
+        this.fechaEmision = referenceNotNull("Fecha", fechaEmision);
+        this.periodo = referenceNotNull("Periodo", periodo);
+        this.importe = numberNotNegative("Importe", importe);
         codigos.add(codigo);
     }
 

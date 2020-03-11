@@ -15,9 +15,9 @@ public class Llamada implements Cronologico, Serializable {
     final double duracion;
 
     public Llamada(final String telefono, final LocalDate fecha, final double duracion) {
-        this.telefono = stringMatchesPattern("telefono", telefono, "\\d{9}");
-        this.fecha = referenceNotNull("fecha", fecha);
-        this.duracion = numberNotNegative("duracion", duracion);
+        this.telefono = stringMatchesPattern("Telefono", telefono, "\\d{9}");
+        this.fecha = referenceNotNull("Fecha", fecha);
+        this.duracion = numberNotNegative("Duracion", duracion);
     }
 
     final public String getTelefono() {

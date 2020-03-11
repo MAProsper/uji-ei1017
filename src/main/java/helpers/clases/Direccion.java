@@ -20,9 +20,9 @@ public class Direccion implements Serializable {
     public Direccion(final int codigoPostal, final String provincia, final String poblacion) {
         validate(provincia + " tiene multiples codigos postales", !provinciaCodigo.containsKey(provincia) || provinciaCodigo.get(provincia) == codigoPostal);
         validate(codigoPostal + " tiene multiples provincia", !codigoProvincia.containsKey(codigoPostal) || codigoProvincia.get(codigoPostal).equals(provincia));
-        this.codigoPostal = numberNotNegative("codigoPostal", codigoPostal);
-        this.provincia = stringNotEmpty("provincia", provincia);
-        this.poblacion = stringNotEmpty("poblacion", poblacion);
+        this.codigoPostal = numberNotNegative("Codigo postal", codigoPostal);
+        this.provincia = stringNotEmpty("Provincia", provincia);
+        this.poblacion = stringNotEmpty("Poblacion", poblacion);
         provinciaCodigo.put(provincia, codigoPostal);
     }
 

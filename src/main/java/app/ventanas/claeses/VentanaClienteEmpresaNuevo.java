@@ -44,7 +44,7 @@ public class VentanaClienteEmpresaNuevo extends VentanaNuevo {
         final String description;
 
         Textbox(final String description) {
-            this.description = stringNotEmpty("descripcion", description);
+            this.description = stringNotEmpty("Descripcion", description);
         }
 
         public String getDescription() {

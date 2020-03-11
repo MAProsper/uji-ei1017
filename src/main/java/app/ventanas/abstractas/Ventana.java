@@ -22,35 +22,34 @@ abstract public class Ventana {
     private static Gestor gestor;
 
     public Ventana(final String title, final String info, final boolean list, final List<Textbox> textboxes, final List<Button> buttons) {
-        this.title = stringNotEmpty("header", title);
-        this.info = stringNotEmpty("info", info);
+        this.title = stringNotEmpty("Title", title);
+        this.info = stringNotEmpty("Information", info);
         this.list = list ? new LinkedList<>() : null;
-        this.textboxes = new LinkedList<>(collectionWithoutNull("textboxes", textboxes));
-        this.buttons = new LinkedList<>(collectionWithoutNull("buttons", buttons));
+        this.textboxes = new LinkedList<>(collectionWithoutNull("Textboxes", textboxes));
+        this.buttons = new LinkedList<>(collectionWithoutNull("Buttons", buttons));
 
         textboxesContent = new HashMap<>();
         if (!textboxes.isEmpty()) clearTextboxes();
     }
 
     public Ventana(final String title, final String info, final boolean list, final Textbox[] textboxes, final Button[] buttons) {
-        this(title, info, list, Arrays.asList(referenceNotNull("textboxes", textboxes)), Arrays.asList(referenceNotNull("buttons", buttons)));
+        this(title, info, list, Arrays.asList(referenceNotNull("Textboxes", textboxes)), Arrays.asList(referenceNotNull("Buttons", buttons)));
     }
 
     protected abstract void update();
 
     protected abstract Ventana handle(final Button button);
 
-    private List<String> validateList() {
-        return validate("list no esta definida", list, list != null);
+    public static Gestor getGestor() {
+        return validate("Gestor no esta asignado", gestor, gestor != null);
     }
 
+    private List<String> validateList() {
+        return validate("List no esta definida", list, list != null);
+    }
 
     private Textbox validateTextbox(final Textbox name) {
-        return validate("textbox " + name + " no esta definida", referenceNotNull("name", name), textboxes.contains(name));
-    }
-
-    public static Gestor getGestor() {
-        return validate("gestor no esta asignado", gestor, gestor != null);
+        return validate("Textbox " + name + " no esta definida", referenceNotNull("Name", name), textboxes.contains(name));
     }
 
     public static boolean hasGestor() {
@@ -75,7 +74,7 @@ abstract public class Ventana {
 
     public void setList(final List<String> list) {
         final List<String> ignored = validateList();  // Warning: result ignored
-        collectionWithoutNull("list", list);
+        collectionWithoutNull("List", list);
         this.list.clear();
         this.list.addAll(list);
     }
@@ -89,11 +88,11 @@ abstract public class Ventana {
     }
 
     public void setTextbox(final Textbox name, final String content) {
-        textboxesContent.put(validateTextbox(name), referenceNotNull("content", content));
+        textboxesContent.put(validateTextbox(name), referenceNotNull("Content", content));
     }
 
     public void clearTextboxes() {
-        validate("textboxes no esta definido", !textboxes.isEmpty());
+        validate("Textboxes no esta definido", !textboxes.isEmpty());
         for (Textbox name : textboxes) setTextbox(name, "");
     }
 
