@@ -9,13 +9,12 @@ import java.util.Objects;
 import static helpers.estaticos.Arguments.*;
 
 public class Direccion implements Serializable {
-
-    final static BiMap<String, Integer> provinciaCodigo = HashBiMap.create();
-    final static BiMap<Integer, String> codigoProvincia = provinciaCodigo.inverse();
+    private final static BiMap<String, Integer> provinciaCodigo = HashBiMap.create();
+    private final static BiMap<Integer, String> codigoProvincia = provinciaCodigo.inverse();
     private static final long serialVersionUID = -8103908310482470417L;
-    final int codigoPostal;
-    final String provincia;
-    final String poblacion;
+    protected final int codigoPostal;
+    protected final String provincia;
+    protected final String poblacion;
 
     public Direccion(final int codigoPostal, final String provincia, final String poblacion) {
         validate(provincia + " tiene multiples codigos postales", !provinciaCodigo.containsKey(provincia) || provinciaCodigo.get(provincia) == codigoPostal);
@@ -56,9 +55,9 @@ public class Direccion implements Serializable {
     @Override
     public String toString() {
         return "Direccion{" +
-                "codigoPostal=" + codigoPostal +
-                ", provincia='" + provincia + '\'' +
-                ", poblacion='" + poblacion + '\'' +
+                "codigoPostal=" + getCodigoPostal() +
+                ", provincia='" + getProvincia() + '\'' +
+                ", poblacion='" + getPoblacion() + '\'' +
                 '}';
     }
 }

@@ -7,7 +7,7 @@ final public class Parse {
     private Parse() {
     }
 
-    static <T> T validate(final String name, final T value) {
+    protected static <T> T validate(final String name, final T value) {
         Arguments.referenceNotNull("Name", name);
         return Arguments.validate(name + " no tiene el formato correcto", value, value != null);
     }

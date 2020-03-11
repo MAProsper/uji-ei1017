@@ -9,7 +9,7 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaLlamadaNueva extends VentanaNuevo {
-    private final Cliente cliente;
+    protected final Cliente cliente;
 
     public VentanaLlamadaNueva(final Cliente cliente) {
         super(Textbox.values());
@@ -28,7 +28,7 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
         getGestor().addLlamada(cliente, llamada);
     }
 
-    public Cliente getCliente() {
+    public final Cliente getCliente() {
         return cliente;
     }
 

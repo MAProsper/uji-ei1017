@@ -13,11 +13,11 @@ import static helpers.estaticos.Arguments.*;
 
 abstract public class Ventana {
     private final static Scanner scanner = new Scanner(System.in);
-    private final String title;
-    private final String info;
-    private final List<Textbox> textboxes;
+    protected final String title;
+    protected final String info;
+    protected final List<Textbox> textboxes;
     private final Map<Textbox, String> textboxesContent;
-    private final List<Button> buttons;
+    protected final List<Button> buttons;
     private final List<String> list;
     private static Gestor gestor;
 
@@ -150,7 +150,7 @@ abstract public class Ventana {
         textboxesContent.put(name, scanner.nextLine());
     }
 
-    public Ventana run() {
+    public Ventana show() {
         update();
         final int separator = textboxes.size();
 

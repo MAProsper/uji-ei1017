@@ -12,7 +12,7 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaFacturas extends Ventana {
-    private final Cliente cliente;
+    protected final Cliente cliente;
 
     public VentanaFacturas(final Cliente cliente) {
         super(

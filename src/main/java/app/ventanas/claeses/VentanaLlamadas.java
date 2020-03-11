@@ -11,7 +11,7 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaLlamadas extends Ventana {
-    final Cliente cliente;
+    protected final Cliente cliente;
 
     public VentanaLlamadas(final Cliente cliente) {
         super(
@@ -40,6 +40,10 @@ public class VentanaLlamadas extends Ventana {
         }
 
         return ventana;
+    }
+
+    public final Cliente getCliente() {
+        return cliente;
     }
 
     private enum Button implements app.ventanas.interfaces.Button {

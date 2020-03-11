@@ -18,7 +18,7 @@ final public class Fecha {
         return Range.closedOpen(inicio, fin);
     }
 
-    public static <T extends Cronologico> List<T> filterRange(List<T> lista, Range<LocalDate> periodo) {
+    public static <T extends Cronologico> List<T> filterRange(final List<T> lista, final Range<LocalDate> periodo) {
         return lista.stream().filter(item -> periodo.contains(item.getFecha())).collect(Collectors.toList());
     }
 }

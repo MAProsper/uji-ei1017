@@ -9,7 +9,7 @@ import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class ClientePaticular extends Cliente {
     private static final long serialVersionUID = 9112248928365815263L;
-    final String apellidos;
+    protected final String apellidos;
 
     public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {
         super(NIF, nombre, direccion, correo, fechaAlta, tarifa);
@@ -22,16 +22,16 @@ public class ClientePaticular extends Cliente {
 
     @Override
     public String toString() {
-        return "ClientePaticular{" +
-                "NIF='" + NIF + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", direccion=" + direccion +
-                ", correo='" + correo + '\'' +
-                ", fechaAlta=" + fechaAlta +
-                ", tarifa=" + tarifa +
-                ", llamadas=" + llamadas +
-                ", facturas=" + facturas +
+        return "Cliente{" +
+                "NIF='" + getNIF() + '\'' +
+                ", nombre='" + getNombre() + '\'' +
+                ", apellidos='" + getNombre() + '\'' +
+                ", direccion=" + getApellidos() +
+                ", correo='" + getCorreo() + '\'' +
+                ", fechaAlta=" + getFecha() +
+                ", tarifa=" + getTarifa() +
+                ", llamadas=" + getLlamadas() +
+                ", facturas=" + getFacturas() +
                 '}';
     }
 }

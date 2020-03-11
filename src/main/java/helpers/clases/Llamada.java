@@ -10,9 +10,9 @@ import static helpers.estaticos.Arguments.*;
 
 public class Llamada implements Cronologico, Serializable {
     private static final long serialVersionUID = 9196325539442745850L;
-    final String telefono;
-    final LocalDate fecha;
-    final double duracion;
+    protected final String telefono;
+    protected final LocalDate fecha;
+    protected final double duracion;
 
     public Llamada(final String telefono, final LocalDate fecha, final double duracion) {
         this.telefono = stringMatchesPattern("Telefono", telefono, "\\d{9}");

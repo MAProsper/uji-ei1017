@@ -17,7 +17,7 @@ import static helpers.estaticos.Arguments.stringNotEmpty;
 import static helpers.estaticos.Fecha.filterRange;
 
 public class VentanaFacturaNueva extends VentanaNuevo {
-    private final Cliente cliente;
+    protected final Cliente cliente;
 
     public VentanaFacturaNueva(final Cliente cliente) {
         super(Textbox.values());
@@ -45,7 +45,7 @@ public class VentanaFacturaNueva extends VentanaNuevo {
         return llamadas.stream().mapToDouble(tarifa::getImporte).sum();
     }
 
-    public Cliente getCliente() {
+    public final Cliente getCliente() {
         return cliente;
     }
 

@@ -20,8 +20,8 @@ public class ClienteEmpresa extends Cliente {
                 ", direccion=" + direccion +
                 ", correo='" + correo + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", tarifa=" + tarifa +
                 ", llamadas=" + llamadas +
+                ", tarifa=" + tarifa +
                 ", facturas=" + facturas +
                 '}';
     }

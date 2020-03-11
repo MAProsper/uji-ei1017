@@ -14,16 +14,15 @@ import static helpers.estaticos.Arguments.*;
 
 public class Cliente implements Cronologico, Serializable {
     private static final long serialVersionUID = -9007760874300103710L;
-    final String NIF;
-    final String nombre;
-    final Direccion direccion;
-    final String correo;
-    final LocalDate fechaAlta;
-    final List<Llamada> llamadas;
-    Tarifa tarifa;
-    final List<Factura> facturas;
-
-    final static Set<String> NIFs = new HashSet<>();
+    private final static Set<String> NIFs = new HashSet<>();
+    protected final String NIF;
+    protected final String nombre;
+    protected final Direccion direccion;
+    protected final String correo;
+    protected final LocalDate fechaAlta;
+    protected final List<Llamada> llamadas;
+    protected final List<Factura> facturas;
+    protected Tarifa tarifa;
 
     public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {
         validate("NIF del cliente repetido", !NIFs.contains(NIF));
@@ -98,14 +97,14 @@ public class Cliente implements Cronologico, Serializable {
     @Override
     public String toString() {
         return "Cliente{" +
-                "NIF='" + NIF + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", direccion=" + direccion +
-                ", correo='" + correo + '\'' +
-                ", fechaAlta=" + fechaAlta +
-                ", tarifa=" + tarifa +
-                ", llamadas=" + llamadas +
-                ", facturas=" + facturas +
+                "NIF='" + getNIF() + '\'' +
+                ", nombre='" + getNombre() + '\'' +
+                ", direccion=" + getDireccion() +
+                ", correo='" + getCorreo() + '\'' +
+                ", fechaAlta=" + getFecha() +
+                ", tarifa=" + getTarifa() +
+                ", llamadas=" + getLlamadas() +
+                ", facturas=" + getFacturas() +
                 '}';
     }
 }

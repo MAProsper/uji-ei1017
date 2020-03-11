@@ -15,11 +15,11 @@ import static helpers.estaticos.Arguments.*;
 public class Factura implements Cronologico, Serializable {
     final static Set<Integer> codigos = new HashSet<>();
     private static final long serialVersionUID = 4248121609591730120L;
-    final int codigo;
-    final Tarifa tarifa;
-    final LocalDate fechaEmision;
-    final Range<LocalDate> periodo;
-    final double importe;
+    protected final int codigo;
+    protected final Tarifa tarifa;
+    protected final LocalDate fechaEmision;
+    protected final Range<LocalDate> periodo;
+    protected final double importe;
 
     public Factura(final int codigo, final Tarifa tarifa, final LocalDate fechaEmision, final Range<LocalDate> periodo, final double importe) {
         validate("Codigo de factura repetido", !codigos.contains(codigo));

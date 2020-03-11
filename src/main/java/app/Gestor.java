@@ -17,12 +17,12 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.validate;
 
 public class Gestor {
-    final Stack<Ventana> stack;
-    HashMap<String, Cliente> id2cliente;
-    HashMap<Integer, Cliente> factura2cliente;
-    List<Cliente> clientes;
-    List<Factura> facturas;
-    List<Llamada> llamadas;
+    private final Stack<Ventana> stack;
+    private HashMap<String, Cliente> id2cliente;
+    private HashMap<Integer, Cliente> factura2cliente;
+    private List<Cliente> clientes;
+    private List<Factura> facturas;
+    private List<Llamada> llamadas;
 
     public Gestor() {
         stack = new Stack<>();
@@ -37,23 +37,23 @@ public class Gestor {
         llamadas = new LinkedList<>();
     }
 
-    public List<Cliente> getClientes() {
+    final public List<Cliente> getClientes() {
         return Collections.unmodifiableList(clientes);
     }
 
-    public List<Factura> getFacturas() {
+    final public List<Factura> getFacturas() {
         return Collections.unmodifiableList(facturas);
     }
 
-    public List<Llamada> getLlamadas() {
+    final public List<Llamada> getLlamadas() {
         return Collections.unmodifiableList(llamadas);
     }
 
-    public Cliente getCliente(final String NIF) {
+    final public Cliente getCliente(final String NIF) {
         return id2cliente.get(NIF);
     }
 
-    public Cliente getCliente(final int codigo) {
+    final public Cliente getCliente(final int codigo) {
         return factura2cliente.get(codigo);
     }
 
@@ -82,7 +82,7 @@ public class Gestor {
         if (cliente instanceof ClientePaticular) return new VentanaClienteParticular((ClientePaticular) cliente);
         else if (cliente instanceof ClienteEmpresa) return new VentanaClienteEmpresa((ClienteEmpresa) cliente);
         else if (cliente != null) return new VentanaCliente(cliente);
-        else return new VentanaError("cliente no encotrado");
+        else return new VentanaError("Cliente no encotrado");
     }
 
     public void removeCliente(final Cliente cliente) {
@@ -99,13 +99,13 @@ public class Gestor {
             llamadas.remove(llamada);
     }
 
-    public void run() {
+    final public void showMenu() {
         if (Ventana.hasGestor()) throw new OverlappingVentanaException();
 
         Ventana.setGestor(this);
         stack.push(new VentanaPrincipal());
         while (!stack.empty()) {
-            Ventana result = stack.peek().run();
+            Ventana result = stack.peek().show();
             if (result == null) stack.pop();
             else stack.push(result);
         }

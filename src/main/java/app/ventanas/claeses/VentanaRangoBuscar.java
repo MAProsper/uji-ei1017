@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import static helpers.estaticos.Arguments.*;
 
 public class VentanaRangoBuscar extends Ventana {
-    private final Tipo tipo;
+    protected final Tipo tipo;
 
     public VentanaRangoBuscar(final Tipo tipo) {
         super(
@@ -73,7 +73,7 @@ public class VentanaRangoBuscar extends Ventana {
         return Fecha.getPeriodo(Parse.fecha(Textbox.FECHA_INICIAL.getDescription(), fechaInicio), Parse.fecha(Textbox.FECHA_INICIAL.getDescription(), fechaFinal));
     }
 
-    public Tipo getTipo() {
+    public final Tipo getTipo() {
         return tipo;
     }
 

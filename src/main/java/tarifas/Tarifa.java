@@ -11,7 +11,7 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 public class Tarifa implements Serializable {
 
     private static final long serialVersionUID = -4829115908149179461L;
-    final double precio;
+    protected final double precio;
 
     public Tarifa(final double precio) {
         this.precio = numberNotNegative("Precio", precio);
@@ -21,7 +21,7 @@ public class Tarifa implements Serializable {
         return precio;
     }
 
-    public double getImporte(Llamada llamada) {
+    public double getImporte(final Llamada llamada) {
         referenceNotNull("Llamada", llamada);
         return llamada.getDuracion() * precio;
     }

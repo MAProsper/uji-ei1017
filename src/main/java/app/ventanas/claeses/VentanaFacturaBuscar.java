@@ -48,6 +48,19 @@ public class VentanaFacturaBuscar extends Ventana {
         return Parse.entreo(Textbox.CODIGO.getDescription(), codigo);
     }
 
+    private enum Textbox implements app.ventanas.interfaces.Textbox {
+        CODIGO("Codigo");
+        final String description;
+
+        Textbox(final String description) {
+            this.description = stringNotEmpty("Descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
     private enum Button implements app.ventanas.interfaces.Button {
         BUSCAR("Buscar"),
         VOLVER("Volver");
@@ -62,18 +75,4 @@ public class VentanaFacturaBuscar extends Ventana {
             return description;
         }
     }
-
-    private enum Textbox implements app.ventanas.interfaces.Textbox {
-        CODIGO("Codigo");
-        final String description;
-
-        Textbox(final String description) {
-            this.description = stringNotEmpty("Descripcion", description);
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    }
-
 }
