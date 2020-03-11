@@ -4,21 +4,21 @@ import es.uji.www.GeneradorDatosINE;
 import helpers.clases.Direccion;
 
 public class GeneradorDireccion {
-    final static GeneradorDatosINE genINE = new GeneradorDatosINE();
+    protected final static GeneradorDatosINE genINE = new GeneradorDatosINE();
 
-    public int nextCodigoPostal(final String provincia) {
+    public final int nextCodigoPostal(final String provincia) {
         return Math.abs(provincia.hashCode());
     }
 
-    public String nextProvincia() {
+    public final String nextProvincia() {
         return genINE.getProvincia();
     }
 
-    public String nextPoblacion(final String provincia) {
+    public final String nextPoblacion(final String provincia) {
         return genINE.getPoblacion(provincia);
     }
 
-    public Direccion nextDireccion() {
+    public final Direccion nextDireccion() {
         final String provincia = nextProvincia();
         return new Direccion(nextCodigoPostal(provincia), provincia, nextPoblacion(provincia));
     }

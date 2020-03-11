@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestClienteParticular extends TestCliente {
-    static final GeneradorClienteParticular generador = new GeneradorClienteParticular();
+    protected static final GeneradorClienteParticular generador = new GeneradorClienteParticular();
 
     @RepeatedTest(3)
     public void testClienteParticular() {

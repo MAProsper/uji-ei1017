@@ -14,33 +14,33 @@ import java.util.Random;
 import static helpers.estaticos.Fecha.getPeriodo;
 
 public class GeneradorFactura {
-    final static Random genBase = new Random();
-    final static GeneratorFecha genHelper = new GeneratorFecha();
-    final static GeneradorTarifa genTarifa = new GeneradorTarifa();
-    static int codigos = 0;
+    protected final static Random genBase = new Random();
+    protected final static GeneratorFecha genHelper = new GeneratorFecha();
+    protected final static GeneradorTarifa genTarifa = new GeneradorTarifa();
+    private static int codigos = 0;
 
-    public int nextCodigo() {
+    public final int nextCodigo() {
         return codigos++;
     }
 
-    public Tarifa nextTarifa() {
+    public final Tarifa nextTarifa() {
         return genTarifa.nextTarifa();
     }
 
-    public LocalDate nextFecha() {
+    public final LocalDate nextFecha() {
         return genHelper.nextFecha();
     }
 
-    public Range<LocalDate> nextPeriodo() {
+    public final Range<LocalDate> nextPeriodo() {
         final List<LocalDate> fechas = Arrays.asList(genHelper.nextFecha(), genHelper.nextFecha());
         return getPeriodo(Collections.min(fechas), Collections.max(fechas));
     }
 
-    public double nextImporte() {
+    public final double nextImporte() {
         return genBase.nextDouble() * 99;
     }
 
-    public Factura nextFactura() {
+    public final Factura nextFactura() {
         return new Factura(nextCodigo(), nextTarifa(), nextFecha(), nextPeriodo(), nextImporte());
     }
 }

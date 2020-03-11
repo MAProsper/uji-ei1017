@@ -7,7 +7,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestDireccion {
-    static final GeneradorDireccion generador = new GeneradorDireccion();
+    protected static final GeneradorDireccion generador = new GeneradorDireccion();
 
     @RepeatedTest(3)
     public void testDirecion() {

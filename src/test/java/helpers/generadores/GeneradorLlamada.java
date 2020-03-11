@@ -6,22 +6,22 @@ import java.time.LocalDate;
 import java.util.Random;
 
 public class GeneradorLlamada {
-    final static Random genBase = new Random();
-    final static GeneratorFecha genHelper = new GeneratorFecha();
+    protected final static Random genBase = new Random();
+    protected final static GeneratorFecha genHelper = new GeneratorFecha();
 
-    public String nextTelefono() {
+    public final String nextTelefono() {
         return Integer.toString(100000000 + genBase.nextInt(899999999));
     }
 
-    public LocalDate nextFecha() {
+    public final LocalDate nextFecha() {
         return genHelper.nextFecha();
     }
 
-    public double nextDuracion() {
+    public final double nextDuracion() {
         return genBase.nextDouble() * 99;
     }
 
-    public Llamada nextLlamada() {
+    public final Llamada nextLlamada() {
         return new Llamada(nextTelefono(), nextFecha(), nextDuracion());
     }
 }

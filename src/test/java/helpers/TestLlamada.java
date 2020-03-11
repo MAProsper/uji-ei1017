@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestLlamada {
-    static final GeneradorLlamada generador = new GeneradorLlamada();
+    protected static final GeneradorLlamada generador = new GeneradorLlamada();
 
     @RepeatedTest(3)
     public void testLlamada() {

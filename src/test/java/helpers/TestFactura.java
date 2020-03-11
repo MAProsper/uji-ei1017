@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFactura {
-    static final GeneradorFactura generador = new GeneradorFactura();
+    protected static final GeneradorFactura generador = new GeneradorFactura();
 
     @RepeatedTest(3)
     public void testFactura() {

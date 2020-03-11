@@ -7,7 +7,7 @@ import tarifas.generadores.GeneradorTarifa;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTarifa {
-    static final GeneradorTarifa generador = new GeneradorTarifa();
+    protected static final GeneradorTarifa generador = new GeneradorTarifa();
 
     @RepeatedTest(3)
     public void testTarifa() {

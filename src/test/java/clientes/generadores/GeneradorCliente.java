@@ -15,51 +15,51 @@ import tarifas.generadores.GeneradorTarifa;
 import java.time.LocalDate;
 
 public class GeneradorCliente {
-    final static GeneratorFecha genHelper = new GeneratorFecha();
-    final static GeneradorDatosINE genINE = new GeneradorDatosINE();
-    final static GeneradorDireccion genDireccion = new GeneradorDireccion();
-    final static GeneradorTarifa genTarifa = new GeneradorTarifa();
-    final static GeneradorLlamada genLlamada = new GeneradorLlamada();
-    final static GeneradorFactura genFactura = new GeneradorFactura();
+    protected final static GeneratorFecha genHelper = new GeneratorFecha();
+    protected final static GeneradorDatosINE genINE = new GeneradorDatosINE();
+    protected final static GeneradorDireccion genDireccion = new GeneradorDireccion();
+    protected final static GeneradorTarifa genTarifa = new GeneradorTarifa();
+    protected final static GeneradorLlamada genLlamada = new GeneradorLlamada();
+    protected final static GeneradorFactura genFactura = new GeneradorFactura();
 
     private static String stripNonWord(final String s) {
         return s.replaceAll("\\W", "_");
     }
 
-    public String nextNombre() {
+    public final String nextNombre() {
         return genINE.getNombre();
     }
 
-    public String nextNIF() {
+    public final String nextNIF() {
         return genINE.getNIF();
     }
 
-    public Direccion nextDireccion() {
+    public final Direccion nextDireccion() {
         return genDireccion.nextDireccion();
     }
 
-    public String nextCorreo() {
+    public final String nextCorreo() {
         final String provincia = genINE.getProvincia();
         return stripNonWord(genINE.getNombre()) + "@" + stripNonWord(genINE.getPoblacion(provincia)) + "." + stripNonWord(provincia);
     }
 
-    public LocalDate nextFecha() {
+    public final LocalDate nextFecha() {
         return genHelper.nextFecha();
     }
 
-    public Tarifa nextTarifa() {
+    public final Tarifa nextTarifa() {
         return genTarifa.nextTarifa();
     }
 
-    public Cliente nextCliente() {
+    public final Cliente nextCliente() {
         return new Cliente(nextNIF(), nextNombre(), nextDireccion(), nextCorreo(), nextFecha(), nextTarifa());
     }
 
-    public Llamada nextLlamada() {
+    public final Llamada nextLlamada() {
         return genLlamada.nextLlamada();
     }
 
-    public Factura nextFactura() {
+    public final Factura nextFactura() {
         return genFactura.nextFactura();
     }
 }

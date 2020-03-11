@@ -7,18 +7,18 @@ import tarifas.Tarifa;
 import java.util.Random;
 
 public class GeneradorTarifa {
-    final static Random genBase = new Random();
-    final static GeneradorLlamada genLlamada = new GeneradorLlamada();
+    protected final static Random genBase = new Random();
+    protected final static GeneradorLlamada genLlamada = new GeneradorLlamada();
 
-    public double nextPrecio() {
+    public final double nextPrecio() {
         return genBase.nextDouble();
     }
 
-    public Tarifa nextTarifa() {
+    public final Tarifa nextTarifa() {
         return new Tarifa(nextPrecio());
     }
 
-    public Llamada nextLlamada() {
+    public final Llamada nextLlamada() {
         return genLlamada.nextLlamada();
     }
 }
