@@ -1,10 +1,10 @@
 package app.ventanas.claeses;
 
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Description;
 import com.google.common.collect.Range;
 import helpers.estaticos.Fecha;
 import helpers.estaticos.Parse;
-import helpers.interfaces.Description;
 
 import java.time.LocalDate;
 

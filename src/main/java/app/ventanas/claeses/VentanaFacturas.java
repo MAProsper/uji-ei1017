@@ -2,9 +2,9 @@ package app.ventanas.claeses;
 
 import app.Formato;
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Description;
 import app.ventanas.interfaces.Textbox;
 import clientes.Cliente;
-import helpers.interfaces.Description;
 
 import java.util.stream.Collectors;
 
