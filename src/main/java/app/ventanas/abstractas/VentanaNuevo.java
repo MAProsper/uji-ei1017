@@ -43,7 +43,7 @@ public abstract class VentanaNuevo extends Ventana {
         CREAR("Crear"),
         VOLVER("Volver");
 
-        final String description;
+        private final String description;
 
         Button(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

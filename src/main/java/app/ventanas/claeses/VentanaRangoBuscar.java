@@ -82,7 +82,7 @@ public class VentanaRangoBuscar extends Ventana {
         FACTURAS("facturas"),
         LLAMADAS("llamadas");
 
-        final String description;
+        private final String description;
 
         Tipo(final String description) {
             this.description = stringNotEmpty("Descripcion", description);
@@ -97,7 +97,7 @@ public class VentanaRangoBuscar extends Ventana {
         FECHA_INICIAL("Fecha inicial (YYYY-MM-DD)"),
         FECHA_FINAL("Fecha final (YYYY-MM-DD)");
 
-        final String description;
+        private final String description;
 
         Textbox(final String description) {
             this.description = stringNotEmpty("Descripcion", description);
@@ -112,7 +112,7 @@ public class VentanaRangoBuscar extends Ventana {
         BUSCAR("Buscar"),
         VOLVER("Volver");
 
-        final String description;
+        private final String description;
 
         Button(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

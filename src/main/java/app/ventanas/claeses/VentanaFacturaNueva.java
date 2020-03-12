@@ -54,7 +54,7 @@ public class VentanaFacturaNueva extends VentanaNuevo {
         FECHA_EMISION("Fecha de emision (YYYY-MM-DD)"),
         FECHA_INICIO("Fecha de inicio (YYYY-MM-DD)"),
         FECHA_FINAL("Fecha de final (YYYY-MM-DD)");
-        final String description;
+        private final String description;
 
         Textbox(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

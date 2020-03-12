@@ -30,7 +30,7 @@ public class VentanaError extends Ventana {
     public enum Button implements app.ventanas.interfaces.Button {
         VOLVER("Volver");
 
-        final String description;
+        private final String description;
 
         Button(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

@@ -36,7 +36,7 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
         TELEFONO("Telefono"),
         FECHA("Fecha (YYYY-MM-DD)"),
         DURACION("Duracion");
-        final String description;
+        private final String description;
 
         Textbox(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

@@ -48,7 +48,7 @@ public class VentanaFacturas extends Ventana {
         FACTURAS("facturas"),
         LLAMADAS("llamadas");
 
-        final String description;
+        private final String description;
 
         Tipo(final String description) {
             this.description = stringNotEmpty("Descripcion", description);
@@ -63,7 +63,7 @@ public class VentanaFacturas extends Ventana {
         ANYADIR_FACTURA("Añadir factura"),
         VOLVER("Volver");
 
-        final String description;
+        private final String description;
 
         Button(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

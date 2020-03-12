@@ -64,7 +64,7 @@ public class VentanaPrincipal extends Ventana {
         GUARDAR("Guardar clientes"),
         CERRAR("Cerrar");
 
-        final String description;
+        private final String description;
 
         Button(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

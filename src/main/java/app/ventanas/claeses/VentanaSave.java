@@ -56,7 +56,7 @@ public class VentanaSave extends Ventana {
     public enum Textbox implements app.ventanas.interfaces.Textbox {
         PATH("Ruta");
 
-        final String description;
+        private final String description;
 
         Textbox(final String description) {
             this.description = stringNotEmpty("Descripcion", description);
@@ -71,7 +71,7 @@ public class VentanaSave extends Ventana {
         GUARDAR("Guardar"),
         VOLVER("Volver");
 
-        final String description;
+        private final String description;
 
         Button(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

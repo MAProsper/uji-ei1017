@@ -50,7 +50,7 @@ public class VentanaLlamadas extends Ventana {
         NUEVA_LLAMADA("Añadir llamada"),
         VOLVER("Volver");
 
-        final String description;
+        private final String description;
 
         Button(final String description) {
             this.description = stringNotEmpty("Descripcion", description);

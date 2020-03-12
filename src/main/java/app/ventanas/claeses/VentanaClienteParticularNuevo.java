@@ -42,7 +42,7 @@ public class VentanaClienteParticularNuevo extends VentanaNuevo {
         FECHA_ALTA("Fecha de alta (YYYY-MM-DD)"),
         TARIFA_BASE("Tarifa base");
 
-        final String description;
+        private final String description;
 
         Textbox(final String description) {
             this.description = stringNotEmpty("Descripcion", description);
