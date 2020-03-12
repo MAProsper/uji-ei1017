@@ -19,7 +19,7 @@ public abstract class VentanaNuevo extends Ventana {
     }
 
     @Override
-    protected Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Ventana handle(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
         switch ((Button) button) {
@@ -39,7 +39,7 @@ public abstract class VentanaNuevo extends Ventana {
 
     protected abstract void crear();
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         CREAR("Crear"),
         VOLVER("Volver");
 

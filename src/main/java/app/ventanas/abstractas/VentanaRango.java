@@ -32,7 +32,7 @@ public abstract class VentanaRango extends Ventana {
         return null;
     }
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         VOLVER("Volver");
 
         final String description;

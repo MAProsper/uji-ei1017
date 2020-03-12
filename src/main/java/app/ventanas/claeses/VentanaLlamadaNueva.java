@@ -32,7 +32,7 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
         return cliente;
     }
 
-    private enum Textbox implements app.ventanas.interfaces.Textbox {
+    public enum Textbox implements app.ventanas.interfaces.Textbox {
         TELEFONO("Telefono"),
         FECHA("Fecha (YYYY-MM-DD)"),
         DURACION("Duracion");

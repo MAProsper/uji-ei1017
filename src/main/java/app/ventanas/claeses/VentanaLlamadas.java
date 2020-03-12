@@ -28,7 +28,7 @@ public class VentanaLlamadas extends Ventana {
     }
 
     @Override
-    protected Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Ventana handle(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
         switch ((Button) button) {
@@ -46,7 +46,7 @@ public class VentanaLlamadas extends Ventana {
         return cliente;
     }
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         NUEVA_LLAMADA("Añadir llamada"),
         VOLVER("Volver");
 

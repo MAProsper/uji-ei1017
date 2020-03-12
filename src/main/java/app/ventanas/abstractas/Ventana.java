@@ -38,7 +38,7 @@ abstract public class Ventana {
 
     protected abstract void update();
 
-    protected abstract Ventana handle(final Button button);
+    public abstract Ventana handle(final Button button);
 
     public static Gestor getGestor() {
         return validate("Gestor no esta asignado", gestor, gestor != null);

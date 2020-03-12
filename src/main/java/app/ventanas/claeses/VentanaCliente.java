@@ -40,7 +40,7 @@ public class VentanaCliente extends Ventana {
     }
 
     @Override
-    protected Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Ventana handle(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
         final Gestor gestor = getGestor();
 
@@ -65,7 +65,7 @@ public class VentanaCliente extends Ventana {
         return cliente;
     }
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         VER_LLAMADAS("Ver llamadas"),
         VER_FACTURAS("Ver facturas"),
         BORRAR_CLIENTE("Buscar cliente"),

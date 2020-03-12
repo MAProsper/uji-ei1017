@@ -23,7 +23,7 @@ public class VentanaClientes extends Ventana {
     }
 
     @Override
-    protected Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Ventana handle(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
         final Gestor gestor = getGestor();
 
@@ -49,7 +49,7 @@ public class VentanaClientes extends Ventana {
         return ventana;
     }
 
-    private enum Textbox implements app.ventanas.interfaces.Textbox {
+    public enum Textbox implements app.ventanas.interfaces.Textbox {
         SELECIONADO_NIF("Selecionado NIF");
 
         final String description;
@@ -63,7 +63,7 @@ public class VentanaClientes extends Ventana {
         }
     }
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         VER_CLIENTE("Ver cliente"),
         NUEVO_CLIENTE("Nuevo cliente"),
         NUEVO_PARTICULAR("Nuevo particular"),

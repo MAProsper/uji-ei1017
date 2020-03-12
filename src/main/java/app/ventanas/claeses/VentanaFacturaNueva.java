@@ -49,7 +49,7 @@ public class VentanaFacturaNueva extends VentanaNuevo {
         return cliente;
     }
 
-    private enum Textbox implements app.ventanas.interfaces.Textbox {
+    public enum Textbox implements app.ventanas.interfaces.Textbox {
         CODIGO("Codigo"),
         FECHA_EMISION("Fecha de emision (YYYY-MM-DD)"),
         FECHA_INICIO("Fecha de inicio (YYYY-MM-DD)"),

@@ -18,7 +18,7 @@ public class VentanaPrincipal extends Ventana {
     }
 
     @Override
-    protected Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Ventana handle(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
         switch ((Button) button) {
@@ -53,7 +53,7 @@ public class VentanaPrincipal extends Ventana {
         return ventana;
     }
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         VER_CLIENTES("Ver clientes"),
         BUSCAR_CLIENTE_NIF("Buscar cliente (NIF)"),
         BUSCAR_CLIENTE_FACTURA("Buscar cliente (factura)"),

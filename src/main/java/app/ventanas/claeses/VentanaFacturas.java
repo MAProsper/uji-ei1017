@@ -29,7 +29,7 @@ public class VentanaFacturas extends Ventana {
     }
 
     @Override
-    protected Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Ventana handle(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
         switch ((Button) button) {
@@ -59,7 +59,7 @@ public class VentanaFacturas extends Ventana {
         }
     }
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         ANYADIR_FACTURA("Añadir factura"),
         VOLVER("Volver");
 

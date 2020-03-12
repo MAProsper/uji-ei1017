@@ -31,7 +31,7 @@ public class VentanaClienteNuevo extends VentanaNuevo {
         getGestor().addCliente(cliente);
     }
 
-    private enum Textbox implements app.ventanas.interfaces.Textbox {
+    public enum Textbox implements app.ventanas.interfaces.Textbox {
         NIF("NIF"),
         NOMBRE("Nombre"),
         CODIGO_POSTAL("Codigo postal"),

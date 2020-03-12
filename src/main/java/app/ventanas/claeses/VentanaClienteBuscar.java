@@ -19,7 +19,7 @@ public class VentanaClienteBuscar extends Ventana {
     }
 
     @Override
-    protected Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Ventana handle(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
         switch ((Button) button) {
@@ -35,7 +35,7 @@ public class VentanaClienteBuscar extends Ventana {
         return ventana;
     }
 
-    private enum Textbox implements app.ventanas.interfaces.Textbox {
+    public enum Textbox implements app.ventanas.interfaces.Textbox {
         NIF("NIF");
 
         final String description;
@@ -49,7 +49,7 @@ public class VentanaClienteBuscar extends Ventana {
         }
     }
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         BUSCAR("Buscar"),
         VOLVER("Volver");
 

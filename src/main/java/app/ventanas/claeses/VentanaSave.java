@@ -22,7 +22,7 @@ public class VentanaSave extends Ventana {
     }
 
     @Override
-    protected Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Ventana handle(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
         final Gestor gestor = getGestor();
 
@@ -53,7 +53,7 @@ public class VentanaSave extends Ventana {
         return ventana;
     }
 
-    private enum Textbox implements app.ventanas.interfaces.Textbox {
+    public enum Textbox implements app.ventanas.interfaces.Textbox {
         PATH("Ruta");
 
         final String description;
@@ -67,7 +67,7 @@ public class VentanaSave extends Ventana {
         }
     }
 
-    private enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button {
         GUARDAR("Guardar"),
         VOLVER("Volver");
 
