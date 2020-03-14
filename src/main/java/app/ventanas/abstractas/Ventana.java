@@ -41,15 +41,19 @@ abstract public class Ventana {
     public abstract Ventana handle(final Button button);
 
     public static Gestor getGestor() {
-        return validate("Gestor no esta asignado", gestor, gestor != null);
+        return validate("Gestor no esta asignado", gestor, hasGestor());
     }
 
     private List<String> validateList() {
-        return validate("List no esta definida", list, list != null);
+        return validate("List no esta definida", list, hasList());
     }
 
     private Textbox validateTextbox(final Textbox name) {
         return validate("Textbox " + name + " no esta definida", referenceNotNull("Name", name), textboxes.contains(name));
+    }
+
+    public boolean hasList() {
+        return list != null;
     }
 
     public static boolean hasGestor() {
@@ -147,7 +151,7 @@ abstract public class Ventana {
     private void dialogTextbox(final Textbox name) {
         renderWindow();
         System.out.format("Contenido de %s: ", name.getDescription());
-        textboxesContent.put(name, scanner.nextLine());
+        setTextbox(name, scanner.nextLine());
     }
 
     public Ventana show() {
@@ -166,7 +170,7 @@ abstract public class Ventana {
         return "Ventana{" +
                 "title='" + title + '\'' +
                 ", info='" + info + '\'' +
-                ", list=" + (list != null) +
+                ", list=" + hasList() +
                 ", textboxes=" + textboxes +
                 ", buttons=" + buttons +
                 '}';

@@ -2,6 +2,7 @@ package app.ventanas.claeses;
 
 import app.Gestor;
 import app.ventanas.abstractas.Ventana;
+import clientes.Cliente;
 import helpers.estaticos.Parse;
 
 import static helpers.estaticos.Arguments.ValidationException;
@@ -26,15 +27,17 @@ public class VentanaFacturaBuscar extends Ventana {
         switch ((Button) button) {
             case BUSCAR:
                 final Gestor gestor = getGestor();
-                Integer codigo = null;
+                Cliente cliente = null;
 
                 try {
-                    codigo = getCodigo();
+                    cliente = gestor.buscarCliente(getCodigo());
                 } catch (ValidationException e) {
                     ventana = new VentanaError(e);
                 }
+                if (cliente != null) {
+                    ventana = gestor.getVisor(cliente);
+                }
 
-                if (codigo != null) ventana = gestor.getVisor(gestor.getCliente(codigo));
                 break;
             case VOLVER:
                 break;

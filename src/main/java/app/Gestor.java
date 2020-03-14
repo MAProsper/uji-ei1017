@@ -1,7 +1,10 @@
 package app;
 
 import app.ventanas.abstractas.Ventana;
-import app.ventanas.claeses.*;
+import app.ventanas.claeses.VentanaCliente;
+import app.ventanas.claeses.VentanaClienteEmpresa;
+import app.ventanas.claeses.VentanaClienteParticular;
+import app.ventanas.claeses.VentanaPrincipal;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
@@ -49,11 +52,14 @@ public class Gestor {
         return Collections.unmodifiableList(llamadas);
     }
 
-    final public Cliente getCliente(final String NIF) {
+    final public Cliente buscarCliente(final String NIF) {
+        referenceNotNull("NIF", NIF);
+        validate("Cliente no encontrado", id2cliente.containsKey(NIF));
         return id2cliente.get(NIF);
     }
 
-    final public Cliente getCliente(final int codigo) {
+    final public Cliente buscarCliente(final int codigo) {
+        validate("Cliente no encontrado", factura2cliente.containsKey(codigo));
         return factura2cliente.get(codigo);
     }
 
@@ -79,10 +85,10 @@ public class Gestor {
     }
 
     public Ventana getVisor(final Cliente cliente) {
+        referenceNotNull("Cliente", cliente);
         if (cliente instanceof ClientePaticular) return new VentanaClienteParticular((ClientePaticular) cliente);
         else if (cliente instanceof ClienteEmpresa) return new VentanaClienteEmpresa((ClienteEmpresa) cliente);
-        else if (cliente != null) return new VentanaCliente(cliente);
-        else return new VentanaError("Cliente no encotrado");
+        else return new VentanaCliente(cliente);
     }
 
     public void removeCliente(final Cliente cliente) {

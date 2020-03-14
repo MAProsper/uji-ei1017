@@ -4,6 +4,7 @@ import app.Gestor;
 import app.ventanas.abstractas.Ventana;
 import clientes.Cliente;
 
+import static helpers.estaticos.Arguments.ValidationException;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaClienteBuscar extends Ventana {
@@ -25,8 +26,18 @@ public class VentanaClienteBuscar extends Ventana {
         switch ((Button) button) {
             case BUSCAR:
                 final Gestor gestor = getGestor();
-                final Cliente cliente = gestor.getCliente(getTextbox(Textbox.NIF));
-                ventana = gestor.getVisor(cliente);
+                final String NIF = getTextbox(Textbox.NIF);
+                Cliente cliente = null;
+
+                try {
+                    cliente = gestor.buscarCliente(NIF);
+                } catch (ValidationException e) {
+                    ventana = new VentanaError(e);
+                }
+                if (cliente != null) {
+                    ventana = gestor.getVisor(cliente);
+                }
+
                 break;
             case VOLVER:
                 break;

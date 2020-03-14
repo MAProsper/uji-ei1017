@@ -4,6 +4,7 @@ import app.Formato;
 import app.Gestor;
 import app.ventanas.abstractas.Ventana;
 import clientes.Cliente;
+import helpers.estaticos.Arguments.ValidationException;
 
 import java.util.stream.Collectors;
 
@@ -30,8 +31,17 @@ public class VentanaClientes extends Ventana {
         switch ((Button) button) {
             case VER_CLIENTE:
                 final String NIF = getTextbox(Textbox.SELECIONADO_NIF);
-                final Cliente cliente = gestor.getCliente(NIF);
-                ventana = gestor.getVisor(cliente);
+                Cliente cliente = null;
+
+                try {
+                    cliente = gestor.buscarCliente(NIF);
+                } catch (ValidationException e) {
+                    ventana = new VentanaError(e);
+                }
+                if (cliente != null) {
+                    ventana = gestor.getVisor(cliente);
+                }
+
                 break;
             case NUEVO_CLIENTE:
                 ventana = new VentanaClienteNuevo();
