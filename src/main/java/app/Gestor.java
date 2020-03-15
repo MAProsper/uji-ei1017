@@ -144,9 +144,9 @@ public class Gestor {
         stack.push(new VentanaPrincipal());
 
         while (!stack.empty()) {
-            Ventana current = stack.peek();
+            final Ventana current = stack.peek();
             current.setGestor(this);
-            Optional<Ventana> next = current.show();
+            final Optional<Ventana> next = current.show();
             if (next.isPresent()) stack.push(next.get());
             else stack.pop();
         }
