@@ -4,6 +4,7 @@ import app.ventanas.abstractas.Ventana;
 import app.ventanas.claeses.VentanaCliente;
 import app.ventanas.claeses.VentanaClienteEmpresa;
 import app.ventanas.claeses.VentanaClienteParticular;
+import app.ventanas.claeses.VentanaPrincipal;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
@@ -19,7 +20,6 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.validate;
 
 public class Gestor {
-    private final Stack<Ventana> stack;
     private HashMap<String, Cliente> id2cliente;
     private HashMap<Integer, Cliente> factura2cliente;
     private List<Cliente> clientes;
@@ -27,7 +27,6 @@ public class Gestor {
     private List<Llamada> llamadas;
 
     public Gestor() {
-        stack = new Stack<>();
         clearClientes();
     }
 
@@ -104,18 +103,6 @@ public class Gestor {
             llamadas.remove(llamada);
     }
 
-    final public void show(final Ventana ventana) {
-        stack.push(referenceNotNull("Ventana", ventana));
-
-        while (!stack.empty()) {
-            Ventana current = stack.peek();
-            current.setGestor(this);
-            Optional<Ventana> next = current.show();
-            if (next.isPresent()) stack.push(next.get());
-            else stack.pop();
-        }
-    }
-
     public void load(final Path path) {
         referenceNotNull("Path", path);
         Object datos = null;
@@ -150,6 +137,19 @@ public class Gestor {
         }
 
         validate("No se ha podido guardar en la ruta", saved);
+    }
+
+    final public void show() {
+        final Stack<Ventana> stack = new Stack<>();
+        stack.push(new VentanaPrincipal());
+
+        while (!stack.empty()) {
+            Ventana current = stack.peek();
+            current.setGestor(this);
+            Optional<Ventana> next = current.show();
+            if (next.isPresent()) stack.push(next.get());
+            else stack.pop();
+        }
     }
 
     @Override
