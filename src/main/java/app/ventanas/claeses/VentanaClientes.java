@@ -3,11 +3,11 @@ package app.ventanas.claeses;
 import app.Formato;
 import app.Gestor;
 import app.ventanas.abstractas.Ventana;
-import clientes.Cliente;
-import helpers.estaticos.Arguments.ValidationException;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaClientes extends Ventana {
@@ -24,24 +24,14 @@ public class VentanaClientes extends Ventana {
     }
 
     @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
-        final Gestor gestor = getGestor();
 
-        switch ((Button) button) {
+        switch ((Button) referenceNotNull("Button", button)) {
             case VER_CLIENTE:
+                final Gestor gestor = getGestor();
                 final String NIF = getTextbox(Textbox.SELECIONADO_NIF);
-                Cliente cliente = null;
-
-                try {
-                    cliente = gestor.buscarCliente(NIF);
-                } catch (ValidationException e) {
-                    ventana = new VentanaError(e);
-                }
-                if (cliente != null) {
-                    ventana = gestor.getVisor(cliente);
-                }
-
+                ventana = VentanaError.attempt(() -> gestor.buscarCliente(NIF), gestor::getVisor);
                 break;
             case NUEVO_CLIENTE:
                 ventana = new VentanaClienteNuevo();
@@ -56,7 +46,7 @@ public class VentanaClientes extends Ventana {
                 break;
         }
 
-        return ventana;
+        return Optional.ofNullable(ventana);
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {

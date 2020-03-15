@@ -3,6 +3,9 @@ package app.ventanas.claeses;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Textbox;
 
+import java.util.Optional;
+
+import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaPrincipal extends Ventana {
@@ -14,14 +17,10 @@ public class VentanaPrincipal extends Ventana {
     }
 
     @Override
-    protected void update() {
-    }
-
-    @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
-        switch ((Button) button) {
+        switch ((Button) referenceNotNull("Button", button)) {
             case VER_CLIENTES:
                 ventana = new VentanaClientes();
                 break;
@@ -50,7 +49,7 @@ public class VentanaPrincipal extends Ventana {
                 break;
         }
 
-        return ventana;
+        return Optional.ofNullable(ventana);
     }
 
     public enum Button implements app.ventanas.interfaces.Button {

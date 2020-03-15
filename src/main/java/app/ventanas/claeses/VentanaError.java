@@ -3,6 +3,9 @@ package app.ventanas.claeses;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Textbox;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 import static helpers.estaticos.Arguments.ValidationException;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
@@ -18,13 +21,25 @@ public class VentanaError extends Ventana {
         this(exception.getMessage());
     }
 
-    @Override
-    protected void update() {
+    public static Ventana attempt(final Runnable func) {
+        //Tiene muchos nulos, pressButton espera nulos, no sabemos como limpiarlo más
+        return attempt(() -> {
+            func.run();
+            return null;
+        }, v -> null);
     }
 
-    @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
-        return null;
+    public static <T> Ventana attempt(final Supplier<T> func, final Function<T, Ventana> result) {
+        Ventana ventana = null;
+        T value = null;
+
+        try {
+            value = func.get();
+        } catch (ValidationException e) {
+            ventana = new VentanaError(e);
+        }
+
+        return ventana == null ? result.apply(value) : ventana;
     }
 
     public enum Button implements app.ventanas.interfaces.Button {

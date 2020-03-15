@@ -5,8 +5,9 @@ import app.ventanas.abstractas.Ventana;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
-import static helpers.estaticos.Arguments.ValidationException;
+import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaSave extends Ventana {
@@ -18,39 +19,24 @@ public class VentanaSave extends Ventana {
     }
 
     @Override
-    protected void update() {
-    }
-
-    @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
-        final Gestor gestor = getGestor();
 
-        switch ((Button) button) {
+        switch ((Button) referenceNotNull("Button", button)) {
             case GUARDAR:
-                ventana = save(getPath());
+                final Path path = getPath();
+                final Gestor gestor = getGestor();
+                ventana = VentanaError.attempt(() -> gestor.save(path));
                 break;
             case VOLVER:
                 break;
         }
 
-        return ventana;
+        return Optional.ofNullable(ventana);
     }
 
     protected Path getPath() {
         return Paths.get(getTextbox(Textbox.PATH));
-    }
-
-    protected Ventana save(final Path path) {
-        Ventana ventana = null;
-
-        try {
-            getGestor().save(path);
-        } catch (ValidationException e) {
-            ventana = new VentanaError(e);
-        }
-
-        return ventana;
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {

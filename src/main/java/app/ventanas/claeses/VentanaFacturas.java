@@ -6,6 +6,7 @@ import app.ventanas.interfaces.Description;
 import app.ventanas.interfaces.Textbox;
 import clientes.Cliente;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
@@ -29,10 +30,10 @@ public class VentanaFacturas extends Ventana {
     }
 
     @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
-        switch ((Button) button) {
+        switch ((Button) referenceNotNull("Button", button)) {
             case ANYADIR_FACTURA:
                 ventana = new VentanaFacturaNueva(cliente);
                 break;
@@ -40,7 +41,7 @@ public class VentanaFacturas extends Ventana {
                 break;
         }
 
-        return ventana;
+        return Optional.ofNullable(ventana);
     }
 
     public enum Tipo implements Description {

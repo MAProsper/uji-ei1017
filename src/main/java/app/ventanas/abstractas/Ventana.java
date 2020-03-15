@@ -7,41 +7,56 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Range;
 
 import java.util.*;
+import java.util.concurrent.Semaphore;
 
 import static helpers.estaticos.Arguments.*;
 
 
 abstract public class Ventana {
     private final static Scanner scanner = new Scanner(System.in);
+    private final static Semaphore running = new Semaphore(1);
     protected final String title;
     protected final String info;
     protected final List<Textbox> textboxes;
-    private final Map<Textbox, String> textboxesContent;
     protected final List<Button> buttons;
-    private final List<String> list;
-    private static Gestor gestor;
+    private final Map<Textbox, String> textboxesContent;
+    private List<String> list;
+    private Gestor gestor;
 
     public Ventana(final String title, final String info, final boolean list, final List<Textbox> textboxes, final List<Button> buttons) {
         this.title = stringNotEmpty("Title", title);
         this.info = stringNotEmpty("Information", info);
         this.list = list ? new LinkedList<>() : null;
-        this.textboxes = new LinkedList<>(collectionWithoutNull("Textboxes", textboxes));
-        this.buttons = new LinkedList<>(collectionWithoutNull("Buttons", buttons));
+
+        collectionWithoutNull("Textboxes", textboxes);
+        this.textboxes = Collections.unmodifiableList(new LinkedList<>(textboxes));
+
+        collectionWithoutNull("Buttons", buttons);
+        validate("Buttons no puede estar vacia", !buttons.isEmpty());
+        this.buttons = Collections.unmodifiableList(new LinkedList<>(buttons));
 
         textboxesContent = new HashMap<>();
-        if (!textboxes.isEmpty()) clearTextboxes();
+        clearTextboxes();
     }
 
     public Ventana(final String title, final String info, final boolean list, final Textbox[] textboxes, final Button[] buttons) {
         this(title, info, list, Arrays.asList(referenceNotNull("Textboxes", textboxes)), Arrays.asList(referenceNotNull("Buttons", buttons)));
     }
 
-    protected abstract void update();
+    protected void update() {
+    }
 
-    public abstract Ventana handle(final Button button);
+    public Optional<Ventana> pressButton(final Button button) {
+        referenceNotNull("Button", button);
+        return Optional.empty();
+    }
 
-    public static Gestor getGestor() {
+    public final Gestor getGestor() {
         return validate("Gestor no esta asignado", gestor, hasGestor());
+    }
+
+    public void setGestor(final Gestor gestor) {
+        this.gestor = gestor;
     }
 
     private List<String> validateList() {
@@ -52,16 +67,12 @@ abstract public class Ventana {
         return validate("Textbox " + name + " no esta definida", referenceNotNull("Name", name), textboxes.contains(name));
     }
 
-    public boolean hasList() {
+    final public boolean hasList() {
         return list != null;
     }
 
-    public static boolean hasGestor() {
+    final public boolean hasGestor() {
         return gestor != null;
-    }
-
-    public static void setGestor(final Gestor gestor) {
-        Ventana.gestor = gestor;
     }
 
     final public String getTitle() {
@@ -77,14 +88,13 @@ abstract public class Ventana {
     }
 
     public void setList(final List<String> list) {
-        final List<String> ignored = validateList();  // Warning: result ignored
+        validateList();
         collectionWithoutNull("List", list);
-        this.list.clear();
-        this.list.addAll(list);
+        this.list = new LinkedList<>(list);
     }
 
     final public List<Textbox> getTextboxes() {
-        return Collections.unmodifiableList(textboxes);
+        return textboxes;
     }
 
     final public String getTextbox(final Textbox name) {
@@ -96,12 +106,11 @@ abstract public class Ventana {
     }
 
     public void clearTextboxes() {
-        validate("Textboxes no esta definido", !textboxes.isEmpty());
         for (Textbox name : textboxes) setTextbox(name, "");
     }
 
     final public List<Button> getButtons() {
-        return Collections.unmodifiableList(buttons);
+        return buttons;
     }
 
     private void renderWindow() {
@@ -113,7 +122,7 @@ abstract public class Ventana {
         window.append(Strings.repeat("-", title.length())).append("\n\n");
         window.append(info).append("\n\n");
 
-        if (list != null) {
+        if (hasList()) {
             for (String line : list) window.append(line).append("\n");
             window.append("\n");
         }
@@ -154,14 +163,27 @@ abstract public class Ventana {
         setTextbox(name, scanner.nextLine());
     }
 
-    public Ventana show() {
+    private Optional<Ventana> dialog() {
         update();
+        int option;
         final int separator = textboxes.size();
 
         while (true) {
-            int option = dialogSelect();
-            if (option < separator) dialogTextbox(textboxes.get(option));
-            else return handle(buttons.get(option - separator));
+            option = dialogSelect();
+            if (option >= separator) break;
+            else dialogTextbox(textboxes.get(option));
+        }
+
+        return pressButton(buttons.get(option - separator));
+    }
+
+    final public Optional<Ventana> show() {
+        if (!running.tryAcquire()) {
+            throw new OverlappingVentanaException();
+        } else try {
+            return dialog();
+        } finally {
+            running.release();
         }
     }
 
@@ -174,5 +196,9 @@ abstract public class Ventana {
                 ", textboxes=" + textboxes +
                 ", buttons=" + buttons +
                 '}';
+    }
+
+    public static class OverlappingVentanaException extends IllegalStateException {
+        private static final long serialVersionUID = -4234327239149123858L;
     }
 }

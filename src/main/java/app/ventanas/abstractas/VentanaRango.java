@@ -27,11 +27,6 @@ public abstract class VentanaRango extends Ventana {
         return periodo;
     }
 
-    @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
-        return null;
-    }
-
     public enum Button implements app.ventanas.interfaces.Button {
         VOLVER("Volver");
 

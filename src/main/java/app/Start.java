@@ -1,10 +1,12 @@
 package app;
 
+import app.ventanas.claeses.VentanaPrincipal;
+
 public class Start {
     private Start() {
     }
 
     public static void main(String[] args) {
-        new Gestor().showMenu();
+        new Gestor().show(new VentanaPrincipal());
     }
 }

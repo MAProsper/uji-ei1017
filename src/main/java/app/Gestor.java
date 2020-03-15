@@ -4,7 +4,6 @@ import app.ventanas.abstractas.Ventana;
 import app.ventanas.claeses.VentanaCliente;
 import app.ventanas.claeses.VentanaClienteEmpresa;
 import app.ventanas.claeses.VentanaClienteParticular;
-import app.ventanas.claeses.VentanaPrincipal;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
@@ -52,13 +51,13 @@ public class Gestor {
         return Collections.unmodifiableList(llamadas);
     }
 
-    final public Cliente buscarCliente(final String NIF) {
+    public Cliente buscarCliente(final String NIF) {
         referenceNotNull("NIF", NIF);
         validate("Cliente no encontrado", id2cliente.containsKey(NIF));
         return id2cliente.get(NIF);
     }
 
-    final public Cliente buscarCliente(final int codigo) {
+    public Cliente buscarCliente(final int codigo) {
         validate("Cliente no encontrado", factura2cliente.containsKey(codigo));
         return factura2cliente.get(codigo);
     }
@@ -105,17 +104,16 @@ public class Gestor {
             llamadas.remove(llamada);
     }
 
-    final public void showMenu() {
-        if (Ventana.hasGestor()) throw new OverlappingVentanaException();
+    final public void show(final Ventana ventana) {
+        stack.push(referenceNotNull("Ventana", ventana));
 
-        Ventana.setGestor(this);
-        stack.push(new VentanaPrincipal());
         while (!stack.empty()) {
-            Ventana result = stack.peek().show();
-            if (result == null) stack.pop();
-            else stack.push(result);
+            Ventana current = stack.peek();
+            current.setGestor(this);
+            Optional<Ventana> next = current.show();
+            if (next.isPresent()) stack.push(next.get());
+            else stack.pop();
         }
-        Ventana.setGestor(null);
     }
 
     public void load(final Path path) {
@@ -138,15 +136,15 @@ public class Gestor {
     }
 
     public void save(final Path path) {
-        boolean saved = false;
+        boolean saved = true;
 
         try {
             final OutputStream stream = Files.newOutputStream(path);
             final ObjectOutputStream oos = new ObjectOutputStream(stream);
             oos.writeObject(getClientes().toArray(new Cliente[0]));
             oos.close();
-            saved = true;
         } catch (IOException ignored) {
+            saved = false;
         }
 
         validate("No se ha podido guardar en la ruta", saved);
@@ -157,9 +155,5 @@ public class Gestor {
         return "Gestor{" +
                 "clientes=" + getClientes() +
                 '}';
-    }
-
-    public static class OverlappingVentanaException extends IllegalStateException {
-        private static final long serialVersionUID = -4234327239149123858L;
     }
 }

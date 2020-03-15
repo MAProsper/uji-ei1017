@@ -9,7 +9,8 @@ final public class Parse {
 
     protected static <T> T validate(final String name, final T value) {
         Arguments.referenceNotNull("Name", name);
-        return Arguments.validate(name + " no tiene el formato correcto", value, value != null);
+        Arguments.validate(name + " no tiene el formato correcto", value != null);
+        return value;
     }
 
     public static LocalDate fecha(final String name, final String fecha) {

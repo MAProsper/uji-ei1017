@@ -1,12 +1,12 @@
 package app.ventanas.claeses;
 
-import app.Gestor;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Textbox;
 import clientes.Cliente;
 import helpers.clases.Direccion;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
@@ -39,12 +39,10 @@ public class VentanaCliente extends Ventana {
         ));
     }
 
-    @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
-        final Gestor gestor = getGestor();
 
-        switch ((Button) button) {
+        switch ((Button) referenceNotNull("Button", button)) {
             case VER_LLAMADAS:
                 ventana = new VentanaLlamadas(cliente);
                 break;
@@ -52,13 +50,13 @@ public class VentanaCliente extends Ventana {
                 ventana = new VentanaFacturas(cliente);
                 break;
             case BORRAR_CLIENTE:
-                gestor.removeCliente(cliente);
+                getGestor().removeCliente(cliente);
                 break;
             case VOLVER:
                 break;
         }
 
-        return ventana;
+        return Optional.ofNullable(ventana);
     }
 
     public final Cliente getCliente() {
@@ -68,7 +66,7 @@ public class VentanaCliente extends Ventana {
     public enum Button implements app.ventanas.interfaces.Button {
         VER_LLAMADAS("Ver llamadas"),
         VER_FACTURAS("Ver facturas"),
-        BORRAR_CLIENTE("Buscar cliente"),
+        BORRAR_CLIENTE("Borrar cliente"),
         VOLVER("Volver");
 
         private final String description;

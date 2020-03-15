@@ -3,7 +3,9 @@ package app.ventanas.abstractas;
 import app.ventanas.claeses.VentanaError;
 import app.ventanas.interfaces.Textbox;
 
-import static helpers.estaticos.Arguments.ValidationException;
+import java.util.Optional;
+
+import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public abstract class VentanaNuevo extends Ventana {
@@ -15,26 +17,18 @@ public abstract class VentanaNuevo extends Ventana {
     }
 
     @Override
-    protected void update() {
-    }
-
-    @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
-        switch ((Button) button) {
+        switch ((Button) referenceNotNull("Button", button)) {
             case CREAR:
-                try {
-                    crear();
-                } catch (ValidationException e) {
-                    ventana = new VentanaError(e);
-                }
+                ventana = VentanaError.attempt(this::crear);
                 break;
             case VOLVER:
                 break;
         }
 
-        return ventana;
+        return Optional.ofNullable(ventana);
     }
 
     protected abstract void crear();

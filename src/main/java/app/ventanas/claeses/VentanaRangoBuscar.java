@@ -7,6 +7,7 @@ import helpers.estaticos.Fecha;
 import helpers.estaticos.Parse;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static helpers.estaticos.Arguments.*;
 
@@ -22,30 +23,18 @@ public class VentanaRangoBuscar extends Ventana {
     }
 
     @Override
-    protected void update() {
-    }
-
-    @Override
-    public Ventana handle(final app.ventanas.interfaces.Button button) {
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
         Ventana ventana = null;
 
         switch ((Button) button) {
             case BUSCAR:
-                Range<LocalDate> periodo = null;
-
-                try {
-                    periodo = getPeriodo();
-                } catch (ValidationException e) {
-                    ventana = new VentanaError(e);
-                }
-
-                if (periodo != null) ventana = getVentana(periodo);
+                ventana = VentanaError.attempt(this::getPeriodo, this::getVentana);
                 break;
             case VOLVER:
                 break;
         }
 
-        return ventana;
+        return Optional.ofNullable(ventana);
     }
 
     protected Ventana getVentana(final Range<LocalDate> periodo) {
@@ -62,6 +51,8 @@ public class VentanaRangoBuscar extends Ventana {
             case LLAMADAS:
                 ventana = new VentanaLlamadasRango(periodo);
                 break;
+            default:
+                validate("Ventana no clasificada", false);
         }
 
         return ventana;
