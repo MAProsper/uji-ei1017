@@ -117,6 +117,7 @@ public class Gestor {
     }
 
     public void load(final Path path) {
+        referenceNotNull("Path", path);
         Object datos = null;
 
         try {
@@ -136,6 +137,7 @@ public class Gestor {
     }
 
     public void save(final Path path) {
+        referenceNotNull("Path", path);
         boolean saved = true;
 
         try {
