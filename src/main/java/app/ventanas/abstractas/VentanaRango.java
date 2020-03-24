@@ -3,15 +3,15 @@ package app.ventanas.abstractas;
 import app.ventanas.interfaces.Textbox;
 import com.google.common.collect.Range;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.*;
 
 public abstract class VentanaRango extends Ventana {
-    private final Range<LocalDate> periodo;
+    private final Range<LocalDateTime> periodo;
 
-    public VentanaRango(final Range<LocalDate> perido) {
+    public VentanaRango(final Range<LocalDateTime> perido) {
         super(
                 "Listado en rango",
                 "Reultados encontrados en el periodo",
@@ -23,7 +23,14 @@ public abstract class VentanaRango extends Ventana {
     @Override
     abstract protected void update();
 
-    public Range<LocalDate> getPeriodo() {
+    @Override
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        validate("Ventana no clasificada", button == Button.VOLVER);
+        return Optional.empty();
+    }
+
+    public Range<LocalDateTime> getPeriodo() {
         return periodo;
     }
 

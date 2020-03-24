@@ -1,5 +1,6 @@
 package app.ventanas.claeses;
 
+import app.Formatter;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Textbox;
 import clientes.Cliente;
@@ -8,8 +9,7 @@ import helpers.clases.Direccion;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.*;
 
 public class VentanaCliente extends Ventana {
     protected final Cliente cliente;
@@ -34,15 +34,16 @@ public class VentanaCliente extends Ventana {
                 "Provincia: " + direccion.getProvincia(),
                 "Poblacion: " + direccion.getPoblacion(),
                 "Correo electronico : " + cliente.getCorreo(),
-                "Fecha de alta: " + cliente.getFecha(),
+                "Fecha de alta: " + Formatter.format(cliente.getFecha()),
                 "Tarifa base: " + cliente.getTarifa().getPrecio()
         ));
     }
 
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
         Ventana ventana = null;
 
-        switch ((Button) referenceNotNull("Button", button)) {
+        switch ((Button) button) {
             case VER_LLAMADAS:
                 ventana = new VentanaLlamadas(cliente);
                 break;
@@ -54,6 +55,8 @@ public class VentanaCliente extends Ventana {
                 break;
             case VOLVER:
                 break;
+            default:
+                validate("Button no clasificado", false);
         }
 
         return Optional.ofNullable(ventana);

@@ -1,9 +1,9 @@
 package app.ventanas.claeses;
 
+import app.Parser;
 import app.ventanas.abstractas.VentanaNuevo;
 import clientes.Cliente;
 import helpers.clases.Llamada;
-import helpers.estaticos.Parse;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
@@ -22,7 +22,7 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
         final String fecha = getTextbox(Textbox.FECHA);
         final String duracion = getTextbox(Textbox.DURACION);
 
-        final Llamada llamada = new Llamada(telefono, Parse.fecha(Textbox.FECHA.getDescription(), fecha), Parse.real(Textbox.DURACION.getDescription(), duracion));
+        final Llamada llamada = new Llamada(telefono, Parser.fecha(Textbox.FECHA.getDescription(), fecha), Parser.real(Textbox.DURACION.getDescription(), duracion));
 
         cliente.addLlamada(llamada);
         getGestor().addLlamada(cliente, llamada);
@@ -34,7 +34,7 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {
         TELEFONO("Telefono"),
-        FECHA("Fecha (YYYY-MM-DD)"),
+        FECHA("Fecha"),
         DURACION("Duracion");
         private final String description;
 

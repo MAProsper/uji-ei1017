@@ -1,14 +1,14 @@
 package app.ventanas.claeses;
 
-import app.Formato;
+import app.Formatter;
 import app.Gestor;
 import app.ventanas.abstractas.Ventana;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.validate;
 
 public class VentanaClientes extends Ventana {
     public VentanaClientes() {
@@ -20,14 +20,15 @@ public class VentanaClientes extends Ventana {
 
     @Override
     protected void update() {
-        setList(getGestor().getClientes().stream().map(Formato::cliente).collect(Collectors.toList()));
+        setList(getGestor().getClientes().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 
     @Override
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
         Ventana ventana = null;
 
-        switch ((Button) referenceNotNull("Button", button)) {
+        switch ((Button) button) {
             case VER_CLIENTE:
                 final Gestor gestor = getGestor();
                 final String NIF = getTextbox(Textbox.SELECIONADO_NIF);
@@ -44,6 +45,8 @@ public class VentanaClientes extends Ventana {
                 break;
             case VOLVER:
                 break;
+            default:
+                validate("Button no clasificado", false);
         }
 
         return Optional.ofNullable(ventana);

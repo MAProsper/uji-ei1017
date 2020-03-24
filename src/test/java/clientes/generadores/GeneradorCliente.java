@@ -12,7 +12,7 @@ import helpers.generadores.GeneratorFecha;
 import tarifas.Tarifa;
 import tarifas.generadores.GeneradorTarifa;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class GeneradorCliente {
     protected final static GeneratorFecha genHelper = new GeneratorFecha();
@@ -43,7 +43,7 @@ public class GeneradorCliente {
         return stripNonWord(genINE.getNombre()) + "@" + stripNonWord(genINE.getPoblacion(provincia)) + "." + stripNonWord(provincia);
     }
 
-    public final LocalDate nextFecha() {
+    public final LocalDateTime nextFecha() {
         return genHelper.nextFecha();
     }
 

@@ -7,7 +7,7 @@ import helpers.interfaces.Cronologico;
 import tarifas.Tarifa;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static helpers.estaticos.Arguments.*;
@@ -19,12 +19,12 @@ public class Cliente implements Cronologico, Serializable {
     protected final String nombre;
     protected final Direccion direccion;
     protected final String correo;
-    protected final LocalDate fechaAlta;
+    protected final LocalDateTime fechaAlta;
     protected final List<Llamada> llamadas;
     protected final List<Factura> facturas;
     protected Tarifa tarifa;
 
-    public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {
+    public Cliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final LocalDateTime fechaAlta, final Tarifa tarifa) {
         validate("NIF del cliente repetido", !NIFs.contains(NIF));
         this.NIF = stringMatchesPattern("NIF", NIF, "\\d+[TRWAGMYFPDXBNJZSQVHLCKE]");
         this.nombre = stringNotEmpty("Nombre", nombre);
@@ -53,7 +53,7 @@ public class Cliente implements Cronologico, Serializable {
         return correo;
     }
 
-    final public LocalDate getFecha() {
+    final public LocalDateTime getFecha() {
         return fechaAlta;
     }
 

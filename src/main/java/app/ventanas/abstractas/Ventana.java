@@ -46,10 +46,7 @@ abstract public class Ventana {
     protected void update() {
     }
 
-    public Optional<Ventana> pressButton(final Button button) {
-        referenceNotNull("Button", button);
-        return Optional.empty();
-    }
+    public abstract Optional<Ventana> pressButton(final Button button);
 
     public final Gestor getGestor() {
         return validate("Gestor no esta asignado", gestor, hasGestor());

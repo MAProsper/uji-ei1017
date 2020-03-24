@@ -5,8 +5,8 @@ import app.ventanas.interfaces.Textbox;
 
 import java.util.Optional;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.validate;
 
 public abstract class VentanaNuevo extends Ventana {
     public VentanaNuevo(final Textbox[] textboxes) {
@@ -18,14 +18,17 @@ public abstract class VentanaNuevo extends Ventana {
 
     @Override
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
         Ventana ventana = null;
 
-        switch ((Button) referenceNotNull("Button", button)) {
+        switch ((Button) button) {
             case CREAR:
                 ventana = VentanaError.attempt(this::crear);
                 break;
             case VOLVER:
                 break;
+            default:
+                validate("Button no clasificado", false);
         }
 
         return Optional.ofNullable(ventana);

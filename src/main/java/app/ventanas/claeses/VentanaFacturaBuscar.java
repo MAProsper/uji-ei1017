@@ -1,13 +1,13 @@
 package app.ventanas.claeses;
 
 import app.Gestor;
+import app.Parser;
 import app.ventanas.abstractas.Ventana;
-import helpers.estaticos.Parse;
 
 import java.util.Optional;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.validate;
 
 public class VentanaFacturaBuscar extends Ventana {
     public VentanaFacturaBuscar() {
@@ -19,15 +19,18 @@ public class VentanaFacturaBuscar extends Ventana {
 
     @Override
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
         Ventana ventana = null;
 
-        switch ((Button) referenceNotNull("Button", button)) {
+        switch ((Button) button) {
             case BUSCAR:
                 final Gestor gestor = getGestor();
                 ventana = VentanaError.attempt(() -> gestor.buscarCliente(getCodigo()), gestor::getVisor);
                 break;
             case VOLVER:
                 break;
+            default:
+                validate("Button no clasificado", false);
         }
 
         return Optional.ofNullable(ventana);
@@ -35,7 +38,7 @@ public class VentanaFacturaBuscar extends Ventana {
 
     protected Integer getCodigo() {
         final String codigo = getTextbox(Textbox.CODIGO);
-        return Parse.entreo(Textbox.CODIGO.getDescription(), codigo);
+        return Parser.entreo(Textbox.CODIGO.getDescription(), codigo);
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {

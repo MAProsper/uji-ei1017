@@ -1,6 +1,6 @@
 package app.ventanas.claeses;
 
-import app.Formato;
+import app.Formatter;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Description;
 import app.ventanas.interfaces.Textbox;
@@ -9,8 +9,7 @@ import clientes.Cliente;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.*;
 
 public class VentanaFacturas extends Ventana {
     protected final Cliente cliente;
@@ -26,19 +25,22 @@ public class VentanaFacturas extends Ventana {
 
     @Override
     protected void update() {
-        setList(cliente.getFacturas().stream().map(Formato::factura).collect(Collectors.toList()));
+        setList(cliente.getFacturas().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 
     @Override
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
         Ventana ventana = null;
 
-        switch ((Button) referenceNotNull("Button", button)) {
+        switch ((Button) button) {
             case ANYADIR_FACTURA:
                 ventana = new VentanaFacturaNueva(cliente);
                 break;
             case VOLVER:
                 break;
+            default:
+                validate("Button no clasificado", false);
         }
 
         return Optional.ofNullable(ventana);

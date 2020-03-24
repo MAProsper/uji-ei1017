@@ -3,7 +3,7 @@ package clientes;
 import helpers.clases.Direccion;
 import tarifas.Tarifa;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
@@ -11,7 +11,7 @@ public class ClientePaticular extends Cliente {
     private static final long serialVersionUID = 9112248928365815263L;
     protected final String apellidos;
 
-    public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final LocalDate fechaAlta, final Tarifa tarifa) {
+    public ClientePaticular(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final LocalDateTime fechaAlta, final Tarifa tarifa) {
         super(NIF, nombre, direccion, correo, fechaAlta, tarifa);
         this.apellidos = stringNotEmpty("Apellidos", apellidos);
     }

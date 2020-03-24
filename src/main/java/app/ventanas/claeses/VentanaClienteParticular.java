@@ -1,5 +1,6 @@
 package app.ventanas.claeses;
 
+import app.Formatter;
 import clientes.ClientePaticular;
 import helpers.clases.Direccion;
 
@@ -23,7 +24,7 @@ public class VentanaClienteParticular extends VentanaCliente {
                 "Provincia: " + direccion.getProvincia(),
                 "Poblacion: " + direccion.getPoblacion(),
                 "Correo electronico : " + cliente.getCorreo(),
-                "Fecha de alta: " + cliente.getFecha(),
+                "Fecha de alta: " + Formatter.format(cliente.getFecha()),
                 "Tarifa base: " + cliente.getTarifa().getPrecio()
         ));
     }

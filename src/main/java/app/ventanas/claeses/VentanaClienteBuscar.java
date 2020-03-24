@@ -5,8 +5,8 @@ import app.ventanas.abstractas.Ventana;
 
 import java.util.Optional;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.validate;
 
 public class VentanaClienteBuscar extends Ventana {
     public VentanaClienteBuscar() {
@@ -18,9 +18,10 @@ public class VentanaClienteBuscar extends Ventana {
 
     @Override
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
         Ventana ventana = null;
 
-        switch ((Button) referenceNotNull("Button", button)) {
+        switch ((Button) button) {
             case BUSCAR:
                 final Gestor gestor = getGestor();
                 final String NIF = getTextbox(Textbox.NIF);
@@ -28,6 +29,8 @@ public class VentanaClienteBuscar extends Ventana {
                 break;
             case VOLVER:
                 break;
+            default:
+                validate("Button no clasificado", false);
         }
 
         return Optional.ofNullable(ventana);

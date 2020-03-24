@@ -9,7 +9,6 @@ import static helpers.estaticos.Arguments.numberNotNegative;
 import static helpers.estaticos.Arguments.referenceNotNull;
 
 public class Tarifa implements Serializable {
-
     private static final long serialVersionUID = -4829115908149179461L;
     protected final double precio;
 
@@ -17,7 +16,7 @@ public class Tarifa implements Serializable {
         this.precio = numberNotNegative("Precio", precio);
     }
 
-    public double getPrecio() {
+    final public double getPrecio() {
         return precio;
     }
 

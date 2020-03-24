@@ -1,12 +1,12 @@
 package app.ventanas.claeses;
 
+import app.Parser;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Description;
 import com.google.common.collect.Range;
 import helpers.estaticos.Fecha;
-import helpers.estaticos.Parse;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static helpers.estaticos.Arguments.*;
@@ -24,6 +24,7 @@ public class VentanaRangoBuscar extends Ventana {
 
     @Override
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
         Ventana ventana = null;
 
         switch ((Button) button) {
@@ -37,7 +38,7 @@ public class VentanaRangoBuscar extends Ventana {
         return Optional.ofNullable(ventana);
     }
 
-    protected Ventana getVentana(final Range<LocalDate> periodo) {
+    protected Ventana getVentana(final Range<LocalDateTime> periodo) {
         referenceNotNull("Periodo", periodo);
         Ventana ventana = null;
 
@@ -52,16 +53,16 @@ public class VentanaRangoBuscar extends Ventana {
                 ventana = new VentanaLlamadasRango(periodo);
                 break;
             default:
-                validate("Ventana no clasificada", false);
+                validate("Button no clasificado", false);
         }
 
         return ventana;
     }
 
-    protected Range<LocalDate> getPeriodo() {
+    protected Range<LocalDateTime> getPeriodo() {
         final String fechaInicio = getTextbox(Textbox.FECHA_INICIAL);
         final String fechaFinal = getTextbox(Textbox.FECHA_FINAL);
-        return Fecha.getPeriodo(Parse.fecha(Textbox.FECHA_INICIAL.getDescription(), fechaInicio), Parse.fecha(Textbox.FECHA_INICIAL.getDescription(), fechaFinal));
+        return Fecha.getPeriodo(Parser.fecha(Textbox.FECHA_INICIAL.getDescription(), fechaInicio), Parser.fecha(Textbox.FECHA_INICIAL.getDescription(), fechaFinal));
     }
 
     public final Tipo getTipo() {
@@ -85,8 +86,8 @@ public class VentanaRangoBuscar extends Ventana {
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {
-        FECHA_INICIAL("Fecha inicial (YYYY-MM-DD)"),
-        FECHA_FINAL("Fecha final (YYYY-MM-DD)");
+        FECHA_INICIAL("Fecha inicial"),
+        FECHA_FINAL("Fecha final");
 
         private final String description;
 

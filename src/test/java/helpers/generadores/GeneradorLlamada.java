@@ -2,7 +2,7 @@ package helpers.generadores;
 
 import helpers.clases.Llamada;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public class GeneradorLlamada {
@@ -13,7 +13,7 @@ public class GeneradorLlamada {
         return Integer.toString(100000000 + genBase.nextInt(899999999));
     }
 
-    public final LocalDate nextFecha() {
+    public final LocalDateTime nextFecha() {
         return genHelper.nextFecha();
     }
 

@@ -112,7 +112,7 @@ public class Gestor {
             final ObjectInputStream ois = new ObjectInputStream(stream);
             datos = ois.readObject();
             ois.close();
-        } catch (IOException | ClassNotFoundException ignored) {
+        } catch (IOException | ClassNotFoundException | ClassCastException ignored) {
         }
 
         if (datos instanceof Cliente[]) {

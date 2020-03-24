@@ -3,7 +3,7 @@ package helpers.clases;
 import helpers.interfaces.Cronologico;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static helpers.estaticos.Arguments.*;
@@ -11,10 +11,10 @@ import static helpers.estaticos.Arguments.*;
 public class Llamada implements Cronologico, Serializable {
     private static final long serialVersionUID = 9196325539442745850L;
     protected final String telefono;
-    protected final LocalDate fecha;
+    protected final LocalDateTime fecha;
     protected final double duracion;
 
-    public Llamada(final String telefono, final LocalDate fecha, final double duracion) {
+    public Llamada(final String telefono, final LocalDateTime fecha, final double duracion) {
         this.telefono = stringMatchesPattern("Telefono", telefono, "\\d{9}");
         this.fecha = referenceNotNull("Fecha", fecha);
         this.duracion = numberNotNegative("Duracion", duracion);
@@ -24,7 +24,7 @@ public class Llamada implements Cronologico, Serializable {
         return telefono;
     }
 
-    final public LocalDate getFecha() {
+    final public LocalDateTime getFecha() {
         return fecha;
     }
 

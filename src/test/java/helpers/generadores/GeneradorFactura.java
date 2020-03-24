@@ -5,7 +5,7 @@ import helpers.clases.Factura;
 import tarifas.Tarifa;
 import tarifas.generadores.GeneradorTarifa;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -27,12 +27,12 @@ public class GeneradorFactura {
         return genTarifa.nextTarifa();
     }
 
-    public final LocalDate nextFecha() {
+    public final LocalDateTime nextFecha() {
         return genHelper.nextFecha();
     }
 
-    public final Range<LocalDate> nextPeriodo() {
-        final List<LocalDate> fechas = Arrays.asList(genHelper.nextFecha(), genHelper.nextFecha());
+    public final Range<LocalDateTime> nextPeriodo() {
+        final List<LocalDateTime> fechas = Arrays.asList(genHelper.nextFecha(), genHelper.nextFecha());
         return getPeriodo(Collections.min(fechas), Collections.max(fechas));
     }
 

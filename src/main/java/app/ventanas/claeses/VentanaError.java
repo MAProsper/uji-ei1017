@@ -3,11 +3,11 @@ package app.ventanas.claeses;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Textbox;
 
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static helpers.estaticos.Arguments.ValidationException;
-import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.*;
 
 public class VentanaError extends Ventana {
     public VentanaError(final String message) {
@@ -40,6 +40,13 @@ public class VentanaError extends Ventana {
         }
 
         return ventana == null ? result.apply(value) : ventana;
+    }
+
+    @Override
+    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        validate("Ventana no clasificada", button == Button.VOLVER);
+        return Optional.empty();
     }
 
     public enum Button implements app.ventanas.interfaces.Button {

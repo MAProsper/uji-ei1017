@@ -1,9 +1,9 @@
 package app.ventanas.claeses;
 
+import app.Parser;
 import app.ventanas.abstractas.VentanaNuevo;
 import clientes.Cliente;
 import helpers.clases.Direccion;
-import helpers.estaticos.Parse;
 import tarifas.Tarifa;
 
 import static helpers.estaticos.Arguments.stringNotEmpty;
@@ -24,9 +24,9 @@ public class VentanaClienteNuevo extends VentanaNuevo {
         final String fechaAlta = getTextbox(Textbox.FECHA_ALTA);
         final String tarifaBase = getTextbox(Textbox.TARIFA_BASE);
 
-        final Tarifa tarifa = new Tarifa(Parse.real(Textbox.TARIFA_BASE.getDescription(), tarifaBase));
-        final Direccion direccion = new Direccion(Parse.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
-        final Cliente cliente = new Cliente(NIF, nombre, direccion, correo, Parse.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
+        final Tarifa tarifa = new Tarifa(Parser.real(Textbox.TARIFA_BASE.getDescription(), tarifaBase));
+        final Direccion direccion = new Direccion(Parser.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
+        final Cliente cliente = new Cliente(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
 
         getGestor().addCliente(cliente);
     }
@@ -38,7 +38,7 @@ public class VentanaClienteNuevo extends VentanaNuevo {
         PROVINCIA("Provincia"),
         POBLACION("Poblacion"),
         CORREO("Correo electronico"),
-        FECHA_ALTA("Fecha de alta (YYYY-MM-DD)"),
+        FECHA_ALTA("Fecha de alta"),
         TARIFA_BASE("Tarifa base");
 
         private final String description;

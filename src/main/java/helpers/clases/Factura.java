@@ -5,7 +5,7 @@ import helpers.interfaces.Cronologico;
 import tarifas.Tarifa;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -17,11 +17,11 @@ public class Factura implements Cronologico, Serializable {
     private static final long serialVersionUID = 4248121609591730120L;
     protected final int codigo;
     protected final Tarifa tarifa;
-    protected final LocalDate fechaEmision;
-    protected final Range<LocalDate> periodo;
+    protected final LocalDateTime fechaEmision;
+    protected final Range<LocalDateTime> periodo;
     protected final double importe;
 
-    public Factura(final int codigo, final Tarifa tarifa, final LocalDate fechaEmision, final Range<LocalDate> periodo, final double importe) {
+    public Factura(final int codigo, final Tarifa tarifa, final LocalDateTime fechaEmision, final Range<LocalDateTime> periodo, final double importe) {
         validate("Codigo de factura repetido", !codigos.contains(codigo));
         this.codigo = numberNotNegative("Codigo", codigo);
         this.tarifa = referenceNotNull("Tarifa", tarifa);
@@ -39,11 +39,11 @@ public class Factura implements Cronologico, Serializable {
         return tarifa;
     }
 
-    final public LocalDate getFecha() {
+    final public LocalDateTime getFecha() {
         return fechaEmision;
     }
 
-    final public Range<LocalDate> getPeriodo() {
+    final public Range<LocalDateTime> getPeriodo() {
         return periodo;
     }
 
