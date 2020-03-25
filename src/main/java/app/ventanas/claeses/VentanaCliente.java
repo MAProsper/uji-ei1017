@@ -1,6 +1,7 @@
 package app.ventanas.claeses;
 
 import app.Formatter;
+import app.Gestor;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Textbox;
 import clientes.Cliente;
@@ -8,6 +9,7 @@ import helpers.clases.Direccion;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 import static helpers.estaticos.Arguments.*;
 
@@ -67,19 +69,30 @@ public class VentanaCliente extends Ventana {
     }
 
     public enum Button implements app.ventanas.interfaces.Button {
-        VER_LLAMADAS("Ver llamadas"),
-        VER_FACTURAS("Ver facturas"),
-        BORRAR_CLIENTE("Borrar cliente"),
-        VOLVER("Volver");
+        VER_LLAMADAS("Ver llamadas", (gestor, ventanaCliente) -> Optional.of(new VentanaLlamadas(ventanaCliente.getCliente()))),
+        VER_FACTURAS("Ver facturas", (gestor, ventanaCliente) -> Optional.of(new VentanaFacturas(ventanaCliente.getCliente()))),
+        BORRAR_CLIENTE("Borrar cliente", (gestor, ventanaCliente) -> {
+            gestor.removeCliente(ventanaCliente.getCliente());
+            return Optional.empty();
+        }),
+        VOLVER("Volver", (gestor, ventanaCliente) -> Optional.empty());
 
         private final String description;
+        private final BiFunction<Gestor, VentanaCliente, Optional<Ventana>> action;
 
-        Button(final String description) {
+        Button(final String description, final BiFunction<Gestor, VentanaCliente, Optional<Ventana>> action) {
             this.description = stringNotEmpty("Descripcion", description);
+            this.action = referenceNotNull("Action", action);
         }
 
         public String getDescription() {
             return description;
+        }
+
+        public Optional<Ventana> handle(final Gestor gestor, final Ventana ventana) {
+            referenceNotNull("Gestor", gestor);
+            validate("La ventana no tiene relacion con este boton", ventana instanceof VentanaCliente);
+            return action.apply(gestor, (VentanaCliente) ventana);
         }
     }
 }
