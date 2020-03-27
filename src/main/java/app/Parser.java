@@ -9,44 +9,33 @@ final public class Parser {
     private Parser() {
     }
 
-    protected static <T> T validate(final String name, final T value, final String format) {
+    protected static String mensage(final String name, final String format) {
         Arguments.stringNotEmpty("Name", name);
         Arguments.stringNotEmpty("Format", format);
-        Arguments.validate(String.format("%s no tiene el formato correcto (%s)", name, format), value != null);
-        return value;
+        return String.format("%s no tiene el formato correcto (%s)", name, format);
     }
-
 
     public static LocalDateTime fecha(final String name, final String fecha) {
-        LocalDateTime parsed = null;
-
         try {
-            parsed = LocalDateTime.parse(fecha, Formatter.fechaFormat);
+            return LocalDateTime.parse(fecha, Formatter.fechaFormat);
         } catch (DateTimeParseException ignore) {
+            throw new Arguments.ValidationException(mensage(name, "YYYY-MM-DD hh:mm"));
         }
-
-        return validate(name, parsed, "YYYY-MM-DD hh:mm");
     }
 
-    public static Double real(final String name, final String numero) {
-        Double parsed = null;
-
+    public static double real(final String name, final String numero) {
         try {
-            parsed = Double.parseDouble(numero);
+            return Double.parseDouble(numero);
         } catch (NumberFormatException ignored) {
+            throw new Arguments.ValidationException(mensage(name, "n.n"));
         }
-
-        return validate(name, parsed, "n.n");
     }
 
-    public static Integer entreo(final String name, final String numero) {
-        Integer parsed = null;
-
+    public static int entreo(final String name, final String numero) {
         try {
-            parsed = Integer.parseInt(numero);
+            return Integer.parseInt(numero);
         } catch (NumberFormatException ignored) {
+            throw new Arguments.ValidationException(mensage(name, "n"));
         }
-
-        return validate(name, parsed, "n");
     }
 }

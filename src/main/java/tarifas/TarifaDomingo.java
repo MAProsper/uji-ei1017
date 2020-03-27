@@ -1,6 +1,5 @@
 package tarifas;
 
-import com.google.common.collect.Range;
 import helpers.clases.Llamada;
 
 import java.time.DayOfWeek;
@@ -17,5 +16,13 @@ public class TarifaDomingo extends TarifaExtra {
     @Override
     protected Optional<Double> getImporteExtra(Llamada llamada) {
         return llamada.getFecha().getDayOfWeek() == DayOfWeek.SUNDAY ? Optional.of(precio) : Optional.empty();
+    }
+
+    @Override
+    public String toString() {
+        return "TarifaDomingo{" +
+                "tarifa=" + tarifa +
+                ", precio=" + precio +
+                '}';
     }
 }

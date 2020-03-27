@@ -11,7 +11,7 @@ public abstract class TarifaExtra extends Tarifa {
     private static final long serialVersionUID = 3116940651730525924L;
     protected final Tarifa tarifa;
 
-    public TarifaExtra(final Tarifa tarifa, final double precio) {
+    protected TarifaExtra(final Tarifa tarifa, final double precio) {
         super(precio);
         this.tarifa = referenceNotNull("Tarifa", tarifa);
     }
@@ -46,8 +46,8 @@ public abstract class TarifaExtra extends Tarifa {
     @Override
     public String toString() {
         return "TarifaExtra{" +
-                "precio=" + precio +
                 "tarifa=" + tarifa +
+                ", precio=" + precio +
                 '}';
     }
 }

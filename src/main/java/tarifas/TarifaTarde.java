@@ -17,4 +17,13 @@ public class TarifaTarde extends TarifaExtra {
     protected Optional<Double> getImporteExtra(final Llamada llamada) {
         return horario.contains(llamada.getFecha().getHour()) ? Optional.of(precio) : Optional.empty();
     }
+
+    @Override
+    public String toString() {
+        return "TarifaTarde{" +
+                "horario=" + horario +
+                ", tarifa=" + tarifa +
+                ", precio=" + precio +
+                '}';
+    }
 }

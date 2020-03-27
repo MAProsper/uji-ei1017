@@ -1,4 +1,4 @@
-package app.ventanas.interfaces;
+package helpers.interfaces;
 
 public interface Description {
     String getDescription();

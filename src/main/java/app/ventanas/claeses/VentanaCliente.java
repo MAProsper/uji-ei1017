@@ -37,7 +37,7 @@ public class VentanaCliente extends Ventana {
                 "Poblacion: " + direccion.getPoblacion(),
                 "Correo electronico : " + cliente.getCorreo(),
                 "Fecha de alta: " + Formatter.format(cliente.getFecha()),
-                "Tarifa base: " + cliente.getTarifa().getPrecio()
+                "Tarifa base: " + cliente.getTarifa()
         ));
     }
 
@@ -51,6 +51,9 @@ public class VentanaCliente extends Ventana {
                 break;
             case VER_FACTURAS:
                 ventana = new VentanaFacturas(cliente);
+                break;
+            case ANYADIR_TARIFAS:
+                ventana = new VentanaTarfias(cliente);
                 break;
             case BORRAR_CLIENTE:
                 getGestor().removeCliente(cliente);
@@ -71,6 +74,7 @@ public class VentanaCliente extends Ventana {
     public enum Button implements app.ventanas.interfaces.Button {
         VER_LLAMADAS("Ver llamadas", (gestor, ventanaCliente) -> Optional.of(new VentanaLlamadas(ventanaCliente.getCliente()))),
         VER_FACTURAS("Ver facturas", (gestor, ventanaCliente) -> Optional.of(new VentanaFacturas(ventanaCliente.getCliente()))),
+        ANYADIR_TARIFAS("Añadir tarifas", (gestor, ventanaCliente) -> Optional.of(new VentanaTarfias(ventanaCliente.getCliente()))),
         BORRAR_CLIENTE("Borrar cliente", (gestor, ventanaCliente) -> {
             gestor.removeCliente(ventanaCliente.getCliente());
             return Optional.empty();
