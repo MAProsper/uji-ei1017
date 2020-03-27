@@ -22,6 +22,7 @@ public abstract class TarifaExtra extends Tarifa {
 
     protected abstract Optional<Double> getImporteExtra(final Llamada llamada);
 
+    @Override
     public double getImporte(final Llamada llamada) {
         final double base = tarifa.getImporte(llamada);
         final Optional<Double> extra = getImporteExtra(llamada);
