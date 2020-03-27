@@ -22,9 +22,9 @@ public class VentanaClienteEmpresaNuevo extends VentanaNuevo {
         final String poblacion = getTextbox(Textbox.POBLACION);
         final String correo = getTextbox(Textbox.CORREO);
         final String fechaAlta = getTextbox(Textbox.FECHA_ALTA);
-        final String tarifaBase = getTextbox(Textbox.TARIFA_BASE);
+        final String tarifaBase = getTextbox(Textbox.TARIFA);
 
-        final Tarifa tarifa = new Tarifa(Parser.real(Textbox.TARIFA_BASE.getDescription(), tarifaBase));
+        final Tarifa tarifa = new Tarifa(Parser.real(Textbox.TARIFA.getDescription(), tarifaBase));
         final Direccion direccion = new Direccion(Parser.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
         final ClienteEmpresa cliente = new ClienteEmpresa(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
 
@@ -39,7 +39,7 @@ public class VentanaClienteEmpresaNuevo extends VentanaNuevo {
         POBLACION("Poblacion"),
         CORREO("Correo electronico"),
         FECHA_ALTA("Fecha de alta"),
-        TARIFA_BASE("Tarifa base");
+        TARIFA("Tarifa");
 
         private final String description;
 

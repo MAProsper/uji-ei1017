@@ -25,7 +25,7 @@ public class VentanaClienteParticular extends VentanaCliente {
                 "Poblacion: " + direccion.getPoblacion(),
                 "Correo electronico : " + cliente.getCorreo(),
                 "Fecha de alta: " + Formatter.format(cliente.getFecha()),
-                "Tarifa base: " + cliente.getTarifa()
+                "Tarifa: " + cliente.getTarifa()
         ));
     }
 }
