@@ -24,16 +24,19 @@ public class VentanaTarfias extends Ventana {
     @Override
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
         validate("Button tiene que ser esta ventana", button instanceof Button);
-        final Button factoria = (Button) button;
-        final String precio = getTextbox(Textbox.PRECIO);
+        Ventana ventana = null;
 
-        final Ventana ventana = VentanaError.attempt(
-                () -> Parser.real("Precio", precio),
-                p -> {
-                    cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
-                    return null;
-                }
-        );
+        if (button != Button.VOLVER) {
+            final Button factoria = (Button) button;
+            final String precio = getTextbox(Textbox.PRECIO);
+            ventana = VentanaError.attempt(
+                    () -> Parser.real("Precio", precio),
+                    p -> {
+                        cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
+                        return null;
+                    }
+            );
+        }
 
         return Optional.ofNullable(ventana);
     }
@@ -55,19 +58,24 @@ public class VentanaTarfias extends Ventana {
 
     public enum Button implements app.ventanas.interfaces.Button {
         DOMINGO("Domingo", TarifaDomingo::new),
-        TARDES("Tardes", TarifaTarde::new);
+        TARDES("Tardes", TarifaTarde::new),
+        VOLVER("Volver");
 
-        private String desciption;
-        private BiFunction<Tarifa, Double, TarifaExtra> action;
+        private final String desciption;
+        private final BiFunction<Tarifa, Double, TarifaExtra> action;
 
         Button(final String desciption, final BiFunction<Tarifa, Double, TarifaExtra> action) {
             this.desciption = stringNotEmpty("Desciption", desciption);
-            this.action = referenceNotNull("Action", action);
+            this.action = action;
+        }
+
+        Button(final String desciption) {
+            this(desciption, null);
         }
 
         public TarifaExtra getTarifa(final Tarifa tarifa, final double precio) {
             referenceNotNull("Tarifa", tarifa);
-            return action.apply(tarifa, precio);
+            return referenceNotNull("Action", action).apply(tarifa, precio);
         }
 
         @Override

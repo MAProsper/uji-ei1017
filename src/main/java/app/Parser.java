@@ -1,25 +1,27 @@
 package app;
 
-import helpers.estaticos.Arguments;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import static helpers.estaticos.Arguments.ValidationException;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 final public class Parser {
     private Parser() {
     }
 
-    protected static String mensage(final String name, final String format) {
-        Arguments.stringNotEmpty("Name", name);
-        Arguments.stringNotEmpty("Format", format);
-        return String.format("%s no tiene el formato correcto (%s)", name, format);
+    protected static ValidationException error(final String name, final String format) {
+        stringNotEmpty("Name", name);
+        stringNotEmpty("Format", format);
+        final String message = String.format("%s no tiene el formato correcto (%s)", name, format);
+        return new ValidationException(message);
     }
 
     public static LocalDateTime fecha(final String name, final String fecha) {
         try {
             return LocalDateTime.parse(fecha, Formatter.fechaFormat);
         } catch (DateTimeParseException ignore) {
-            throw new Arguments.ValidationException(mensage(name, "YYYY-MM-DD hh:mm"));
+            throw error(name, "YYYY-MM-DD hh:mm");
         }
     }
 
@@ -27,7 +29,7 @@ final public class Parser {
         try {
             return Double.parseDouble(numero);
         } catch (NumberFormatException ignored) {
-            throw new Arguments.ValidationException(mensage(name, "n.n"));
+            throw error(name, "n.n");
         }
     }
 
@@ -35,7 +37,7 @@ final public class Parser {
         try {
             return Integer.parseInt(numero);
         } catch (NumberFormatException ignored) {
-            throw new Arguments.ValidationException(mensage(name, "n"));
+            throw error(name, "n");
         }
     }
 }
