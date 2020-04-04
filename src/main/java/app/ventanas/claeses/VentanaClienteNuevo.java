@@ -6,11 +6,19 @@ import clientes.Cliente;
 import helpers.clases.Direccion;
 import tarifas.Tarifa;
 
+import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaClienteNuevo extends VentanaNuevo {
-    public VentanaClienteNuevo() {
-        super(Textbox.values());
+    protected final VentanaClientes.Button factoria;
+
+    public VentanaClienteNuevo(final VentanaClientes.Button factoria) {
+        this(Textbox.values(), factoria);
+    }
+
+    protected VentanaClienteNuevo(final app.ventanas.interfaces.Textbox[] texboxes, final VentanaClientes.Button factoria) {
+        super(texboxes);
+        this.factoria = referenceNotNull("factoria", factoria);
     }
 
     @Override
@@ -26,7 +34,7 @@ public class VentanaClienteNuevo extends VentanaNuevo {
 
         final Tarifa tarifa = new Tarifa(Parser.real(Textbox.TARIFA.getDescription(), tarifaBase));
         final Direccion direccion = new Direccion(Parser.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
-        final Cliente cliente = new Cliente(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
+        final Cliente cliente = factoria.getCliente(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
 
         getGestor().addCliente(cliente);
     }

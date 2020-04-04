@@ -1,16 +1,15 @@
 package app.ventanas.claeses;
 
 import app.Parser;
-import app.ventanas.abstractas.VentanaNuevo;
-import clientes.ClienteEmpresa;
+import clientes.Cliente;
 import helpers.clases.Direccion;
 import tarifas.Tarifa;
 
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-public class VentanaClienteEmpresaNuevo extends VentanaNuevo {
-    public VentanaClienteEmpresaNuevo() {
-        super(Textbox.values());
+public class VentanaClienteEmpresaNuevo extends VentanaClienteNuevo {
+    public VentanaClienteEmpresaNuevo(final VentanaClientes.Button factoria) {
+        super(Textbox.values(), factoria);
     }
 
     @Override
@@ -26,7 +25,7 @@ public class VentanaClienteEmpresaNuevo extends VentanaNuevo {
 
         final Tarifa tarifa = new Tarifa(Parser.real(Textbox.TARIFA.getDescription(), tarifaBase));
         final Direccion direccion = new Direccion(Parser.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
-        final ClienteEmpresa cliente = new ClienteEmpresa(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
+        final Cliente cliente = factoria.getClienteEmpresa(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
 
         getGestor().addCliente(cliente);
     }
