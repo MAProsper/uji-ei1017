@@ -97,6 +97,7 @@ public class VentanaClientes extends Ventana {
             return description;
         }
 
+        @Override
         public Cliente getCliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final LocalDateTime fechaAlta, final Tarifa tarifa) {
             final Class<? extends Cliente> clase = referenceNotNull("Clase", this.clase);
             try {
@@ -106,6 +107,7 @@ public class VentanaClientes extends Ventana {
             }
         }
 
+        @Override
         public Cliente getCliente(final String NIF, final String nombre, final String apellidos, final Direccion direccion, final String correo, final LocalDateTime fechaAlta, final Tarifa tarifa) {
             final Class<? extends Cliente> clase = referenceNotNull("Clase", this.clase);
             try {

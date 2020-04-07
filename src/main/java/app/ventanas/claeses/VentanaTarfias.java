@@ -75,6 +75,7 @@ public class VentanaTarfias extends Ventana {
             this(desciption, null);
         }
 
+        @Override
         public TarifaExtra getTarifa(final Tarifa tarifa, final double precio) {
             final Class<? extends TarifaExtra> clase = referenceNotNull("Clase", this.clase);
             try {
