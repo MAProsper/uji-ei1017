@@ -82,7 +82,7 @@ public class VentanaClientes extends Ventana {
         VOLVER("Volver");
 
         private final String description;
-        private Class<? extends Cliente> clase;
+        private final Class<? extends Cliente> clase;
 
         Button(final String description, final Class<? extends Cliente> clase) {
             this.description = stringNotEmpty("Descripcion", description);
