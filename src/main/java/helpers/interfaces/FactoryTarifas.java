@@ -1,4 +1,4 @@
-package app.ventanas.interfaces;
+package helpers.interfaces;
 
 import tarifas.Tarifa;
 

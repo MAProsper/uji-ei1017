@@ -3,11 +3,12 @@ package app.ventanas.claeses;
 import app.Formatter;
 import app.Gestor;
 import app.ventanas.abstractas.Ventana;
-import app.ventanas.interfaces.FactoryClientes;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
 import helpers.clases.Direccion;
+import helpers.interfaces.Factory;
+import helpers.interfaces.FactoryClientes;
 import tarifas.Tarifa;
 
 import java.lang.reflect.InvocationTargetException;
@@ -101,7 +102,7 @@ public class VentanaClientes extends Ventana {
             try {
                 return clase.getConstructor(String.class, String.class, Direccion.class, String.class, LocalDateTime.class, Tarifa.class).newInstance(NIF, nombre, direccion, correo, fechaAlta, tarifa);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ignored) {
-                throw errorInstance;
+                throw Factory.error(clase.getName());
             }
         }
 
@@ -110,7 +111,7 @@ public class VentanaClientes extends Ventana {
             try {
                 return clase.getConstructor(String.class, String.class, String.class, Direccion.class, String.class, LocalDateTime.class, Tarifa.class).newInstance(NIF, nombre, apellidos, direccion, correo, fechaAlta, tarifa);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ignored) {
-                throw errorInstance;
+                throw Factory.error(clase.getName());
             }
         }
     }

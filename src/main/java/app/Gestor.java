@@ -16,8 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.validate;
+import static helpers.estaticos.Arguments.*;
 
 public class Gestor {
     private HashMap<String, Cliente> id2cliente;
@@ -118,14 +117,13 @@ public class Gestor {
         if (datos instanceof Cliente[]) {
             clearClientes();
             for (Cliente cliente : (Cliente[]) datos) addCliente(cliente);
+        } else {
+            throw new ValidationException("La ruta no contiene un archivo valido");
         }
-
-        validate("La ruta no contiene un archivo valido", datos != null);
     }
 
     public void save(final Path path) {
         referenceNotNull("Path", path);
-        boolean saved = true;
 
         try {
             final OutputStream stream = Files.newOutputStream(path);
@@ -133,10 +131,8 @@ public class Gestor {
             oos.writeObject(getClientes().toArray(new Cliente[0]));
             oos.close();
         } catch (IOException ignored) {
-            saved = false;
+            throw new ValidationException("No se ha podido guardar en la ruta");
         }
-
-        validate("No se ha podido guardar en la ruta", saved);
     }
 
     final public void show() {

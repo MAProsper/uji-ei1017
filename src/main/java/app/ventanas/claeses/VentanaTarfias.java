@@ -2,8 +2,9 @@ package app.ventanas.claeses;
 
 import app.Parser;
 import app.ventanas.abstractas.Ventana;
-import app.ventanas.interfaces.FactoryTarifas;
 import clientes.Cliente;
+import helpers.interfaces.Factory;
+import helpers.interfaces.FactoryTarifas;
 import tarifas.Tarifa;
 import tarifas.TarifaDomingo;
 import tarifas.TarifaExtra;
@@ -79,7 +80,7 @@ public class VentanaTarfias extends Ventana {
             try {
                 return clase.getConstructor(Tarifa.class, Double.class).newInstance(tarifa, precio);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ignored) {
-                throw errorInstance;
+                throw Factory.error(clase.getName());
             }
         }
 
