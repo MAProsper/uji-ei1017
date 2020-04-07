@@ -54,7 +54,7 @@ public class VentanaClientes extends Ventana {
             case VOLVER:
                 break;
             default:
-                validate("Button no clasificado", false);
+                throw new ValidationException("Button no clasificado");
         }
 
         return Optional.ofNullable(ventana);

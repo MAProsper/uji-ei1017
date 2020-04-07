@@ -40,7 +40,7 @@ public class VentanaRangoBuscar extends Ventana {
 
     protected Ventana getVentana(final Range<LocalDateTime> periodo) {
         referenceNotNull("Periodo", periodo);
-        Ventana ventana = null;
+        Ventana ventana;
 
         switch (tipo) {
             case CLIENTES:
@@ -53,7 +53,7 @@ public class VentanaRangoBuscar extends Ventana {
                 ventana = new VentanaLlamadasRango(periodo);
                 break;
             default:
-                validate("Button no clasificado", false);
+                throw new ValidationException("Button no clasificado");
         }
 
         return ventana;

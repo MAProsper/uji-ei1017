@@ -5,8 +5,7 @@ import app.ventanas.abstractas.Ventana;
 
 import java.util.Optional;
 
-import static helpers.estaticos.Arguments.stringNotEmpty;
-import static helpers.estaticos.Arguments.validate;
+import static helpers.estaticos.Arguments.*;
 
 public class VentanaClienteBuscar extends Ventana {
     public VentanaClienteBuscar() {
@@ -30,7 +29,7 @@ public class VentanaClienteBuscar extends Ventana {
             case VOLVER:
                 break;
             default:
-                validate("Button no clasificado", false);
+                throw new ValidationException("Button no clasificado");
         }
 
         return Optional.ofNullable(ventana);

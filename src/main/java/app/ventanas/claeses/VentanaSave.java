@@ -7,8 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static helpers.estaticos.Arguments.stringNotEmpty;
-import static helpers.estaticos.Arguments.validate;
+import static helpers.estaticos.Arguments.*;
 
 public class VentanaSave extends Ventana {
     public VentanaSave() {
@@ -32,7 +31,7 @@ public class VentanaSave extends Ventana {
             case VOLVER:
                 break;
             default:
-                validate("Button no clasificado", false);
+                throw new ValidationException("Button no clasificado");
         }
 
         return Optional.ofNullable(ventana);

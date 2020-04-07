@@ -5,8 +5,7 @@ import app.ventanas.interfaces.Textbox;
 
 import java.util.Optional;
 
-import static helpers.estaticos.Arguments.stringNotEmpty;
-import static helpers.estaticos.Arguments.validate;
+import static helpers.estaticos.Arguments.*;
 
 public abstract class VentanaNuevo extends Ventana {
     public VentanaNuevo(final Textbox[] textboxes) {
@@ -28,7 +27,7 @@ public abstract class VentanaNuevo extends Ventana {
             case VOLVER:
                 break;
             default:
-                validate("Button no clasificado", false);
+                throw new ValidationException("Button no clasificado");
         }
 
         return Optional.ofNullable(ventana);
