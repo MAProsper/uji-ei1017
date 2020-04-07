@@ -2,14 +2,15 @@ package app.ventanas.claeses;
 
 import app.Parser;
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.FactoryTarifas;
 import clientes.Cliente;
 import tarifas.Tarifa;
 import tarifas.TarifaDomingo;
 import tarifas.TarifaExtra;
 import tarifas.TarifaTarde;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 import static helpers.estaticos.Arguments.*;
 
@@ -27,7 +28,7 @@ public class VentanaTarfias extends Ventana {
         Ventana ventana = null;
 
         if (button != Button.VOLVER) {
-            final Button factoria = (Button) button;
+            final FactoryTarifas factoria = (FactoryTarifas) button;
             final String precio = getTextbox(Textbox.PRECIO);
             ventana = VentanaError.attempt(
                     () -> Parser.real("Precio", precio),
@@ -56,17 +57,17 @@ public class VentanaTarfias extends Ventana {
         }
     }
 
-    public enum Button implements app.ventanas.interfaces.Button {
-        DOMINGO("Domingo", TarifaDomingo::new),
-        TARDES("Tardes", TarifaTarde::new),
+    public enum Button implements app.ventanas.interfaces.Button, FactoryTarifas {
+        DOMINGO("Domingo", TarifaDomingo.class),
+        TARDES("Tardes", TarifaTarde.class),
         VOLVER("Volver");
 
         private final String desciption;
-        private final BiFunction<Tarifa, Double, TarifaExtra> action;
+        private final Class<? extends TarifaExtra> clase;
 
-        Button(final String desciption, final BiFunction<Tarifa, Double, TarifaExtra> action) {
+        Button(final String desciption, final Class<? extends TarifaExtra> clase) {
             this.desciption = stringNotEmpty("Desciption", desciption);
-            this.action = action;
+            this.clase = clase;
         }
 
         Button(final String desciption) {
@@ -74,8 +75,12 @@ public class VentanaTarfias extends Ventana {
         }
 
         public TarifaExtra getTarifa(final Tarifa tarifa, final double precio) {
-            referenceNotNull("Tarifa", tarifa);
-            return referenceNotNull("Action", action).apply(tarifa, precio);
+            final Class<? extends TarifaExtra> clase = referenceNotNull("Clase", this.clase);
+            try {
+                return clase.getConstructor(Tarifa.class, Double.class).newInstance(tarifa, precio);
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ignored) {
+                throw errorInstance;
+            }
         }
 
         @Override

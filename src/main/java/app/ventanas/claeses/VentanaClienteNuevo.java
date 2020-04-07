@@ -2,6 +2,7 @@ package app.ventanas.claeses;
 
 import app.Parser;
 import app.ventanas.abstractas.VentanaNuevo;
+import app.ventanas.interfaces.FactoryClientes;
 import clientes.Cliente;
 import helpers.clases.Direccion;
 import tarifas.Tarifa;
@@ -10,13 +11,13 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
 public class VentanaClienteNuevo extends VentanaNuevo {
-    protected final VentanaClientes.Button factoria;
+    protected final FactoryClientes factoria;
 
-    public VentanaClienteNuevo(final VentanaClientes.Button factoria) {
+    public VentanaClienteNuevo(final FactoryClientes factoria) {
         this(Textbox.values(), factoria);
     }
 
-    protected VentanaClienteNuevo(final app.ventanas.interfaces.Textbox[] texboxes, final VentanaClientes.Button factoria) {
+    protected VentanaClienteNuevo(final app.ventanas.interfaces.Textbox[] texboxes, final FactoryClientes factoria) {
         super(texboxes);
         this.factoria = referenceNotNull("factoria", factoria);
     }

@@ -71,7 +71,7 @@ public class VentanaCliente extends Ventana {
         return cliente;
     }
 
-    public enum Button implements app.ventanas.interfaces.Button {
+    public enum Button implements app.ventanas.interfaces.Button { //Pruebas de como eliminar el switch (no se usa)
         VER_LLAMADAS("Ver llamadas", (gestor, ventanaCliente) -> Optional.of(new VentanaLlamadas(ventanaCliente.getCliente()))),
         VER_FACTURAS("Ver facturas", (gestor, ventanaCliente) -> Optional.of(new VentanaFacturas(ventanaCliente.getCliente()))),
         ANYADIR_TARIFAS("Añadir tarifas", (gestor, ventanaCliente) -> Optional.of(new VentanaTarfias(ventanaCliente.getCliente()))),
