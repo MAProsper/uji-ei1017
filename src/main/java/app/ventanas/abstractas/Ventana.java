@@ -36,10 +36,12 @@ abstract public class Ventana {
         this.info = stringNotEmpty("Information", info);
         pane.add(new JLabel(this.info), BorderLayout.NORTH);
 
+        JPanel jPanel = new JPanel(new GridLayout(list && !textboxes.isEmpty() ? 2 : 1, 1));
+
         if (list) {
             this.list = new LinkedList<>();
             jlist = new JList<>();
-            pane.add(jlist, BorderLayout.CENTER);
+            jPanel.add(jlist);
         } else {
             this.list = null;
             jlist = null;
@@ -57,14 +59,15 @@ abstract public class Ventana {
                 textboxesContent.put(textbox, jtextbox);
                 ptextboxs.add(jtextbox);
             }
-            pane.add(ptextboxs, BorderLayout.CENTER);
+            jPanel.add(ptextboxs);
         }
+        pane.add(jPanel, BorderLayout.CENTER);
 
         collectionWithoutNull("Buttons", buttons);
         validate("Buttons no puede estar vacia", !buttons.isEmpty());
         this.buttons = Collections.unmodifiableList(new LinkedList<>(buttons));
 
-        final JPanel pbuttons = new JPanel(new FlowLayout());
+        final JPanel pbuttons = new JPanel();
         for (Button button : buttons) {
             final JButton jbutton = new JButton(button.getDescription());
             jbutton.addActionListener(e -> {
