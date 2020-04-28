@@ -4,7 +4,6 @@ import app.ventanas.abstractas.Ventana;
 import app.ventanas.claeses.VentanaCliente;
 import app.ventanas.claeses.VentanaClienteEmpresa;
 import app.ventanas.claeses.VentanaClienteParticular;
-import app.ventanas.claeses.VentanaPrincipal;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
@@ -19,6 +18,7 @@ import java.util.*;
 import static helpers.estaticos.Arguments.*;
 
 public class Gestor {
+    private final Stack<Ventana> stack;
     private HashMap<String, Cliente> id2cliente;
     private HashMap<Integer, Cliente> factura2cliente;
     private List<Cliente> clientes;
@@ -26,6 +26,7 @@ public class Gestor {
     private List<Llamada> llamadas;
 
     public Gestor() {
+        stack = new Stack<>();
         clearClientes();
     }
 
@@ -135,16 +136,19 @@ public class Gestor {
         }
     }
 
-    final public void show() {
-        final Stack<Ventana> stack = new Stack<>();
-        stack.push(new VentanaPrincipal());
+    final public void show(final Ventana ventana) {
+        if (ventana != null) {
+            stack.push(ventana);
+        } else {
+            stack.pop();
+        }
 
-        while (!stack.empty()) {
-            final Ventana current = stack.peek();
+        if (stack.isEmpty()) {
+            System.exit(0);
+        } else {
+            Ventana current = stack.peek();
             current.setGestor(this);
-            final Optional<Ventana> next = current.show();
-            if (next.isPresent()) stack.push(next.get());
-            else stack.pop();
+            current.show();
         }
     }
 
