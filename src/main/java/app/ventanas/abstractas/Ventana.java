@@ -74,7 +74,7 @@ abstract public class Ventana {
             });
             pbuttons.add(jbutton);
         }
-        pane.add(pbuttons);
+        pane.add(pbuttons, BorderLayout.SOUTH);
 
         clearTextboxes();
 
