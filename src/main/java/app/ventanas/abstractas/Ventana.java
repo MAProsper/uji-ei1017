@@ -39,7 +39,7 @@ abstract public class Ventana {
         if (list) {
             this.list = new LinkedList<>();
             jlist = new JList<>();
-            pane.add(jlist);
+            pane.add(jlist, BorderLayout.CENTER);
         } else {
             this.list = null;
             jlist = null;
@@ -49,16 +49,16 @@ abstract public class Ventana {
         this.textboxes = Collections.unmodifiableList(new LinkedList<>(textboxes));
         textboxesContent = new HashMap<>();
 
-        //if (!this.textboxes.isEmpty()) {
-        final JPanel ptextboxs = new JPanel(new GridLayout(this.textboxes.size(), 2));
-        for (Textbox textbox : this.textboxes) {
-            ptextboxs.add(new JLabel(textbox.getDescription()));
-            final JTextField jtextbox = new JTextField(20);
-            textboxesContent.put(textbox, jtextbox);
-            ptextboxs.add(jtextbox);
+        if (!this.textboxes.isEmpty()) {
+            final JPanel ptextboxs = new JPanel(new GridLayout(this.textboxes.size(), 2));
+            for (Textbox textbox : this.textboxes) {
+                ptextboxs.add(new JLabel(textbox.getDescription()));
+                final JTextField jtextbox = new JTextField(20);
+                textboxesContent.put(textbox, jtextbox);
+                ptextboxs.add(jtextbox);
+            }
+            pane.add(ptextboxs, BorderLayout.CENTER);
         }
-        pane.add(ptextboxs);
-        //}
 
         collectionWithoutNull("Buttons", buttons);
         validate("Buttons no puede estar vacia", !buttons.isEmpty());
@@ -157,6 +157,7 @@ abstract public class Ventana {
         if (!running.tryAcquire()) {
             throw new OverlappingVentanaException();
         } else try {
+            update();
             frame.setVisible(true);
         } finally {
             running.release();
