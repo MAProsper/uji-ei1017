@@ -15,6 +15,9 @@ import java.util.List;
 import static helpers.estaticos.Arguments.referenceNotNull;
 
 final public class Formatter {
+    private Formatter() {
+    }
+
     protected final static DateTimeFormatter fechaFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static List<String> format(final Llamada llamada) {
