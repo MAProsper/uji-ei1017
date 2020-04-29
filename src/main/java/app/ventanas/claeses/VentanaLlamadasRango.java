@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class VentanaLlamadasRango extends VentanaRango {
     public VentanaLlamadasRango(final Range<LocalDateTime> perido) {
-        super(perido);
+        super(VentanaLlamadas.Table.values(), perido);
     }
 
     @Override
     protected void update() {
         final List<Llamada> llamadas = Fecha.filterRange(getGestor().getLlamadas(), getPeriodo());
-        setList(llamadas.stream().map(Formatter::format).collect(Collectors.toList()));
+        setTable(llamadas.stream().map(Formatter::format).collect(Collectors.toList()));
     }
 }

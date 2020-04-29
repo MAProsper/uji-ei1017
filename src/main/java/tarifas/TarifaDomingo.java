@@ -9,7 +9,7 @@ public class TarifaDomingo extends TarifaExtra {
 
     private static final long serialVersionUID = 8543989365499662460L;
 
-    public TarifaDomingo(Tarifa tarifa, double precio) {
+    public TarifaDomingo(final Tarifa tarifa, final double precio) {
         super(tarifa, precio);
     }
 

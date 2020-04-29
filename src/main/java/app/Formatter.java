@@ -9,23 +9,35 @@ import helpers.clases.Llamada;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
 
 final public class Formatter {
     protected final static DateTimeFormatter fechaFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static String format(final Llamada llamada) {
+    public static List<String> format(final Llamada llamada) {
         referenceNotNull("Llamada", llamada);
-        return String.format("[%s] %s (%s min)", format(llamada.getFecha()), llamada.getTelefono(), llamada.getDuracion());
+        return Arrays.asList(
+                format(llamada.getFecha()),
+                llamada.getTelefono(),
+                Double.toString(llamada.getDuracion())
+        );
     }
 
-    public static String format(final Factura factura) {
+    public static List<String> format(final Factura factura) {
         referenceNotNull("Factura", factura);
-        return String.format("[%s-%s] [%s] %s (%s euros/min)", factura.getCodigo(), format(factura.getFecha()), format(factura.getPeriodo()), factura.getImporte(), factura.getTarifa().getPrecio());
+        return Arrays.asList(Integer.toString(
+                factura.getCodigo()),
+                format(factura.getFecha()),
+                format(factura.getPeriodo()),
+                Double.toString(factura.getImporte()),
+                Double.toString(factura.getTarifa().getPrecio())
+        );
     }
 
-    public static String format(final Cliente cliente) {
+    public static List<String> format(final Cliente cliente) {
         referenceNotNull("Cliente", cliente);
         String tipo = "Otros";
         String nombre = cliente.getNombre();
@@ -35,11 +47,10 @@ final public class Formatter {
             tipo = "Particular";
             nombre = String.format("%s, %s", particular.getApellidos(), particular.getNombre());
         } else if (cliente instanceof ClienteEmpresa) {
-            final ClienteEmpresa empresa = (ClienteEmpresa) cliente;
             tipo = "Empresa";
         }
 
-        return String.format("[%s] [%s] %s", cliente.getNIF(), tipo, nombre);
+        return Arrays.asList(cliente.getNIF(), tipo, nombre);
     }
 
     public static String format(final Range<LocalDateTime> periodo) {

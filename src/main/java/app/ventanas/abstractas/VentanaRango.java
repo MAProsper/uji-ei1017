@@ -1,5 +1,6 @@
 package app.ventanas.abstractas;
 
+import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
 import com.google.common.collect.Range;
 
@@ -11,11 +12,11 @@ import static helpers.estaticos.Arguments.*;
 public abstract class VentanaRango extends Ventana {
     private final Range<LocalDateTime> periodo;
 
-    public VentanaRango(final Range<LocalDateTime> perido) {
+    public VentanaRango(final Table[] table, final Range<LocalDateTime> perido) {
         super(
                 "Listado en rango",
                 "Reultados encontrados en el periodo",
-                true, Textbox.empty(), Button.values());
+                table, Textbox.empty(), Button.values());
 
         this.periodo = referenceNotNull("Periodo", perido);
     }

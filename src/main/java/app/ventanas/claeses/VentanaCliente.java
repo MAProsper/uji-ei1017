@@ -7,7 +7,6 @@ import app.ventanas.interfaces.Textbox;
 import clientes.Cliente;
 import helpers.clases.Direccion;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
@@ -20,7 +19,7 @@ public class VentanaCliente extends Ventana {
         super(
                 "Cliente",
                 "Gestion del cliente",
-                true, Textbox.empty(), Button.values());
+                Table.values(), Textbox.empty(), Button.values());
 
         this.cliente = referenceNotNull("Cliente", cliente);
     }
@@ -29,16 +28,16 @@ public class VentanaCliente extends Ventana {
     protected void update() {
         final Direccion direccion = cliente.getDireccion();
 
-        setList(Arrays.asList(
-                "NIF: " + cliente.getNIF(),
-                "Nombre: " + cliente.getNombre(),
-                "Codigo postal: " + direccion.getCodigoPostal(),
-                "Provincia: " + direccion.getProvincia(),
-                "Poblacion: " + direccion.getPoblacion(),
-                "Correo electronico: " + cliente.getCorreo(),
-                "Fecha de alta: " + Formatter.format(cliente.getFecha()),
-                "Tarifa: " + cliente.getTarifa()
-        ));
+        setTable(new String[][]{
+                {"NIF", cliente.getNIF()},
+                {"Nombre", cliente.getNombre()},
+                {"Codigo postal", Integer.toString(direccion.getCodigoPostal())},
+                {"Provincia", direccion.getProvincia()},
+                {"Poblacion", direccion.getPoblacion()},
+                {"Correo electronico", cliente.getCorreo()},
+                {"Fecha de alta", Formatter.format(cliente.getFecha())},
+                {"Tarifa", cliente.getTarifa().toString()}
+        });
     }
 
     public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
@@ -69,6 +68,21 @@ public class VentanaCliente extends Ventana {
 
     public final Cliente getCliente() {
         return cliente;
+    }
+
+    public enum Table implements app.ventanas.interfaces.Table {
+        ATRIBUTO("Atributo"),
+        VALOR("Valor");
+
+        private final String description;
+
+        Table(final String description) {
+            this.description = stringNotEmpty("Descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 
     public enum Button implements app.ventanas.interfaces.Button { //Pruebas de como eliminar el switch (no se usa)

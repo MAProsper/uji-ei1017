@@ -9,7 +9,7 @@ public class TarifaTarde extends TarifaExtra {
     private static final long serialVersionUID = -1767886901449819375L;
     protected static final Range<Integer> horario = Range.closedOpen(16, 20);
 
-    public TarifaTarde(Tarifa tarifa, double precio) {
+    public TarifaTarde(final Tarifa tarifa, final double precio) {
         super(tarifa, precio);
     }
 

@@ -35,6 +35,12 @@ public final class Arguments {
         return validate(name + " contiene algun nulo", referenceNotNull(name, ref), !ref.contains(null));
     }
 
+    public static <T> T[] collectionWithoutNull(final String name, final T[] ref) {
+        referenceNotNull(name, ref);
+        for (T item : ref) validate(name + " contiene algun nulo", item != null);
+        return ref;
+    }
+
     public static class ValidationException extends IllegalArgumentException {
         private static final long serialVersionUID = 6994228823580948329L;
 

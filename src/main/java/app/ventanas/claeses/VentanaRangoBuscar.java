@@ -2,6 +2,7 @@ package app.ventanas.claeses;
 
 import app.Parser;
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Table;
 import com.google.common.collect.Range;
 import helpers.estaticos.Fecha;
 import helpers.interfaces.Description;
@@ -18,7 +19,7 @@ public class VentanaRangoBuscar extends Ventana {
         super(
                 "Busqueda en rango",
                 "Introduce un rango de fechas para buscar",
-                false, Textbox.values(), Button.values());
+                Table.empty(), Textbox.values(), Button.values());
         this.tipo = referenceNotNull("Tipo", tipo);
     }
 

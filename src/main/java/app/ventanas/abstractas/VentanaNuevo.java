@@ -1,6 +1,7 @@
 package app.ventanas.abstractas;
 
 import app.ventanas.claeses.VentanaError;
+import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ public abstract class VentanaNuevo extends Ventana {
         super(
                 "Nuevo",
                 "Rellena los attributos de la nueva entrada",
-                false, textboxes, Button.values());
+                Table.empty(), textboxes, Button.values());
     }
 
     @Override

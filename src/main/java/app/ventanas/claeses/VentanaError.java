@@ -1,6 +1,7 @@
 package app.ventanas.claeses;
 
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
 
 import java.util.Optional;
@@ -14,7 +15,7 @@ public class VentanaError extends Ventana {
         super(
                 "Error",
                 stringNotEmpty("Message", message),
-                false, Textbox.empty(), Button.values());
+                Table.empty(), Textbox.empty(), Button.values());
     }
 
     public VentanaError(final ValidationException exception) {

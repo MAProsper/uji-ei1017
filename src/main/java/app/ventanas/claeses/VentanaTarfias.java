@@ -2,6 +2,7 @@ package app.ventanas.claeses;
 
 import app.Parser;
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Table;
 import clientes.Cliente;
 import helpers.interfaces.Factory;
 import helpers.interfaces.FactoryTarifas;
@@ -19,7 +20,7 @@ public class VentanaTarfias extends Ventana {
     protected final Cliente cliente;
 
     public VentanaTarfias(final Cliente cliente) {
-        super("Tarifas", "Seleciona una tarifa", false, Textbox.values(), Button.values());
+        super("Tarifas", "Seleciona una tarifa", Table.empty(), Textbox.values(), Button.values());
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
@@ -79,7 +80,7 @@ public class VentanaTarfias extends Ventana {
         public TarifaExtra getTarifa(final Tarifa tarifa, final double precio) {
             final Class<? extends TarifaExtra> clase = referenceNotNull("Clase", this.clase);
             try {
-                return clase.getConstructor(Tarifa.class, Double.class).newInstance(tarifa, precio);
+                return clase.getConstructor(Tarifa.class, Double.TYPE).newInstance(tarifa, precio);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ignored) {
                 throw Factory.error(clase.getName());
             }

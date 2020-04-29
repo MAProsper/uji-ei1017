@@ -2,6 +2,7 @@ package app.ventanas.claeses;
 
 import app.Gestor;
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Table;
 
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ public class VentanaClienteBuscar extends Ventana {
         super(
                 "Busqueda",
                 "Intoduzca el NIF del cliente",
-                false, Textbox.values(), Button.values());
+                Table.empty(), Textbox.values(), Button.values());
     }
 
     @Override

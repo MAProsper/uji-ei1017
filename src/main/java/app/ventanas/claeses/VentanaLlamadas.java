@@ -17,14 +17,14 @@ public class VentanaLlamadas extends Ventana {
         super(
                 "Llamadas",
                 "Gestion de llamadas",
-                true, Textbox.empty(), Button.values());
+                Table.values(), Textbox.empty(), Button.values());
 
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
     @Override
     protected void update() {
-        setList(cliente.getLlamadas().stream().map(Formatter::format).collect(Collectors.toList()));
+        setTable(cliente.getLlamadas().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 
     @Override
@@ -47,6 +47,22 @@ public class VentanaLlamadas extends Ventana {
 
     public final Cliente getCliente() {
         return cliente;
+    }
+
+    public enum Table implements app.ventanas.interfaces.Table {
+        FECHA("Fecha"),
+        TELEFONO("Telefono"),
+        DURACION("Duracion");
+
+        private final String description;
+
+        Table(final String description) {
+            this.description = stringNotEmpty("Descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 
     public enum Button implements app.ventanas.interfaces.Button {

@@ -18,14 +18,14 @@ public class VentanaFacturas extends Ventana {
         super(
                 "Facturas",
                 "Gestion de facturas",
-                true, Textbox.empty(), Button.values());
+                Table.values(), Textbox.empty(), Button.values());
 
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
     @Override
     protected void update() {
-        setList(cliente.getFacturas().stream().map(Formatter::format).collect(Collectors.toList()));
+        setTable(cliente.getFacturas().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 
     @Override
@@ -54,6 +54,24 @@ public class VentanaFacturas extends Ventana {
         private final String description;
 
         Tipo(final String description) {
+            this.description = stringNotEmpty("Descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    public enum Table implements app.ventanas.interfaces.Table {
+        CODIGO("Codigo"),
+        FECHA("Fecha"),
+        PERIODO("Periodo"),
+        IMPORTE("Importe"),
+        TARIFA("Tarifa (euro/min)");
+
+        private final String description;
+
+        Table(final String description) {
             this.description = stringNotEmpty("Descripcion", description);
         }
 

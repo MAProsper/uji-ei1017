@@ -3,6 +3,7 @@ package app.ventanas.claeses;
 import app.Gestor;
 import app.Parser;
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Table;
 
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public class VentanaFacturaBuscar extends Ventana {
         super(
                 "Busqueda",
                 "Intoduzca el codigo de la factura",
-                false, Textbox.values(), Button.values());
+                Table.empty(), Textbox.values(), Button.values());
     }
 
     @Override

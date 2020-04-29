@@ -2,6 +2,7 @@ package app.ventanas.claeses;
 
 import app.Gestor;
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Table;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,7 +15,7 @@ public class VentanaSave extends Ventana {
         super(
                 "Guardar datos",
                 "Introduce la ruta del fichero a guardar",
-                false, Textbox.values(), Button.values());
+                Table.empty(), Textbox.values(), Button.values());
     }
 
     @Override

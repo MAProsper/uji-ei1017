@@ -4,8 +4,6 @@ import app.Formatter;
 import clientes.ClientePaticular;
 import helpers.clases.Direccion;
 
-import java.util.Arrays;
-
 public class VentanaClienteParticular extends VentanaCliente {
     public VentanaClienteParticular(final ClientePaticular cliente) {
         super(cliente);
@@ -16,16 +14,16 @@ public class VentanaClienteParticular extends VentanaCliente {
         final ClientePaticular cliente = (ClientePaticular) getCliente();
         final Direccion direccion = cliente.getDireccion();
 
-        setList(Arrays.asList(
-                "NIF: " + cliente.getNIF(),
-                "Nombre: " + cliente.getNombre(),
-                "Apellidos: " + cliente.getApellidos(),
-                "Codigo postal: " + direccion.getCodigoPostal(),
-                "Provincia: " + direccion.getProvincia(),
-                "Poblacion: " + direccion.getPoblacion(),
-                "Correo electronico: " + cliente.getCorreo(),
-                "Fecha de alta: " + Formatter.format(cliente.getFecha()),
-                "Tarifa: " + cliente.getTarifa()
-        ));
+        setTable(new String[][]{
+                {"NIF", cliente.getNIF()},
+                {"Nombre", cliente.getNombre()},
+                {"Apellidos", cliente.getApellidos()},
+                {"Codigo postal", Integer.toString(direccion.getCodigoPostal())},
+                {"Provincia", direccion.getProvincia()},
+                {"Poblacion", direccion.getPoblacion()},
+                {"Correo electronico", cliente.getCorreo()},
+                {"Fecha de alta", Formatter.format(cliente.getFecha())},
+                {"Tarifa", cliente.getTarifa().toString()}
+        });
     }
 }

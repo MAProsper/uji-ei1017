@@ -23,12 +23,12 @@ public class VentanaClientes extends Ventana {
         super(
                 "Clientes",
                 "Listado de clientes",
-                true, Textbox.values(), Button.values());
+                Table.values(), Textbox.values(), Button.values());
     }
 
     @Override
     protected void update() {
-        setList(getGestor().getClientes().stream().map(Formatter::format).collect(Collectors.toList()));
+        setTable(getGestor().getClientes().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 
     @Override
@@ -58,6 +58,22 @@ public class VentanaClientes extends Ventana {
         }
 
         return Optional.ofNullable(ventana);
+    }
+
+    public enum Table implements app.ventanas.interfaces.Table {
+        NIF("NIF"),
+        TIPO("Tipo"),
+        NOMBRE("Nombre");
+
+        private final String description;
+
+        Table(final String description) {
+            this.description = stringNotEmpty("Descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {

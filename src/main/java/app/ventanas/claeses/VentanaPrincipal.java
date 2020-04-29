@@ -1,6 +1,7 @@
 package app.ventanas.claeses;
 
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ public class VentanaPrincipal extends Ventana {
         super(
                 "Menu principal",
                 "Bienvenido a gestor de clientes AkiCode",
-                false, Textbox.empty(), Button.values());
+                Table.empty(), Textbox.empty(), Button.values());
     }
 
     @Override
