@@ -4,6 +4,7 @@ import app.ventanas.abstractas.Ventana;
 import app.ventanas.claeses.VentanaCliente;
 import app.ventanas.claeses.VentanaClienteEmpresa;
 import app.ventanas.claeses.VentanaClienteParticular;
+import app.ventanas.claeses.VentanaPrincipal;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
@@ -19,6 +20,8 @@ import static helpers.estaticos.Arguments.*;
 
 public class Gestor {
     private final Stack<Ventana> stack;
+    private Runnable closeOperation;
+
     private HashMap<String, Cliente> id2cliente;
     private HashMap<Integer, Cliente> factura2cliente;
     private List<Cliente> clientes;
@@ -27,6 +30,7 @@ public class Gestor {
 
     public Gestor() {
         stack = new Stack<>();
+        setCloseOperation(() -> System.exit(0));
         clearClientes();
     }
 
@@ -136,7 +140,11 @@ public class Gestor {
         }
     }
 
-    final public void show(final Ventana ventana) {
+    public void setCloseOperation(final Runnable closeOperation) {
+        this.closeOperation = referenceNotNull("Close operation", closeOperation);
+    }
+
+    final public void showNext(final Ventana ventana) {
         if (ventana != null) {
             stack.push(ventana);
         } else {
@@ -144,12 +152,16 @@ public class Gestor {
         }
 
         if (stack.isEmpty()) {
-            System.exit(0);
+            closeOperation.run();
         } else {
             Ventana current = stack.peek();
             current.setGestor(this);
             current.show();
         }
+    }
+
+    final public void show() {
+        showNext(new VentanaPrincipal());
     }
 
     @Override

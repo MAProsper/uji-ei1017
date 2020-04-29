@@ -22,7 +22,7 @@ public class VentanaClienteEmpresa extends VentanaCliente {
                 "Codigo postal: " + direccion.getCodigoPostal(),
                 "Provincia: " + direccion.getProvincia(),
                 "Poblacion: " + direccion.getPoblacion(),
-                "Correo electronico : " + cliente.getCorreo(),
+                "Correo electronico: " + cliente.getCorreo(),
                 "Fecha de alta: " + Formatter.format(cliente.getFecha()),
                 "Tarifa: " + cliente.getTarifa()
         ));

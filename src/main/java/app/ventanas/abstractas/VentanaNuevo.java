@@ -12,7 +12,7 @@ public abstract class VentanaNuevo extends Ventana {
         super(
                 "Nuevo",
                 "Rellena los attributos de la nueva entrada",
-                true, textboxes, Button.values());
+                false, textboxes, Button.values());
     }
 
     @Override

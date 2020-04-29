@@ -24,24 +24,25 @@ abstract public class Ventana {
     private final JList<String> jlist;
     private Gestor gestor;
 
-    private final JFrame frame;
+    private final JFrame jframe;
 
     public Ventana(final String title, final String info, final boolean list, final List<Textbox> textboxes, final List<Button> buttons) {
         this.title = stringNotEmpty("Title", title);
 
-        frame = new JFrame(this.title);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final Container pane = frame.getContentPane();
+        jframe = new JFrame(this.title);
+        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final Container pane = jframe.getContentPane();
 
         this.info = stringNotEmpty("Information", info);
         pane.add(new JLabel(this.info), BorderLayout.NORTH);
 
-        JPanel jPanel = new JPanel(new GridLayout(list && !textboxes.isEmpty() ? 2 : 1, 1));
-
+        JPanel main = new JPanel(new BorderLayout());
         if (list) {
             this.list = new LinkedList<>();
             jlist = new JList<>();
-            jPanel.add(jlist);
+            jlist.setVisibleRowCount(10);
+            jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            main.add(new JScrollPane(jlist));
         } else {
             this.list = null;
             jlist = null;
@@ -59,9 +60,9 @@ abstract public class Ventana {
                 textboxesContent.put(textbox, jtextbox);
                 ptextboxs.add(jtextbox);
             }
-            jPanel.add(ptextboxs);
+            main.add(ptextboxs, BorderLayout.SOUTH);
         }
-        pane.add(jPanel, BorderLayout.CENTER);
+        pane.add(main);
 
         collectionWithoutNull("Buttons", buttons);
         validate("Buttons no puede estar vacia", !buttons.isEmpty());
@@ -71,9 +72,9 @@ abstract public class Ventana {
         for (Button button : buttons) {
             final JButton jbutton = new JButton(button.getDescription());
             jbutton.addActionListener(e -> {
-                final Optional<Ventana> next = pressButton(button);
-                frame.setVisible(false);
-                getGestor().show(next.orElse(null));
+                jframe.setVisible(false);
+                running.release();
+                getGestor().showNext(pressButton(button).orElse(null));
             });
             pbuttons.add(jbutton);
         }
@@ -81,7 +82,8 @@ abstract public class Ventana {
 
         clearTextboxes();
 
-        frame.pack();
+        jframe.pack();
+        jframe.setMinimumSize(jframe.getSize());
     }
 
     public Ventana(final String title, final String info, final boolean list, final Textbox[] textboxes, final Button[] buttons) {
@@ -118,7 +120,7 @@ abstract public class Ventana {
     }
 
     final public String getTitle() {
-        return frame.getTitle();
+        return jframe.getTitle();
     }
 
     final public String getInfo() {
@@ -159,11 +161,9 @@ abstract public class Ventana {
     final public void show() {
         if (!running.tryAcquire()) {
             throw new OverlappingVentanaException();
-        } else try {
+        } else {
             update();
-            frame.setVisible(true);
-        } finally {
-            running.release();
+            jframe.setVisible(true);
         }
     }
 

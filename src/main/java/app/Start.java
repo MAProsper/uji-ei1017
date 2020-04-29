@@ -1,7 +1,5 @@
 package app;
 
-import app.ventanas.claeses.VentanaPrincipal;
-
 import java.nio.file.Paths;
 
 public class Start {
@@ -11,6 +9,6 @@ public class Start {
     public static void main(String[] args) {
         Gestor gestor = new Gestor();
         gestor.load(Paths.get("target/clientes2.bin"));
-        gestor.show(new VentanaPrincipal());
+        gestor.show();
     }
 }
