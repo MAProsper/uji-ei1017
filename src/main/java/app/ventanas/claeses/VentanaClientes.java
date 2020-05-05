@@ -3,6 +3,7 @@ package app.ventanas.claeses;
 import app.Formatter;
 import app.Gestor;
 import app.ventanas.abstractas.Ventana;
+import app.ventanas.interfaces.Textbox;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
@@ -13,6 +14,7 @@ import tarifas.Tarifa;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,8 +24,8 @@ public class VentanaClientes extends Ventana {
     public VentanaClientes() {
         super(
                 "Clientes",
-                "Listado de clientes",
-                Table.values(), Textbox.values(), Button.values());
+                "Listado de clientes, selecione uno para verlo",
+                Table.values(), Textbox.empty(), Button.values());
     }
 
     @Override
@@ -39,8 +41,14 @@ public class VentanaClientes extends Ventana {
         switch ((Button) button) {
             case VER_CLIENTE:
                 final Gestor gestor = getGestor();
-                final String NIF = getTextbox(Textbox.SELECIONADO_NIF);
-                ventana = VentanaError.attempt(() -> gestor.buscarCliente(NIF), gestor::getVisor);
+                final Optional<List<String>> selection = getSelectedRow();
+                if (selection.isPresent()) {
+                    final List<String> row = selection.get();
+                    final String NIF = row.get(Table.NIF.ordinal());
+                    ventana = gestor.getVisor(gestor.buscarCliente(NIF));
+                } else {
+                    ventana = new VentanaError("No se ha selecionado ningun cliente");
+                }
                 break;
             case NUEVO_CLIENTE:
                 ventana = new VentanaClienteNuevo((FactoryClientes) button);
@@ -68,20 +76,6 @@ public class VentanaClientes extends Ventana {
         private final String description;
 
         Table(final String description) {
-            this.description = stringNotEmpty("Descripcion", description);
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    }
-
-    public enum Textbox implements app.ventanas.interfaces.Textbox {
-        SELECIONADO_NIF("Selecionado NIF");
-
-        private final String description;
-
-        Textbox(final String description) {
             this.description = stringNotEmpty("Descripcion", description);
         }
 

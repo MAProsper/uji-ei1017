@@ -41,10 +41,10 @@ public class VentanaPrincipal extends Ventana {
                 ventana = new VentanaRangoBuscar(VentanaRangoBuscar.Tipo.LLAMADAS);
                 break;
             case CARGAR:
-                ventana = new VentanaLoad();
+                ventana = new VentanaLoadSwing();
                 break;
             case GUARDAR:
-                ventana = new VentanaSave();
+                ventana = new VentanaSaveSwing();
                 break;
             case CERRAR:
                 break;

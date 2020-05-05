@@ -7,6 +7,7 @@ import app.ventanas.interfaces.Textbox;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -18,12 +19,12 @@ import static helpers.estaticos.Arguments.*;
 
 abstract public class Ventana {
     protected final List<Table> table;
-    private final JFrame jFrame;
-    private final static Semaphore running = new Semaphore(1);
+    protected final static Semaphore running = new Semaphore(1); //FIXME: private
+    protected final JFrame jFrame; //FIXME: private
 
     protected final String title;
     protected final String info;
-    private final DefaultTableModel tableContent;
+    private final JTable tableContent;
     private final Map<Textbox, JTextField> textboxesContent;
     protected final List<Textbox> textboxes;
     protected final List<Button> buttons;
@@ -35,7 +36,7 @@ abstract public class Ventana {
 
         collectionWithoutNull("Table", table);
         this.table = Collections.unmodifiableList(new LinkedList<>(table));
-        tableContent = new DefaultTableModel(new Vector<>(), new Vector<>(table));
+        tableContent = new JTable();
 
         collectionWithoutNull("Textboxes", textboxes);
         this.textboxes = Collections.unmodifiableList(new LinkedList<>(textboxes));
@@ -53,15 +54,15 @@ abstract public class Ventana {
     }
 
     private Component panelTable() {
-        final JTable table = new JTable(tableContent);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setAutoCreateRowSorter(true);
+        tableContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableContent.setAutoCreateRowSorter(true);
 
-        final Dimension size = table.getPreferredScrollableViewportSize();
-        final int height = Math.min(size.height, table.getRowHeight() * 10);
-        table.setPreferredScrollableViewportSize(new Dimension(size.width, height));
+        //Limitamos el scroll a 10 filas
+        //final int height = tableContent.getRowHeight() * 10;
+        //final Dimension size = tableContent.getPreferredScrollableViewportSize();
+        //tableContent.setPreferredScrollableViewportSize(new Dimension(size.width, height));
 
-        return new JScrollPane(table);
+        return new JScrollPane(tableContent);
     }
 
     private Component panelTextboxes() {
@@ -99,11 +100,13 @@ abstract public class Ventana {
         });
 
         final Container panelContent = window.getContentPane();
+        final JPanel panelNorth = new JPanel(new FlowLayout());
         final JPanel panelCenter = new JPanel(new BorderLayout());
+        panelContent.add(panelNorth, BorderLayout.NORTH);
         panelContent.add(panelCenter);
 
-        panelContent.add(new JLabel(this.info), BorderLayout.NORTH);
-        panelCenter.add(panelTable());
+        panelNorth.add(new JLabel(this.info));
+        if (!table.isEmpty()) panelCenter.add(panelTable());
         panelCenter.add(panelTextboxes(), BorderLayout.SOUTH);
         panelContent.add(panelButton(), BorderLayout.SOUTH);
 
@@ -171,7 +174,20 @@ abstract public class Ventana {
         referenceNotNull("Table", table);
         Vector<Vector<Object>> vTable = new Vector<>();
         for (List<String> row : table) vTable.add(new Vector<>(row));
-        this.tableContent.setDataVector(vTable, new Vector<>(this.table));
+        this.tableContent.setModel(new DefaultTableModel(vTable, new Vector<>(this.table)));
+    }
+
+    final public Optional<List<String>> getSelectedRow() {
+        final int selectedRow = this.tableContent.getSelectedRow();
+        if (selectedRow >= 0) {
+            final TableModel data = this.tableContent.getModel();
+            final List<String> row = new LinkedList<>();
+            for (int i = 0; i < table.size(); i++)
+                row.add((String) data.getValueAt(selectedRow, i));
+            return Optional.of(row);
+        } else {
+            return Optional.empty();
+        }
     }
 
     final public List<Textbox> getTextboxes() {
@@ -194,7 +210,7 @@ abstract public class Ventana {
         return buttons;
     }
 
-    final public void show() {
+    public void show() { //FIXME: final
         if (!running.tryAcquire()) {
             throw new OverlappingVentanaException();
         } else {
