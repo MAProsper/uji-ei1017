@@ -8,6 +8,8 @@ import app.ventanas.interfaces.Textbox;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -24,8 +26,8 @@ abstract public class Ventana {
     private final DefaultTableModel tableContent;
     private final Map<Textbox, JTextField> textboxesContent;
     protected final List<Textbox> textboxes;
-    private Gestor gestor;
     protected final List<Button> buttons;
+    private Gestor gestor;
 
     public Ventana(final String title, final String info, final List<Table> table, final List<Textbox> textboxes, final List<Button> buttons) {
         this.title = stringNotEmpty("Title", title);
@@ -33,7 +35,7 @@ abstract public class Ventana {
 
         collectionWithoutNull("Table", table);
         this.table = Collections.unmodifiableList(new LinkedList<>(table));
-        tableContent = new DefaultTableModel(new String[][]{}, table.toArray());
+        tableContent = new DefaultTableModel(new Vector<>(), new Vector<>(table));
 
         collectionWithoutNull("Textboxes", textboxes);
         this.textboxes = Collections.unmodifiableList(new LinkedList<>(textboxes));
@@ -89,7 +91,12 @@ abstract public class Ventana {
 
     private JFrame panelWindow() {
         final JFrame window = new JFrame(this.title);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(final WindowEvent e) {
+                getGestor().getCloseOperation().run();
+            }
+        });
 
         final Container panelContent = window.getContentPane();
         final JPanel panelCenter = new JPanel(new BorderLayout());
@@ -122,12 +129,12 @@ abstract public class Ventana {
         this.gestor = gestor;
     }
 
-    private String[][] validateTable(final String[][] table) {
+    private List<List<String>> validateTable(final List<List<String>> table) {
         collectionWithoutNull("Tabla", table);
 
-        for (String[] row : table) {
+        for (List<String> row : table) {
             collectionWithoutNull("Fila", row);
-            validate("Fila no tiene un numero adecuado de columnas", row.length == this.table.size());
+            validate("Fila no tiene un numero adecuado de columnas", row.size() == this.table.size());
         }
 
         return table;
@@ -154,15 +161,17 @@ abstract public class Ventana {
     }
 
     public void setTable(final String[][] table) {
-        this.tableContent.setDataVector(validateTable(table), this.table.toArray());
+        referenceNotNull("Table", table);
+        List<List<String>> vTable = new LinkedList<>();
+        for (String[] row : table) vTable.add(Arrays.asList(row));
+        setTable(vTable);
     }
 
     public void setTable(final List<List<String>> table) {
         referenceNotNull("Table", table);
-        String[][] vTable = new String[table.size()][this.table.size()];
-        for (int i = 0; i < table.size(); i++)
-            vTable[i] = referenceNotNull("Fila", table.get(i)).toArray(new String[0]);
-        setTable(vTable);
+        Vector<Vector<Object>> vTable = new Vector<>();
+        for (List<String> row : table) vTable.add(new Vector<>(row));
+        this.tableContent.setDataVector(vTable, new Vector<>(this.table));
     }
 
     final public List<Textbox> getTextboxes() {

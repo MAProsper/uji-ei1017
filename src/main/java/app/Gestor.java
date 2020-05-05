@@ -144,6 +144,10 @@ public class Gestor {
         this.closeOperation = referenceNotNull("Close operation", closeOperation);
     }
 
+    public Runnable getCloseOperation() {
+        return closeOperation;
+    }
+
     final public void showNext(final Ventana ventana) {
         if (ventana != null) {
             stack.push(ventana);
