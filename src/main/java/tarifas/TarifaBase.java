@@ -15,4 +15,11 @@ public class TarifaBase extends Tarifa {
         referenceNotNull("Llamada", llamada);
         return llamada.getDuracion() * precio;
     }
+
+    @Override
+    public String toString() {
+        return "TarifaBase{" +
+                "precio=" + precio +
+                '}';
+    }
 }
