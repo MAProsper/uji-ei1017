@@ -2,20 +2,20 @@ package tarifas;
 
 import helpers.clases.Llamada;
 import org.junit.jupiter.api.RepeatedTest;
-import tarifas.generadores.GeneradorTarifa;
+import tarifas.generadores.GeneradorTarifaBase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestTarifa {
-    protected static final GeneradorTarifa generador = new GeneradorTarifa();
+public class TestTarifaBase {
+    protected static final GeneradorTarifaBase generador = new GeneradorTarifaBase();
 
     @RepeatedTest(3)
-    public void testTarifa() {
+    public void testTarifaBase() {
         final double precio = generador.nextPrecio();
         System.out.println("Tarifa{" +
                 "precio=" + precio +
                 '}');
-        final Tarifa tarifa = new Tarifa(precio);
+        final Tarifa tarifa = new TarifaBase(precio);
         assertEquals(precio, tarifa.getPrecio());
     }
 

@@ -6,6 +6,7 @@ import clientes.Cliente;
 import helpers.clases.Direccion;
 import helpers.interfaces.FactoryClientes;
 import tarifas.Tarifa;
+import tarifas.TarifaBase;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
@@ -33,7 +34,7 @@ public class VentanaClienteNuevo extends VentanaNuevo {
         final String fechaAlta = getTextbox(Textbox.FECHA_ALTA);
         final String tarifaBase = getTextbox(Textbox.TARIFA);
 
-        final Tarifa tarifa = new Tarifa(Parser.real(Textbox.TARIFA.getDescription(), tarifaBase));
+        final Tarifa tarifa = new TarifaBase(Parser.real(Textbox.TARIFA.getDescription(), tarifaBase));
         final Direccion direccion = new Direccion(Parser.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
         final Cliente cliente = factoria.getCliente(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
 

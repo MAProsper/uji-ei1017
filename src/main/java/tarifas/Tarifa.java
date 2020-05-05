@@ -6,9 +6,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import static helpers.estaticos.Arguments.numberNotNegative;
-import static helpers.estaticos.Arguments.referenceNotNull;
 
-public class Tarifa implements Serializable {
+public abstract class Tarifa implements Serializable {
     private static final long serialVersionUID = -4829115908149179461L;
     protected final double precio;
 
@@ -20,10 +19,7 @@ public class Tarifa implements Serializable {
         return precio;
     }
 
-    public double getImporte(final Llamada llamada) {
-        referenceNotNull("Llamada", llamada);
-        return llamada.getDuracion() * precio;
-    }
+    public abstract double getImporte(final Llamada llamada);
 
     @Override
     public boolean equals(final Object o) {

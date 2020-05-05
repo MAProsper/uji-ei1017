@@ -3,7 +3,7 @@ package helpers.generadores;
 import com.google.common.collect.Range;
 import helpers.clases.Factura;
 import tarifas.Tarifa;
-import tarifas.generadores.GeneradorTarifa;
+import tarifas.generadores.GeneradorTarifaBase;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import static helpers.estaticos.Fecha.getPeriodo;
 public class GeneradorFactura {
     protected final static Random genBase = new Random();
     protected final static GeneratorFecha genHelper = new GeneratorFecha();
-    protected final static GeneradorTarifa genTarifa = new GeneradorTarifa();
+    protected final static GeneradorTarifaBase genTarifa = new GeneradorTarifaBase();
     private static int codigos = 0;
 
     public final int nextCodigo() {

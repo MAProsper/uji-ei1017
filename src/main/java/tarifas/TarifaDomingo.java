@@ -14,8 +14,8 @@ public class TarifaDomingo extends TarifaExtra {
     }
 
     @Override
-    protected Optional<Double> getImporteExtra(Llamada llamada) {
-        return llamada.getFecha().getDayOfWeek() == DayOfWeek.SUNDAY ? Optional.of(precio) : Optional.empty();
+    protected Optional<Double> getImporteExtra(final Llamada llamada) {
+        return llamada.getFecha().getDayOfWeek() == DayOfWeek.SUNDAY ? Optional.of(llamada.getDuracion() * precio) : Optional.empty();
     }
 
     @Override

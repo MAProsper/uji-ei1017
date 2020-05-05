@@ -2,11 +2,11 @@ package tarifas.generadores;
 
 import helpers.clases.Llamada;
 import helpers.generadores.GeneradorLlamada;
-import tarifas.Tarifa;
+import tarifas.TarifaBase;
 
 import java.util.Random;
 
-public class GeneradorTarifa {
+public class GeneradorTarifaBase {
     protected final static Random genBase = new Random();
     protected final static GeneradorLlamada genLlamada = new GeneradorLlamada();
 
@@ -14,8 +14,8 @@ public class GeneradorTarifa {
         return genBase.nextDouble();
     }
 
-    public final Tarifa nextTarifa() {
-        return new Tarifa(nextPrecio());
+    public final TarifaBase nextTarifa() {
+        return new TarifaBase(nextPrecio());
     }
 
     public final Llamada nextLlamada() {

@@ -10,7 +10,7 @@ import helpers.generadores.GeneradorFactura;
 import helpers.generadores.GeneradorLlamada;
 import helpers.generadores.GeneratorFecha;
 import tarifas.Tarifa;
-import tarifas.generadores.GeneradorTarifa;
+import tarifas.generadores.GeneradorTarifaBase;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +18,7 @@ public class GeneradorCliente {
     protected final static GeneratorFecha genHelper = new GeneratorFecha();
     protected final static GeneradorDatosINE genINE = new GeneradorDatosINE();
     protected final static GeneradorDireccion genDireccion = new GeneradorDireccion();
-    protected final static GeneradorTarifa genTarifa = new GeneradorTarifa();
+    protected final static GeneradorTarifaBase genTarifa = new GeneradorTarifaBase();
     protected final static GeneradorLlamada genLlamada = new GeneradorLlamada();
     protected final static GeneradorFactura genFactura = new GeneradorFactura();
 
