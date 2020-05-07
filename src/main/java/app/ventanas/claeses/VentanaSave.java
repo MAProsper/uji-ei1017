@@ -13,14 +13,14 @@ public class VentanaSave extends VentanaArchivo {
     }
 
     protected Optional<Gestionable> processFile() {
-        Gestionable ventana;
+        Gestionable ventana = null;
         final Optional<Path> selected = getPath();
 
         if (selected.isPresent()) {
             final Path path = selected.get();
             final Gestor gestor = getGestor();
             ventana = VentanaError.attempt(() -> gestor.save(path));
-        } else ventana = null;
+        }
 
         return Optional.ofNullable(ventana);
     }
