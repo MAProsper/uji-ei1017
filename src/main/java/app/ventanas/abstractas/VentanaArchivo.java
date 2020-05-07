@@ -20,10 +20,9 @@ public abstract class VentanaArchivo extends Gestionable {
         jFile.setFileFilter(filter);
     }
 
-    final protected Optional<Path> getPath() {
+    final protected Path getPath() {
         final File file = jFile.getSelectedFile();
-        final Path path = file != null ? Paths.get(file.getPath()) : null;
-        return Optional.ofNullable(path);
+        return Paths.get(file.getPath());
     }
 
     protected abstract Optional<Gestionable> processFile();
