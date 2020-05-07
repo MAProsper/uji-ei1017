@@ -12,8 +12,8 @@ public class VentanaSave extends VentanaArchivo {
         super();
     }
 
-    protected Optional<Gestionable> processFile() {
-        final Path path = getPath();
+    @Override
+    public Optional<Gestionable> processFile(final Path path) {
         final Gestor gestor = getGestor();
         final Gestionable ventana = VentanaError.attempt(() -> gestor.save(path));
         return Optional.ofNullable(ventana);

@@ -13,8 +13,7 @@ public class VentanaLoad extends VentanaArchivo {
     }
 
     @Override
-    protected Optional<Gestionable> processFile() {
-        final Path path = getPath();
+    public Optional<Gestionable> processFile(final Path path) {
         final Gestor gestor = getGestor();
         final Gestionable ventana = VentanaError.attempt(() -> gestor.load(path));
         return Optional.ofNullable(ventana);

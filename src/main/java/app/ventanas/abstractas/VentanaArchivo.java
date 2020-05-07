@@ -25,7 +25,7 @@ public abstract class VentanaArchivo extends Gestionable {
         return Paths.get(file.getPath());
     }
 
-    protected abstract Optional<Gestionable> processFile();
+    public abstract Optional<Gestionable> processFile(final Path path);
 
     protected abstract int showDialog();
 
@@ -34,7 +34,7 @@ public abstract class VentanaArchivo extends Gestionable {
         super.show();
         final Gestionable ventana;
         if (showDialog() == JFileChooser.APPROVE_OPTION)
-            ventana = processFile().orElse(null);
+            ventana = processFile(getPath()).orElse(null);
         else ventana = null;
         showNext(ventana);
     }
