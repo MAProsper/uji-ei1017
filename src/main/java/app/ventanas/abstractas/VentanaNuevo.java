@@ -17,9 +17,9 @@ public abstract class VentanaNuevo extends Ventana {
     }
 
     @Override
-    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
         validate("Button tiene que ser esta ventana", button instanceof Button);
-        Ventana ventana = null;
+        Gestionable ventana = null;
 
         switch ((Button) button) {
             case CREAR:

@@ -1,6 +1,5 @@
 package app.ventanas.abstractas;
 
-import app.Gestor;
 import app.ventanas.interfaces.Button;
 import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
@@ -13,24 +12,22 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.*;
-import java.util.concurrent.Semaphore;
 
 import static helpers.estaticos.Arguments.*;
 
-abstract public class Ventana {
+abstract public class Ventana extends Gestionable {
     protected final List<Table> table;
-    protected final static Semaphore running = new Semaphore(1); //FIXME: private
-    protected final JFrame jFrame; //FIXME: private
 
     protected final String title;
     protected final String info;
+    private final JFrame jFrame;
     private final JTable tableContent;
     private final Map<Textbox, JTextField> textboxesContent;
     protected final List<Textbox> textboxes;
     protected final List<Button> buttons;
-    private Gestor gestor;
 
     public Ventana(final String title, final String info, final List<Table> table, final List<Textbox> textboxes, final List<Button> buttons) {
+        super();
         this.title = stringNotEmpty("Title", title);
         this.info = stringNotEmpty("Information", info);
 
@@ -82,8 +79,7 @@ abstract public class Ventana {
             final JButton jbutton = new JButton(button.getDescription());
             jbutton.addActionListener(e -> {
                 jFrame.setVisible(false);
-                running.release();
-                getGestor().showNext(pressButton(button).orElse(null));
+                showNext(pressButton(button).orElse(null));
             });
             panel.add(jbutton);
         }
@@ -122,15 +118,7 @@ abstract public class Ventana {
     protected void update() {
     }
 
-    public abstract Optional<Ventana> pressButton(final Button button);
-
-    public final Gestor getGestor() {
-        return validate("Gestor no esta asignado", gestor, hasGestor());
-    }
-
-    public void setGestor(final Gestor gestor) {
-        this.gestor = gestor;
-    }
+    public abstract Optional<Gestionable> pressButton(final Button button);
 
     private List<List<String>> validateTable(final List<List<String>> table) {
         collectionWithoutNull("Tabla", table);
@@ -145,10 +133,6 @@ abstract public class Ventana {
 
     private Textbox validateTextbox(final Textbox name) {
         return validate("Textbox " + name + " no esta definida", referenceNotNull("Name", name), textboxes.contains(name));
-    }
-
-    final public boolean hasGestor() {
-        return gestor != null;
     }
 
     final public String getTitle() {
@@ -210,13 +194,10 @@ abstract public class Ventana {
         return buttons;
     }
 
-    public void show() { //FIXME: final
-        if (!running.tryAcquire()) {
-            throw new OverlappingVentanaException();
-        } else {
-            update();
-            jFrame.setVisible(true);
-        }
+    final public void show() {
+        super.show();
+        update();
+        jFrame.setVisible(true);
     }
 
     @Override
@@ -228,9 +209,5 @@ abstract public class Ventana {
                 ", textboxes=" + textboxes +
                 ", buttons=" + buttons +
                 '}';
-    }
-
-    public static class OverlappingVentanaException extends IllegalStateException {
-        private static final long serialVersionUID = -4234327239149123858L;
     }
 }

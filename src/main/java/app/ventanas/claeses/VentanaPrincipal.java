@@ -1,5 +1,6 @@
 package app.ventanas.claeses;
 
+import app.ventanas.abstractas.Gestionable;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
@@ -17,9 +18,9 @@ public class VentanaPrincipal extends Ventana {
     }
 
     @Override
-    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
         validate("Button tiene que ser esta ventana", button instanceof Button);
-        Ventana ventana = null;
+        Gestionable ventana = null;
 
         switch ((Button) button) {
             case VER_CLIENTES:
@@ -41,10 +42,10 @@ public class VentanaPrincipal extends Ventana {
                 ventana = new VentanaRangoBuscar(VentanaRangoBuscar.Tipo.LLAMADAS);
                 break;
             case CARGAR:
-                ventana = new VentanaLoadSwing();
+                ventana = new VentanaLoad();
                 break;
             case GUARDAR:
-                ventana = new VentanaSaveSwing();
+                ventana = new VentanaSave();
                 break;
             case CERRAR:
                 break;

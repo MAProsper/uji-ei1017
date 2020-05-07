@@ -1,6 +1,7 @@
 package app.ventanas.claeses;
 
 import app.Formatter;
+import app.ventanas.abstractas.Gestionable;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Textbox;
 import clientes.Cliente;
@@ -29,9 +30,9 @@ public class VentanaFacturas extends Ventana {
     }
 
     @Override
-    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
         validate("Button tiene que ser esta ventana", button instanceof Button);
-        Ventana ventana = null;
+        Gestionable ventana = null;
 
         switch ((Button) button) {
             case ANYADIR_FACTURA:

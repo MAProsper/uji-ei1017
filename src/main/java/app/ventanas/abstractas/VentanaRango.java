@@ -25,9 +25,9 @@ public abstract class VentanaRango extends Ventana {
     abstract protected void update();
 
     @Override
-    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
         validate("Button tiene que ser esta ventana", button instanceof Button);
-        validate("Ventana no clasificada", button == Button.VOLVER);
+        validate("Button no clasificado", button == Button.VOLVER);
         return Optional.empty();
     }
 

@@ -1,5 +1,6 @@
 package app.ventanas.claeses;
 
+import app.ventanas.abstractas.Gestionable;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
@@ -22,7 +23,7 @@ public class VentanaError extends Ventana {
         this(exception.getMessage());
     }
 
-    public static Ventana attempt(final Runnable func) {
+    public static Gestionable attempt(final Runnable func) {
         //Tiene muchos nulos, pressButton espera nulos, no sabemos como limpiarlo más
         return attempt(() -> {
             func.run();
@@ -30,8 +31,8 @@ public class VentanaError extends Ventana {
         }, v -> null);
     }
 
-    public static <T> Ventana attempt(final Supplier<T> func, final Function<T, Ventana> result) {
-        Ventana ventana = null;
+    public static <T> Gestionable attempt(final Supplier<T> func, final Function<T, Ventana> result) {
+        Gestionable ventana = null;
         T value = null;
 
         try {
@@ -44,9 +45,9 @@ public class VentanaError extends Ventana {
     }
 
     @Override
-    public Optional<Ventana> pressButton(final app.ventanas.interfaces.Button button) {
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
         validate("Button tiene que ser esta ventana", button instanceof Button);
-        validate("Ventana no clasificada", button == Button.VOLVER);
+        validate("Button no clasificado", button == Button.VOLVER);
         return Optional.empty();
     }
 

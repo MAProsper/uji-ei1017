@@ -1,5 +1,6 @@
 package app;
 
+import app.ventanas.abstractas.Gestionable;
 import app.ventanas.abstractas.Ventana;
 import app.ventanas.claeses.VentanaCliente;
 import app.ventanas.claeses.VentanaClienteEmpresa;
@@ -19,7 +20,7 @@ import java.util.*;
 import static helpers.estaticos.Arguments.*;
 
 public class Gestor {
-    private final Stack<Ventana> stack;
+    private final Stack<Gestionable> stack;
     private Runnable closeOperation;
 
     private HashMap<String, Cliente> id2cliente;
@@ -148,7 +149,7 @@ public class Gestor {
         return closeOperation;
     }
 
-    final public void showNext(final Ventana ventana) {
+    final public void showNext(final Gestionable ventana) {
         if (ventana != null) {
             stack.push(ventana);
         } else {
@@ -158,7 +159,7 @@ public class Gestor {
         if (stack.isEmpty()) {
             closeOperation.run();
         } else {
-            Ventana current = stack.peek();
+            Gestionable current = stack.peek();
             current.setGestor(this);
             current.show();
         }
