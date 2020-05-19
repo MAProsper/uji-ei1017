@@ -7,11 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+// Reacion Vista-Controlador (abstracta para ventanas swing)
 public abstract class VentanaArchivo extends Gestionable {
     protected final JFrame jFrame;
     protected final JFileChooser jFile;
     protected final FileNameExtensionFilter filter;
 
+    // Vista (define la vista contreta)
     public VentanaArchivo() {
         super();
         jFrame = new JFrame();
@@ -20,17 +22,17 @@ public abstract class VentanaArchivo extends Gestionable {
         jFile.setFileFilter(filter);
     }
 
+    protected abstract int showDialog();
+
+    // Metodos para el Controlador (Informarse de la vista)
     final protected Path getPath() {
         final File file = jFile.getSelectedFile();
         return Paths.get(file.getPath());
     }
 
-    public abstract Optional<Gestionable> processFile(final Path path);
-
-    protected abstract int showDialog();
-
+    // Vista-Controlador (dificil separar, implementadd por swing)
     @Override
-    final public void show() {
+    final public void show() { // Gestiona la notificacion del modelo
         super.show();
         final Gestionable ventana;
         if (showDialog() == JFileChooser.APPROVE_OPTION)
@@ -38,4 +40,7 @@ public abstract class VentanaArchivo extends Gestionable {
         else ventana = null;
         showNext(ventana);
     }
+
+    // Controlador (define el controlador contreto)
+    public abstract Optional<Gestionable> processFile(final Path path);
 }

@@ -17,32 +17,14 @@ import java.util.Optional;
 
 import static helpers.estaticos.Arguments.*;
 
+// Relacion Vista-Controlador
 public class VentanaTarfias extends Ventana {
     protected final Cliente cliente;
 
+    // Vista (define la vista contreta)
     public VentanaTarfias(final Cliente cliente) {
         super("Tarifas", "Seleciona una tarifa", Table.empty(), Textbox.values(), Button.values());
         this.cliente = referenceNotNull("Cliente", cliente);
-    }
-
-    @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        Gestionable ventana = null;
-
-        if (button != Button.VOLVER) {
-            final FactoryTarifas factoria = (FactoryTarifas) button;
-            final String precio = getTextbox(Textbox.PRECIO);
-            ventana = VentanaError.attempt(
-                    () -> Parser.real("Precio", precio),
-                    p -> {
-                        cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
-                        return null;
-                    }
-            );
-        }
-
-        return Optional.ofNullable(ventana);
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {
@@ -58,6 +40,30 @@ public class VentanaTarfias extends Ventana {
         public String getDescription() {
             return desciption;
         }
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        Gestionable ventana = null;
+
+        if (button != Button.VOLVER) {
+            // Vista.getTextbox (2. solicita datos a la vista)
+            final String precio = getTextbox(Textbox.PRECIO);
+
+            final FactoryTarifas factoria = (FactoryTarifas) button;
+            ventana = VentanaError.attempt(
+                    () -> Parser.real("Precio", precio),
+                    p -> {
+                        // Cliente.setTarifa (3. actualiza el modelo)
+                        cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
+                        return null;
+                    }
+            );
+        }
+
+        return Optional.ofNullable(ventana);
     }
 
     public enum Button implements app.ventanas.interfaces.Button, FactoryTarifas {
@@ -78,6 +84,12 @@ public class VentanaTarfias extends Ventana {
         }
 
         @Override
+        public String getDescription() {
+            return desciption;
+        }
+
+        // Metodos para la fabrica de tarifas
+        @Override
         public TarifaExtra getTarifa(final Tarifa tarifa, final double precio) {
             final Class<? extends TarifaExtra> clase = referenceNotNull("Clase", this.clase);
             try {
@@ -85,11 +97,6 @@ public class VentanaTarfias extends Ventana {
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ignored) {
                 throw Factory.error(clase.getName());
             }
-        }
-
-        @Override
-        public String getDescription() {
-            return desciption;
         }
     }
 }

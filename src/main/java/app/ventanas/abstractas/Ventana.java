@@ -15,6 +15,7 @@ import java.util.*;
 
 import static helpers.estaticos.Arguments.*;
 
+// Vista (abstracta para ventanas propias)
 abstract public class Ventana extends Gestionable {
     protected final List<Table> table;
 
@@ -53,12 +54,6 @@ abstract public class Ventana extends Gestionable {
     private Component panelTable() {
         tableContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableContent.setAutoCreateRowSorter(true);
-
-        //Limitamos el scroll a 10 filas
-        //final int height = tableContent.getRowHeight() * 10;
-        //final Dimension size = tableContent.getPreferredScrollableViewportSize();
-        //tableContent.setPreferredScrollableViewportSize(new Dimension(size.width, height));
-
         return new JScrollPane(tableContent);
     }
 
@@ -79,6 +74,8 @@ abstract public class Ventana extends Gestionable {
             final JButton jbutton = new JButton(button.getDescription());
             jbutton.addActionListener(e -> {
                 jFrame.setVisible(false);
+
+                //Controlador.pressButton (1. avisar de acción del usuario)
                 showNext(pressButton(button).orElse(null));
             });
             panel.add(jbutton);
@@ -115,11 +112,6 @@ abstract public class Ventana extends Gestionable {
         return window;
     }
 
-    protected void update() {
-    }
-
-    public abstract Optional<Gestionable> pressButton(final Button button);
-
     private List<List<String>> validateTable(final List<List<String>> table) {
         collectionWithoutNull("Tabla", table);
 
@@ -135,6 +127,29 @@ abstract public class Ventana extends Gestionable {
         return validate("Textbox " + name + " no esta definida", referenceNotNull("Name", name), textboxes.contains(name));
     }
 
+    final public void show() { // Gestiona la notificacion del modelo
+        super.show();
+        update();
+        jFrame.setVisible(true);
+    }
+
+    protected void update() {
+    }
+
+    @Override
+    public String toString() {
+        return "Ventana{" +
+                "title='" + title + '\'' +
+                ", info='" + info + '\'' +
+                ", table=" + table +
+                ", textboxes=" + textboxes +
+                ", buttons=" + buttons +
+                '}';
+    }
+
+    // Metodos para el Controlador (informase de la vista)
+    public abstract Optional<Gestionable> pressButton(final Button button); // Gestiona la accion del usuario
+
     final public String getTitle() {
         return title;
     }
@@ -145,20 +160,6 @@ abstract public class Ventana extends Gestionable {
 
     final public List<Table> getTable() {
         return table;
-    }
-
-    public void setTable(final String[][] table) {
-        referenceNotNull("Table", table);
-        List<List<String>> vTable = new LinkedList<>();
-        for (String[] row : table) vTable.add(Arrays.asList(row));
-        setTable(vTable);
-    }
-
-    public void setTable(final List<List<String>> table) {
-        referenceNotNull("Table", table);
-        Vector<Vector<Object>> vTable = new Vector<>();
-        for (List<String> row : table) vTable.add(new Vector<>(row));
-        this.tableContent.setModel(new DefaultTableModel(vTable, new Vector<>(this.table)));
     }
 
     final public Optional<List<String>> getSelectedRow() {
@@ -182,32 +183,30 @@ abstract public class Ventana extends Gestionable {
         return textboxesContent.get(validateTextbox(name)).getText();
     }
 
+    final public List<Button> getButtons() {
+        return buttons;
+    }
+
+    // Metodos para el Modelo (informar de cambios a la vista)
+    public void setTable(final String[][] table) {
+        referenceNotNull("Table", table);
+        List<List<String>> vTable = new LinkedList<>();
+        for (String[] row : table) vTable.add(Arrays.asList(row));
+        setTable(vTable);
+    }
+
+    public void setTable(final List<List<String>> table) {
+        referenceNotNull("Table", table);
+        Vector<Vector<Object>> vTable = new Vector<>();
+        for (List<String> row : table) vTable.add(new Vector<>(row));
+        this.tableContent.setModel(new DefaultTableModel(vTable, new Vector<>(this.table)));
+    }
+
     public void setTextbox(final Textbox name, final String content) {
         textboxesContent.get(validateTextbox(name)).setText(referenceNotNull("Content", content));
     }
 
     public void clearTextboxes() {
         for (Textbox name : textboxes) setTextbox(name, "");
-    }
-
-    final public List<Button> getButtons() {
-        return buttons;
-    }
-
-    final public void show() {
-        super.show();
-        update();
-        jFrame.setVisible(true);
-    }
-
-    @Override
-    public String toString() {
-        return "Ventana{" +
-                "title='" + title + '\'' +
-                ", info='" + info + '\'' +
-                ", table=" + table +
-                ", textboxes=" + textboxes +
-                ", buttons=" + buttons +
-                '}';
     }
 }

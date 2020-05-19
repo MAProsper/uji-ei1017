@@ -9,9 +9,11 @@ import java.util.Optional;
 
 import static helpers.estaticos.Arguments.*;
 
+// Vista (abtracta para trabajar con rangos)
 public abstract class VentanaRango extends Ventana {
     private final Range<LocalDateTime> periodo;
 
+    // Vista (define la vista contreta)
     public VentanaRango(final Table[] table, final Range<LocalDateTime> perido) {
         super(
                 "Listado en rango",
@@ -22,17 +24,14 @@ public abstract class VentanaRango extends Ventana {
     }
 
     @Override
-    abstract protected void update();
+    abstract protected void update(); // Gestiona la notifiacion del modelo
 
+    // Controlador (gestiona la acción del usuario)
     @Override
     public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
         validate("Button tiene que ser esta ventana", button instanceof Button);
         validate("Button no clasificado", button == Button.VOLVER);
         return Optional.empty();
-    }
-
-    public Range<LocalDateTime> getPeriodo() {
-        return periodo;
     }
 
     public enum Button implements app.ventanas.interfaces.Button {
@@ -47,5 +46,9 @@ public abstract class VentanaRango extends Ventana {
         public String getDescription() {
             return description;
         }
+    }
+
+    public Range<LocalDateTime> getPeriodo() {
+        return periodo;
     }
 }

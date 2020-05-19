@@ -6,6 +6,7 @@ import java.util.concurrent.Semaphore;
 
 import static helpers.estaticos.Arguments.validate;
 
+// Relacion Vista-Modelo
 public abstract class Gestionable {
     private final static Semaphore running = new Semaphore(1);
     private Gestor gestor;

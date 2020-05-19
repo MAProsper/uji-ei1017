@@ -19,6 +19,7 @@ import java.util.*;
 
 import static helpers.estaticos.Arguments.*;
 
+// Modelo
 public class Gestor {
     private final Stack<Gestionable> stack;
     private Runnable closeOperation;
@@ -160,6 +161,8 @@ public class Gestor {
             closeOperation.run();
         } else {
             Gestionable current = stack.peek();
+
+            // Vista.show (4. notifica actualizacion a la vista)
             current.setGestor(this);
             current.show();
         }

@@ -10,36 +10,14 @@ import java.util.Optional;
 
 import static helpers.estaticos.Arguments.*;
 
+// Relacion Vista-Controlador
 public class VentanaFacturaBuscar extends Ventana {
+    // Vista (define la vista contreta)
     public VentanaFacturaBuscar() {
         super(
                 "Busqueda",
                 "Intoduzca el codigo de la factura",
                 Table.empty(), Textbox.values(), Button.values());
-    }
-
-    @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        Gestionable ventana = null;
-
-        switch ((Button) button) {
-            case BUSCAR:
-                final Gestor gestor = getGestor();
-                ventana = VentanaError.attempt(() -> gestor.buscarCliente(getCodigo()), gestor::getVisor);
-                break;
-            case VOLVER:
-                break;
-            default:
-                throw new ValidationException("Button no clasificado");
-        }
-
-        return Optional.ofNullable(ventana);
-    }
-
-    protected Integer getCodigo() {
-        final String codigo = getTextbox(Textbox.CODIGO);
-        return Parser.entreo(Textbox.CODIGO.getDescription(), codigo);
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {
@@ -69,4 +47,33 @@ public class VentanaFacturaBuscar extends Ventana {
             return description;
         }
     }
+
+    protected Integer getCodigo() {
+        final String codigo = getTextbox(Textbox.CODIGO);
+        return Parser.entreo(Textbox.CODIGO.getDescription(), codigo);
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        Gestionable ventana = null;
+
+        switch ((Button) button) {
+            case BUSCAR:
+                final Gestor gestor = getGestor();
+
+                // getCodigo (2. solicita datos a la vista)
+                // Modelo.buscarCliente (3. consulta datos del modelo)
+                ventana = VentanaError.attempt(() -> gestor.buscarCliente(getCodigo()), gestor::getVisor);
+                break;
+            case VOLVER:
+                break;
+            default:
+                throw new ValidationException("Button no clasificado");
+        }
+
+        return Optional.ofNullable(ventana);
+    }
+
 }

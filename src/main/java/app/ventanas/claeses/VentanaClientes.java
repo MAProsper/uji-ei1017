@@ -21,7 +21,10 @@ import java.util.stream.Collectors;
 
 import static helpers.estaticos.Arguments.*;
 
+// Relacion Vista-Controlador
 public class VentanaClientes extends Ventana {
+
+    // Vista (define la vista contreta)
     public VentanaClientes() {
         super(
                 "Clientes",
@@ -29,23 +32,44 @@ public class VentanaClientes extends Ventana {
                 Table.values(), Textbox.empty(), Button.values());
     }
 
-    @Override
-    protected void update() {
-        setTable(getGestor().getClientes().stream().map(Formatter::format).collect(Collectors.toList()));
+    public enum Table implements app.ventanas.interfaces.Table {
+        NIF("NIF"),
+        TIPO("Tipo"),
+        NOMBRE("Nombre");
+
+        private final String description;
+
+        Table(final String description) {
+            this.description = stringNotEmpty("Descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 
     @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
+    protected void update() { // Gestiona la notificacion del modelo
+        setTable(getGestor().getClientes().stream().map(Formatter::format).collect(Collectors.toList()));
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
         validate("Button tiene que ser esta ventana", button instanceof Button);
         Gestionable ventana = null;
 
         switch ((Button) button) {
             case VER_CLIENTE:
-                final Gestor gestor = getGestor();
+                // Vista.getTextbox (2. solicita datos a la vista)
                 final Optional<List<String>> selection = getSelectedRow();
+
                 if (selection.isPresent()) {
                     final List<String> row = selection.get();
                     final String NIF = row.get(Table.NIF.ordinal());
+
+                    // Modelo.buscarCliente (3. consulta datos del modelo)
+                    final Gestor gestor = getGestor();
                     ventana = gestor.getVisor(gestor.buscarCliente(NIF));
                 } else {
                     ventana = new VentanaError("No se ha selecionado ningun cliente");
@@ -67,22 +91,6 @@ public class VentanaClientes extends Ventana {
         }
 
         return Optional.ofNullable(ventana);
-    }
-
-    public enum Table implements app.ventanas.interfaces.Table {
-        NIF("NIF"),
-        TIPO("Tipo"),
-        NOMBRE("Nombre");
-
-        private final String description;
-
-        Table(final String description) {
-            this.description = stringNotEmpty("Descripcion", description);
-        }
-
-        public String getDescription() {
-            return description;
-        }
     }
 
     public enum Button implements app.ventanas.interfaces.Button, FactoryClientes {
@@ -108,6 +116,7 @@ public class VentanaClientes extends Ventana {
             return description;
         }
 
+        // Metodos para la fabrica de clientes
         @Override
         public Cliente getCliente(final String NIF, final String nombre, final Direccion direccion, final String correo, final LocalDateTime fechaAlta, final Tarifa tarifa) {
             final Class<? extends Cliente> clase = referenceNotNull("Clase", this.clase);
@@ -128,4 +137,5 @@ public class VentanaClientes extends Ventana {
             }
         }
     }
+
 }

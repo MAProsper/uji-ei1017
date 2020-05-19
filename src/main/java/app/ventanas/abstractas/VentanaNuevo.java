@@ -8,7 +8,10 @@ import java.util.Optional;
 
 import static helpers.estaticos.Arguments.*;
 
+// Relacion Vista-Controlador (abstracta para crear objectos)
 public abstract class VentanaNuevo extends Ventana {
+
+    // Vista (define la vista contreta)
     public VentanaNuevo(final Textbox[] textboxes) {
         super(
                 "Nuevo",
@@ -16,8 +19,9 @@ public abstract class VentanaNuevo extends Ventana {
                 Table.empty(), textboxes, Button.values());
     }
 
+    // Controlador (gestiona la acción del usuario)
     @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la accion del usuario
         validate("Button tiene que ser esta ventana", button instanceof Button);
         Gestionable ventana = null;
 
@@ -34,8 +38,6 @@ public abstract class VentanaNuevo extends Ventana {
         return Optional.ofNullable(ventana);
     }
 
-    protected abstract void crear();
-
     public enum Button implements app.ventanas.interfaces.Button {
         CREAR("Crear"),
         VOLVER("Volver");
@@ -50,4 +52,6 @@ public abstract class VentanaNuevo extends Ventana {
             return description;
         }
     }
+
+    protected abstract void crear();
 }

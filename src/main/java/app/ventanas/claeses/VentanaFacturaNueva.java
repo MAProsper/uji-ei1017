@@ -16,16 +16,20 @@ import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 import static helpers.estaticos.Fecha.filterRange;
 
+// Relacion Vista-Controlador
 public class VentanaFacturaNueva extends VentanaNuevo {
     protected final Cliente cliente;
 
+    // Vista (define la vista contreta)
     public VentanaFacturaNueva(final Cliente cliente) {
         super(Textbox.values());
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
+    // Controlador (define el controlador concreto)
     @Override
     protected void crear() {
+        // Vista.getTextbox (2. solicita datos a la vista)
         final Tarifa tarifa = cliente.getTarifa();
         final String codigo = getTextbox(Textbox.CODIGO);
         final String fachaEmision = getTextbox(Textbox.FECHA_EMISION);
@@ -35,18 +39,9 @@ public class VentanaFacturaNueva extends VentanaNuevo {
         final Range<LocalDateTime> periodo = Fecha.getPeriodo(Parser.fecha(Textbox.FECHA_INICIO.getDescription(), fechaInicio), Parser.fecha(Textbox.FECHA_INICIO.getDescription(), fechaFinal));
         final Factura factura = new Factura(Parser.entreo(Textbox.CODIGO.getDescription(), codigo), tarifa, Parser.fecha(Textbox.FECHA_EMISION.getDescription(), fachaEmision), periodo, getImporte(periodo));
 
+        // Modelo.addFactura (3. actualiza el modelo)
         cliente.addFactura(factura);
         getGestor().addFactura(cliente, factura);
-    }
-
-    protected double getImporte(final Range<LocalDateTime> periodo) {
-        final Tarifa tarifa = cliente.getTarifa();
-        final List<Llamada> llamadas = filterRange(cliente.getLlamadas(), periodo);
-        return llamadas.stream().mapToDouble(tarifa::getImporte).sum();
-    }
-
-    public final Cliente getCliente() {
-        return cliente;
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {
@@ -64,4 +59,15 @@ public class VentanaFacturaNueva extends VentanaNuevo {
             return description;
         }
     }
+
+    protected double getImporte(final Range<LocalDateTime> periodo) {
+        final Tarifa tarifa = cliente.getTarifa();
+        final List<Llamada> llamadas = filterRange(cliente.getLlamadas(), periodo);
+        return llamadas.stream().mapToDouble(tarifa::getImporte).sum();
+    }
+
+    public final Cliente getCliente() {
+        return cliente;
+    }
+
 }

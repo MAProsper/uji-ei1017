@@ -10,13 +10,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// Relacion Vista-Controlador
 public class VentanaFacturasRango extends VentanaRango {
+
+    // Vista (define la vista contreta)
     public VentanaFacturasRango(final Range<LocalDateTime> perido) {
         super(VentanaFacturas.Table.values(), perido);
     }
 
     @Override
-    protected void update() {
+    protected void update() { // Gestiona la notificacion del modelo
         final List<Factura> facturas = Fecha.filterRange(getGestor().getFacturas(), getPeriodo());
         setTable(facturas.stream().map(Formatter::format).collect(Collectors.toList()));
     }

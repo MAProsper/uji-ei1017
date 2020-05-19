@@ -11,9 +11,11 @@ import java.util.stream.Collectors;
 
 import static helpers.estaticos.Arguments.*;
 
+// Relacion Vista-Controlador
 public class VentanaLlamadas extends Ventana {
     protected final Cliente cliente;
 
+    // Vista (define la vista contreta)
     public VentanaLlamadas(final Cliente cliente) {
         super(
                 "Llamadas",
@@ -24,30 +26,8 @@ public class VentanaLlamadas extends Ventana {
     }
 
     @Override
-    protected void update() {
+    protected void update() { // Gestiona la notificacion del modelo
         setTable(cliente.getLlamadas().stream().map(Formatter::format).collect(Collectors.toList()));
-    }
-
-    @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        Gestionable ventana = null;
-
-        switch ((Button) button) {
-            case NUEVA_LLAMADA:
-                ventana = new VentanaLlamadaNueva(cliente);
-                break;
-            case VOLVER:
-                break;
-            default:
-                throw new ValidationException("Button no clasificado");
-        }
-
-        return Optional.ofNullable(ventana);
-    }
-
-    public final Cliente getCliente() {
-        return cliente;
     }
 
     public enum Table implements app.ventanas.interfaces.Table {
@@ -79,5 +59,28 @@ public class VentanaLlamadas extends Ventana {
         public String getDescription() {
             return description;
         }
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        Gestionable ventana = null;
+
+        switch ((Button) button) {
+            case NUEVA_LLAMADA:
+                ventana = new VentanaLlamadaNueva(cliente);
+                break;
+            case VOLVER:
+                break;
+            default:
+                throw new ValidationException("Button no clasificado");
+        }
+
+        return Optional.ofNullable(ventana);
+    }
+
+    public final Cliente getCliente() {
+        return cliente;
     }
 }

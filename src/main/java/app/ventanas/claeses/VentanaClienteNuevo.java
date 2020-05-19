@@ -11,9 +11,11 @@ import tarifas.TarifaBase;
 import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
+// Relacion Vista-Controlador
 public class VentanaClienteNuevo extends VentanaNuevo {
     protected final FactoryClientes factoria;
 
+    // Vista (define la vista contreta)
     public VentanaClienteNuevo(final FactoryClientes factoria) {
         this(Textbox.values(), factoria);
     }
@@ -21,24 +23,6 @@ public class VentanaClienteNuevo extends VentanaNuevo {
     protected VentanaClienteNuevo(final app.ventanas.interfaces.Textbox[] texboxes, final FactoryClientes factoria) {
         super(texboxes);
         this.factoria = referenceNotNull("factoria", factoria);
-    }
-
-    @Override
-    protected void crear() {
-        final String NIF = getTextbox(Textbox.NIF);
-        final String nombre = getTextbox(Textbox.NOMBRE);
-        final String codigoPostal = getTextbox(Textbox.CODIGO_POSTAL);
-        final String porvincia = getTextbox(Textbox.PROVINCIA);
-        final String poblacion = getTextbox(Textbox.POBLACION);
-        final String correo = getTextbox(Textbox.CORREO);
-        final String fechaAlta = getTextbox(Textbox.FECHA_ALTA);
-        final String tarifaBase = getTextbox(Textbox.TARIFA);
-
-        final Tarifa tarifa = new TarifaBase(Parser.real(Textbox.TARIFA.getDescription(), tarifaBase));
-        final Direccion direccion = new Direccion(Parser.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
-        final Cliente cliente = factoria.getCliente(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
-
-        getGestor().addCliente(cliente);
     }
 
     public enum Textbox implements app.ventanas.interfaces.Textbox {
@@ -61,4 +45,26 @@ public class VentanaClienteNuevo extends VentanaNuevo {
             return description;
         }
     }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    protected void crear() {
+        // Vista.getTextbox (2. solicita datos a la vista)
+        final String NIF = getTextbox(Textbox.NIF);
+        final String nombre = getTextbox(Textbox.NOMBRE);
+        final String codigoPostal = getTextbox(Textbox.CODIGO_POSTAL);
+        final String porvincia = getTextbox(Textbox.PROVINCIA);
+        final String poblacion = getTextbox(Textbox.POBLACION);
+        final String correo = getTextbox(Textbox.CORREO);
+        final String fechaAlta = getTextbox(Textbox.FECHA_ALTA);
+        final String tarifaBase = getTextbox(Textbox.TARIFA);
+
+        final Tarifa tarifa = new TarifaBase(Parser.real(Textbox.TARIFA.getDescription(), tarifaBase));
+        final Direccion direccion = new Direccion(Parser.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
+        final Cliente cliente = factoria.getCliente(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
+
+        // Modelo.addClientes (3. actualiza el modelo)
+        getGestor().addCliente(cliente);
+    }
+
 }

@@ -12,9 +12,11 @@ import java.util.stream.Collectors;
 
 import static helpers.estaticos.Arguments.*;
 
+// Relacion Vista-Controlador
 public class VentanaFacturas extends Ventana {
     protected final Cliente cliente;
 
+    // Vista (define la vista contreta)
     public VentanaFacturas(final Cliente cliente) {
         super(
                 "Facturas",
@@ -22,29 +24,6 @@ public class VentanaFacturas extends Ventana {
                 Table.values(), Textbox.empty(), Button.values());
 
         this.cliente = referenceNotNull("Cliente", cliente);
-    }
-
-    @Override
-    protected void update() {
-        setTable(cliente.getFacturas().stream().map(Formatter::format).collect(Collectors.toList()));
-    }
-
-    @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        Gestionable ventana = null;
-
-        switch ((Button) button) {
-            case ANYADIR_FACTURA:
-                ventana = new VentanaFacturaNueva(cliente);
-                break;
-            case VOLVER:
-                break;
-            default:
-                throw new ValidationException("Button no clasificado");
-        }
-
-        return Optional.ofNullable(ventana);
     }
 
     public enum Tipo implements Description {
@@ -94,5 +73,29 @@ public class VentanaFacturas extends Ventana {
         public String getDescription() {
             return description;
         }
+    }
+
+    @Override
+    protected void update() { // Gestiona la notificacion del modelo
+        setTable(cliente.getFacturas().stream().map(Formatter::format).collect(Collectors.toList()));
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        Gestionable ventana = null;
+
+        switch ((Button) button) {
+            case ANYADIR_FACTURA:
+                ventana = new VentanaFacturaNueva(cliente);
+                break;
+            case VOLVER:
+                break;
+            default:
+                throw new ValidationException("Button no clasificado");
+        }
+
+        return Optional.ofNullable(ventana);
     }
 }

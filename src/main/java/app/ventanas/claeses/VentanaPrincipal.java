@@ -9,7 +9,10 @@ import java.util.Optional;
 
 import static helpers.estaticos.Arguments.*;
 
+// Relacion Vista-Controlador
 public class VentanaPrincipal extends Ventana {
+
+    // Vista (define la vista contreta)
     public VentanaPrincipal() {
         super(
                 "Menu principal",
@@ -17,8 +20,9 @@ public class VentanaPrincipal extends Ventana {
                 Table.empty(), Textbox.empty(), Button.values());
     }
 
+    // Controlador (define el controlador concreto)
     @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
         validate("Button tiene que ser esta ventana", button instanceof Button);
         Gestionable ventana = null;
 
