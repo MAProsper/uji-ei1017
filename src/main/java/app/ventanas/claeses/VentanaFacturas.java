@@ -77,7 +77,12 @@ public class VentanaFacturas extends Ventana {
 
     @Override
     protected void update() { // Gestiona la notificacion del modelo
+        // Cliente.getFacturas (5. solicita nuevos datos)
         setTable(cliente.getFacturas().stream().map(Formatter::format).collect(Collectors.toList()));
+    }
+
+    public final Cliente getCliente() {
+        return cliente;
     }
 
     // Controlador (define el controlador concreto)

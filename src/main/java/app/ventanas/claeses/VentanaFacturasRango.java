@@ -20,6 +20,7 @@ public class VentanaFacturasRango extends VentanaRango {
 
     @Override
     protected void update() { // Gestiona la notificacion del modelo
+        // Modelo.getFacturas (5. solicita nuevos datos)
         final List<Factura> facturas = Fecha.filterRange(getGestor().getFacturas(), getPeriodo());
         setTable(facturas.stream().map(Formatter::format).collect(Collectors.toList()));
     }

@@ -29,6 +29,7 @@ public class VentanaCliente extends Ventana {
     protected void update() { // Gestiona la notificacion del modelo
         final Direccion direccion = cliente.getDireccion();
 
+        // Cliente.get (5. solicita nuevos datos)
         setTable(new String[][]{
                 {"NIF", cliente.getNIF()},
                 {"Nombre", cliente.getNombre()},
@@ -39,6 +40,10 @@ public class VentanaCliente extends Ventana {
                 {"Fecha de alta", Formatter.format(cliente.getFecha())},
                 {"Tarifa", cliente.getTarifa().toString()}
         });
+    }
+
+    public final Cliente getCliente() {
+        return cliente;
     }
 
     // Controlador (define el controlador concreto)
@@ -100,9 +105,5 @@ public class VentanaCliente extends Ventana {
         public String getDescription() {
             return description;
         }
-    }
-
-    public final Cliente getCliente() {
-        return cliente;
     }
 }

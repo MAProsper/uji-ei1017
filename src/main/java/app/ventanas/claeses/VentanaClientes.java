@@ -50,6 +50,7 @@ public class VentanaClientes extends Ventana {
 
     @Override
     protected void update() { // Gestiona la notificacion del modelo
+        // Modelo.getClientes (5. solicita nuevos datos)
         setTable(getGestor().getClientes().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 

@@ -20,6 +20,7 @@ public class VentanaClientesRango extends VentanaRango {
 
     @Override
     protected void update() { // Gestiona la notificacion del modelo
+        // Modelo.getClientes (5. solicita nuevos datos)
         final List<Cliente> clientes = Fecha.filterRange(getGestor().getClientes(), getPeriodo());
         setTable(clientes.stream().map(Formatter::format).collect(Collectors.toList()));
     }

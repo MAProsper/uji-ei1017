@@ -27,6 +27,7 @@ public class VentanaLlamadas extends Ventana {
 
     @Override
     protected void update() { // Gestiona la notificacion del modelo
+        // Cliente.getLlamadas (5. solicita nuevos datos)
         setTable(cliente.getLlamadas().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 
@@ -61,6 +62,10 @@ public class VentanaLlamadas extends Ventana {
         }
     }
 
+    public final Cliente getCliente() {
+        return cliente;
+    }
+
     // Controlador (define el controlador concreto)
     @Override
     public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
@@ -78,9 +83,5 @@ public class VentanaLlamadas extends Ventana {
         }
 
         return Optional.ofNullable(ventana);
-    }
-
-    public final Cliente getCliente() {
-        return cliente;
     }
 }

@@ -15,8 +15,9 @@ public class VentanaClienteParticular extends VentanaCliente {
     @Override
     protected void update() { // Gestiona la notificacion del modelo
         final ClientePaticular cliente = (ClientePaticular) getCliente();
-        final Direccion direccion = cliente.getDireccion();
 
+        // Cliente.get (5. solicita nuevos datos)
+        final Direccion direccion = cliente.getDireccion();
         setTable(new String[][]{
                 {"NIF", cliente.getNIF()},
                 {"Nombre", cliente.getNombre()},
