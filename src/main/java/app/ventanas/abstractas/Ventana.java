@@ -124,19 +124,6 @@ abstract public class Ventana extends Gestionable {
     protected void update() {
     }
 
-    final public Optional<List<String>> getSelectedRow() {
-        final int selectedRow = this.tableContent.getSelectedRow();
-        if (selectedRow >= 0) {
-            final javax.swing.table.TableModel data = this.tableContent.getModel();
-            final List<String> row = new LinkedList<>();
-            for (int i = 0; i < table.size(); i++)
-                row.add((String) data.getValueAt(selectedRow, i));
-            return Optional.of(row);
-        } else {
-            return Optional.empty();
-        }
-    }
-
     @Override
     public String toString() {
         return "Ventana{" +
@@ -195,6 +182,19 @@ abstract public class Ventana extends Gestionable {
 
     final public List<Table> getTable() {
         return table;
+    }
+
+    final public Optional<List<String>> getSelectedRow() {
+        final int selectedRow = this.tableContent.getSelectedRow();
+        if (selectedRow >= 0) {
+            final javax.swing.table.TableModel data = this.tableContent.getModel();
+            final List<String> row = new LinkedList<>();
+            for (int i = 0; i < table.size(); i++)
+                row.add((String) data.getValueAt(selectedRow, i));
+            return Optional.of(row);
+        } else {
+            return Optional.empty();
+        }
     }
 
     final public List<Textbox> getTextboxes() {
