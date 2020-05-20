@@ -35,7 +35,7 @@ public class VistaClienteNuevo extends VistaNuevo {
 
     @Override
     public Controlador getControladorDefault() {
-        return new ControladorCliente();
+        return new ControladorClienteNuevo();
     }
 
     public FactoryClientes getFactoria() {
