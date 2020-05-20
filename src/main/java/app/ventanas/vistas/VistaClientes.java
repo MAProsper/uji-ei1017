@@ -29,7 +29,6 @@ import static helpers.estaticos.Arguments.*;
 
 public class VistaClientes extends VistaPropia {
 
-    // Vista (define la vista contreta)
     public VistaClientes() {
         super(
                 "Clientes",
@@ -38,7 +37,7 @@ public class VistaClientes extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(Controlador controlador) {
+    protected Controlador validateControlador(final Controlador controlador) {
         return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorClientes);
     }
 

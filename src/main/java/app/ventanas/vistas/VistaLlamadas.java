@@ -27,7 +27,7 @@ public class VistaLlamadas extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(Controlador controlador) {
+    protected Controlador validateControlador(final Controlador controlador) {
         return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorLlamadas);
     }
 

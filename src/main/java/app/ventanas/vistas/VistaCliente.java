@@ -6,6 +6,7 @@ import app.ventanas.abstractas.VistaPropia;
 import app.ventanas.acciones.AccionCliente;
 import app.ventanas.controladores.ControladorCliente;
 import app.ventanas.interfaces.Textbox;
+import app.ventanas.tables.TableCliente;
 import clientes.Cliente;
 import helpers.clases.Direccion;
 
@@ -19,28 +20,13 @@ public class VistaCliente extends VistaPropia {
         super(
                 "Cliente",
                 "Gestion del cliente",
-                Table.values(), Textbox.empty(), AccionCliente.values());
+                TableCliente.values(), Textbox.empty(), AccionCliente.values());
 
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
-    public enum Table implements app.ventanas.interfaces.Table {
-        ATRIBUTO("Atributo"),
-        VALOR("Valor");
-
-        private final String description;
-
-        Table(final String description) {
-            this.description = stringNotEmpty("Descripcion", description);
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    }
-
     @Override
-    protected Controlador validateControlador(Controlador controlador) {
+    protected Controlador validateControlador(final Controlador controlador) {
         return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorCliente);
     }
 
@@ -68,5 +54,4 @@ public class VistaCliente extends VistaPropia {
     public final Cliente getCliente() {
         return cliente;
     }
-
 }

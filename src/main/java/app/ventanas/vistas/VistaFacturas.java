@@ -28,13 +28,12 @@ public class VistaFacturas extends VistaPropia {
 
 
     @Override
-    protected Controlador validateControlador(Controlador controlador) {
+    protected Controlador validateControlador(final Controlador controlador) {
         return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorFacturas);
     }
 
     @Override
-    public void update() { // Gestiona la notificacion del modelo
-        // Cliente.getFacturas (5. solicita nuevos datos)
+    public void update() {
         setTable(cliente.getFacturas().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 

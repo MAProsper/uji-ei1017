@@ -4,19 +4,16 @@ import app.helpers.Formatter;
 import clientes.ClientePaticular;
 import helpers.clases.Direccion;
 
-// Relacion Vista-Controlador
 public class VistaClienteParticular extends VistaCliente {
 
-    // Vista (define la vista contreta)
     public VistaClienteParticular(final ClientePaticular cliente) {
         super(cliente);
     }
 
     @Override
-    public void update() { // Gestiona la notificacion del modelo
+    public void update() {
         final ClientePaticular cliente = (ClientePaticular) getCliente();
 
-        // Cliente.get (5. solicita nuevos datos)
         final Direccion direccion = cliente.getDireccion();
         setTable(new String[][]{
                 {"NIF", cliente.getNIF()},

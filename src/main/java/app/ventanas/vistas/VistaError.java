@@ -14,10 +14,8 @@ import java.util.function.Supplier;
 
 import static helpers.estaticos.Arguments.*;
 
-// Relacion Vista-Controlador
 public class VistaError extends VistaPropia {
 
-    // Vista (define la vista contreta)
     public VistaError(final String message) {
         super(
                 "Error",
@@ -30,7 +28,6 @@ public class VistaError extends VistaPropia {
     }
 
     public static Vista attempt(final Runnable func) {
-        // Tiene muchos nulos, pressButton espera nulos, no sabemos como limpiarlo más
         return attempt(() -> {
             func.run();
             return null;

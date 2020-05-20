@@ -10,10 +10,8 @@ import tarifas.TarifaBase;
 
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-// Relacion Vista-Controlador
 public class VistaClienteParticularNuevo extends VistaClienteNuevo {
 
-    // Vista (define la vista contreta)
     public VistaClienteParticularNuevo(final FactoryClientes factoria) {
         super(TextboxClienteParticularNuevo.values(), factoria);
     }
