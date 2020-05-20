@@ -26,24 +26,6 @@ public class VentanaFacturaNueva extends VentanaNuevo {
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
-    // Controlador (define el controlador concreto)
-    @Override
-    protected void crear() {
-        // Vista.getTextbox (2. solicita datos a la vista)
-        final Tarifa tarifa = cliente.getTarifa();
-        final String codigo = getTextbox(Textbox.CODIGO);
-        final String fachaEmision = getTextbox(Textbox.FECHA_EMISION);
-        final String fechaInicio = getTextbox(Textbox.FECHA_INICIO);
-        final String fechaFinal = getTextbox(Textbox.FECHA_FINAL);
-
-        final Range<LocalDateTime> periodo = Fecha.getPeriodo(Parser.fecha(Textbox.FECHA_INICIO.getDescription(), fechaInicio), Parser.fecha(Textbox.FECHA_INICIO.getDescription(), fechaFinal));
-        final Factura factura = new Factura(Parser.entreo(Textbox.CODIGO.getDescription(), codigo), tarifa, Parser.fecha(Textbox.FECHA_EMISION.getDescription(), fachaEmision), periodo, getImporte(periodo));
-
-        // Modelo.addFactura (3. actualiza el modelo)
-        cliente.addFactura(factura);
-        getGestor().addFactura(cliente, factura);
-    }
-
     public enum Textbox implements app.ventanas.interfaces.Textbox {
         CODIGO("Codigo"),
         FECHA_EMISION("Fecha de emision"),
@@ -60,14 +42,32 @@ public class VentanaFacturaNueva extends VentanaNuevo {
         }
     }
 
+    public final Cliente getCliente() {
+        return cliente;
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    protected void crear() {
+        // Vista.getTextbox (2. solicita datos a la vista)
+        final Tarifa tarifa = cliente.getTarifa();
+        final String codigo = getTextbox(Textbox.CODIGO);
+        final String fachaEmision = getTextbox(Textbox.FECHA_EMISION);
+        final String fechaInicio = getTextbox(Textbox.FECHA_INICIO);
+        final String fechaFinal = getTextbox(Textbox.FECHA_FINAL);
+
+        // Cliente~getImporte (3. consulta datos del modelo)
+        final Range<LocalDateTime> periodo = Fecha.getPeriodo(Parser.fecha(Textbox.FECHA_INICIO.getDescription(), fechaInicio), Parser.fecha(Textbox.FECHA_INICIO.getDescription(), fechaFinal));
+        final Factura factura = new Factura(Parser.entreo(Textbox.CODIGO.getDescription(), codigo), tarifa, Parser.fecha(Textbox.FECHA_EMISION.getDescription(), fachaEmision), periodo, getImporte(periodo));
+
+        // Modelo.addFactura (3. actualiza el modelo)
+        cliente.addFactura(factura);
+        getGestor().addFactura(cliente, factura);
+    }
+
     protected double getImporte(final Range<LocalDateTime> periodo) {
         final Tarifa tarifa = cliente.getTarifa();
         final List<Llamada> llamadas = filterRange(cliente.getLlamadas(), periodo);
         return llamadas.stream().mapToDouble(tarifa::getImporte).sum();
     }
-
-    public final Cliente getCliente() {
-        return cliente;
-    }
-
 }

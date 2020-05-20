@@ -18,21 +18,6 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
-    // Controlador (define el controlador concreto)
-    @Override
-    protected void crear() {
-        // Vista.getTextbox (2. solicita datos a la vista)
-        final String telefono = getTextbox(Textbox.TELEFONO);
-        final String fecha = getTextbox(Textbox.FECHA);
-        final String duracion = getTextbox(Textbox.DURACION);
-
-        final Llamada llamada = new Llamada(telefono, Parser.fecha(Textbox.FECHA.getDescription(), fecha), Parser.real(Textbox.DURACION.getDescription(), duracion));
-
-        // Modelo.addLlamada (3. actualiza el modelo)
-        cliente.addLlamada(llamada);
-        getGestor().addLlamada(cliente, llamada);
-    }
-
     public enum Textbox implements app.ventanas.interfaces.Textbox {
         TELEFONO("Telefono"),
         FECHA("Fecha"),
@@ -50,5 +35,20 @@ public class VentanaLlamadaNueva extends VentanaNuevo {
 
     public final Cliente getCliente() {
         return cliente;
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    protected void crear() {
+        // Vista.getTextbox (2. solicita datos a la vista)
+        final String telefono = getTextbox(Textbox.TELEFONO);
+        final String fecha = getTextbox(Textbox.FECHA);
+        final String duracion = getTextbox(Textbox.DURACION);
+
+        final Llamada llamada = new Llamada(telefono, Parser.fecha(Textbox.FECHA.getDescription(), fecha), Parser.real(Textbox.DURACION.getDescription(), duracion));
+
+        // Modelo.addLlamada (3. actualiza el modelo)
+        cliente.addLlamada(llamada);
+        getGestor().addLlamada(cliente, llamada);
     }
 }

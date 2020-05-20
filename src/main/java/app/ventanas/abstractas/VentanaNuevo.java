@@ -19,6 +19,21 @@ public abstract class VentanaNuevo extends Ventana {
                 Table.empty(), textboxes, Button.values());
     }
 
+    public enum Button implements app.ventanas.interfaces.Button {
+        CREAR("Crear"),
+        VOLVER("Volver");
+
+        private final String description;
+
+        Button(final String description) {
+            this.description = stringNotEmpty("Descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
     // Controlador (gestiona la acción del usuario)
     @Override
     public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la accion del usuario
@@ -36,21 +51,6 @@ public abstract class VentanaNuevo extends Ventana {
         }
 
         return Optional.ofNullable(ventana);
-    }
-
-    public enum Button implements app.ventanas.interfaces.Button {
-        CREAR("Crear"),
-        VOLVER("Volver");
-
-        private final String description;
-
-        Button(final String description) {
-            this.description = stringNotEmpty("Descripcion", description);
-        }
-
-        public String getDescription() {
-            return description;
-        }
     }
 
     protected abstract void crear();

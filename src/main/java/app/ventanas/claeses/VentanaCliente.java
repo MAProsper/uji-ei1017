@@ -42,38 +42,6 @@ public class VentanaCliente extends Ventana {
         });
     }
 
-    public final Cliente getCliente() {
-        return cliente;
-    }
-
-    // Controlador (define el controlador concreto)
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la accion del usuario
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        Gestionable ventana = null;
-
-        switch ((Button) button) {
-            case VER_LLAMADAS:
-                ventana = new VentanaLlamadas(cliente);
-                break;
-            case VER_FACTURAS:
-                ventana = new VentanaFacturas(cliente);
-                break;
-            case ANYADIR_TARIFAS:
-                ventana = new VentanaTarfias(cliente);
-                break;
-            case BORRAR_CLIENTE:
-                // Modelo.removeCliente (3. actualiza el modelo)
-                getGestor().removeCliente(cliente);
-                break;
-            case VOLVER:
-                break;
-            default:
-                throw new ValidationException("Button no clasificado");
-        }
-
-        return Optional.ofNullable(ventana);
-    }
-
     public enum Table implements app.ventanas.interfaces.Table {
         ATRIBUTO("Atributo"),
         VALOR("Valor");
@@ -105,5 +73,37 @@ public class VentanaCliente extends Ventana {
         public String getDescription() {
             return description;
         }
+    }
+
+    public final Cliente getCliente() {
+        return cliente;
+    }
+
+    // Controlador (define el controlador concreto)
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la accion del usuario
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        Gestionable ventana = null;
+
+        switch ((Button) button) {
+            case VER_LLAMADAS:
+                ventana = new VentanaLlamadas(cliente);
+                break;
+            case VER_FACTURAS:
+                ventana = new VentanaFacturas(cliente);
+                break;
+            case ANYADIR_TARIFAS:
+                ventana = new VentanaTarfias(cliente);
+                break;
+            case BORRAR_CLIENTE:
+                // Modelo.removeCliente (3. actualiza el modelo)
+                getGestor().removeCliente(cliente);
+                break;
+            case VOLVER:
+                break;
+            default:
+                throw new ValidationException("Button no clasificado");
+        }
+
+        return Optional.ofNullable(ventana);
     }
 }

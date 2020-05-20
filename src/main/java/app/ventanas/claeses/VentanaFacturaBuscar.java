@@ -75,5 +75,4 @@ public class VentanaFacturaBuscar extends Ventana {
 
         return Optional.ofNullable(ventana);
     }
-
 }

@@ -58,5 +58,4 @@ public class VentanaClienteEmpresaNuevo extends VentanaClienteNuevo {
         // Modelo.addClientes (3. actualiza el modelo)
         getGestor().addCliente(cliente);
     }
-
 }

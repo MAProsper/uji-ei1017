@@ -27,5 +27,4 @@ public class VentanaSave extends VentanaArchivo {
         final Gestionable ventana = VentanaError.attempt(() -> gestor.save(path));
         return Optional.ofNullable(ventana);
     }
-
 }

@@ -25,12 +25,6 @@ public class VentanaLlamadas extends Ventana {
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
-    @Override
-    protected void update() { // Gestiona la notificacion del modelo
-        // Cliente.getLlamadas (5. solicita nuevos datos)
-        setTable(cliente.getLlamadas().stream().map(Formatter::format).collect(Collectors.toList()));
-    }
-
     public enum Table implements app.ventanas.interfaces.Table {
         FECHA("Fecha"),
         TELEFONO("Telefono"),
@@ -60,6 +54,12 @@ public class VentanaLlamadas extends Ventana {
         public String getDescription() {
             return description;
         }
+    }
+
+    @Override
+    protected void update() { // Gestiona la notificacion del modelo
+        // Cliente.getLlamadas (5. solicita nuevos datos)
+        setTable(cliente.getLlamadas().stream().map(Formatter::format).collect(Collectors.toList()));
     }
 
     public final Cliente getCliente() {

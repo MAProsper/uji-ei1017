@@ -48,52 +48,6 @@ public class VentanaClientes extends Ventana {
         }
     }
 
-    @Override
-    protected void update() { // Gestiona la notificacion del modelo
-        // Modelo.getClientes (5. solicita nuevos datos)
-        setTable(getGestor().getClientes().stream().map(Formatter::format).collect(Collectors.toList()));
-    }
-
-    // Controlador (define el controlador concreto)
-    @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        Gestionable ventana = null;
-
-        switch ((Button) button) {
-            case VER_CLIENTE:
-                // Vista.getTextbox (2. solicita datos a la vista)
-                final Optional<List<String>> selection = getSelectedRow();
-
-                if (selection.isPresent()) {
-                    final List<String> row = selection.get();
-                    final String NIF = row.get(Table.NIF.ordinal());
-
-                    // Modelo.buscarCliente (3. consulta datos del modelo)
-                    final Gestor gestor = getGestor();
-                    ventana = gestor.getVisor(gestor.buscarCliente(NIF));
-                } else {
-                    ventana = new VentanaError("No se ha selecionado ningun cliente");
-                }
-                break;
-            case NUEVO_CLIENTE:
-                ventana = new VentanaClienteNuevo((FactoryClientes) button);
-                break;
-            case NUEVO_PARTICULAR:
-                ventana = new VentanaClienteParticularNuevo((FactoryClientes) button);
-                break;
-            case NUEVO_EMPRESA:
-                ventana = new VentanaClienteEmpresaNuevo((FactoryClientes) button);
-                break;
-            case VOLVER:
-                break;
-            default:
-                throw new ValidationException("Button no clasificado");
-        }
-
-        return Optional.ofNullable(ventana);
-    }
-
     public enum Button implements app.ventanas.interfaces.Button, FactoryClientes {
         VER_CLIENTE("Ver cliente"),
         NUEVO_CLIENTE("Nuevo cliente", Cliente.class),
@@ -139,4 +93,49 @@ public class VentanaClientes extends Ventana {
         }
     }
 
+    @Override
+    protected void update() { // Gestiona la notificacion del modelo
+        // Modelo.getClientes (5. solicita nuevos datos)
+        setTable(getGestor().getClientes().stream().map(Formatter::format).collect(Collectors.toList()));
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        Gestionable ventana = null;
+
+        switch ((Button) button) {
+            case VER_CLIENTE:
+                // Vista.getTextbox (2. solicita datos a la vista)
+                final Optional<List<String>> selection = getSelectedRow();
+
+                if (selection.isPresent()) {
+                    final List<String> row = selection.get();
+                    final String NIF = row.get(Table.NIF.ordinal());
+
+                    // Modelo.buscarCliente (3. consulta datos del modelo)
+                    final Gestor gestor = getGestor();
+                    ventana = gestor.getVisor(gestor.buscarCliente(NIF));
+                } else {
+                    ventana = new VentanaError("No se ha selecionado ningun cliente");
+                }
+                break;
+            case NUEVO_CLIENTE:
+                ventana = new VentanaClienteNuevo((FactoryClientes) button);
+                break;
+            case NUEVO_PARTICULAR:
+                ventana = new VentanaClienteParticularNuevo((FactoryClientes) button);
+                break;
+            case NUEVO_EMPRESA:
+                ventana = new VentanaClienteEmpresaNuevo((FactoryClientes) button);
+                break;
+            case VOLVER:
+                break;
+            default:
+                throw new ValidationException("Button no clasificado");
+        }
+
+        return Optional.ofNullable(ventana);
+    }
 }

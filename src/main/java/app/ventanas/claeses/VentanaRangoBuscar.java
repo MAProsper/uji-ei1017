@@ -120,5 +120,4 @@ public class VentanaRangoBuscar extends Ventana {
 
         return ventana;
     }
-
 }

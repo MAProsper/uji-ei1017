@@ -42,30 +42,6 @@ public class VentanaTarfias extends Ventana {
         }
     }
 
-    // Controlador (define el controlador concreto)
-    @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        Gestionable ventana = null;
-
-        if (button != Button.VOLVER) {
-            // Vista.getTextbox (2. solicita datos a la vista)
-            final String precio = getTextbox(Textbox.PRECIO);
-
-            final FactoryTarifas factoria = (FactoryTarifas) button;
-            ventana = VentanaError.attempt(
-                    () -> Parser.real("Precio", precio),
-                    p -> {
-                        // Cliente.setTarifa (3. actualiza el modelo)
-                        cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
-                        return null;
-                    }
-            );
-        }
-
-        return Optional.ofNullable(ventana);
-    }
-
     public enum Button implements app.ventanas.interfaces.Button, FactoryTarifas {
         DOMINGO("Domingo", TarifaDomingo.class),
         TARDES("Tardes", TarifaTarde.class),
@@ -98,5 +74,29 @@ public class VentanaTarfias extends Ventana {
                 throw Factory.error(clase.getName());
             }
         }
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        Gestionable ventana = null;
+
+        if (button != Button.VOLVER) {
+            // Vista.getTextbox (2. solicita datos a la vista)
+            final String precio = getTextbox(Textbox.PRECIO);
+
+            final FactoryTarifas factoria = (FactoryTarifas) button;
+            ventana = VentanaError.attempt(
+                    () -> Parser.real("Precio", precio),
+                    p -> {
+                        // Cliente.setTarifa (3. actualiza el modelo)
+                        cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
+                        return null;
+                    }
+            );
+        }
+
+        return Optional.ofNullable(ventana);
     }
 }

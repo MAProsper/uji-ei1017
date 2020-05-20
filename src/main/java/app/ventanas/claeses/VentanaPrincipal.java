@@ -20,6 +20,28 @@ public class VentanaPrincipal extends Ventana {
                 Table.empty(), Textbox.empty(), Button.values());
     }
 
+    public enum Button implements app.ventanas.interfaces.Button {
+        VER_CLIENTES("Ver clientes"),
+        BUSCAR_CLIENTE_NIF("Buscar cliente (NIF)"),
+        BUSCAR_CLIENTE_FACTURA("Buscar cliente (factura)"),
+        BUSCAR_CLIENTE_RANGO("Buscar clientes (rango)"),
+        BUSCAR_FACTURA_RANGO("Buscar facturas (rango)"),
+        BUSCAR_LLAMADAS_RANGO("Buscar llamadas (rango)"),
+        CARGAR("Cargar clientes"),
+        GUARDAR("Guardar clientes"),
+        CERRAR("Cerrar");
+
+        private final String description;
+
+        Button(final String description) {
+            this.description = stringNotEmpty("Descripcion", description);
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
     // Controlador (define el controlador concreto)
     @Override
     public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) { // Gestiona la acción del usuario
@@ -58,27 +80,5 @@ public class VentanaPrincipal extends Ventana {
         }
 
         return Optional.ofNullable(ventana);
-    }
-
-    public enum Button implements app.ventanas.interfaces.Button {
-        VER_CLIENTES("Ver clientes"),
-        BUSCAR_CLIENTE_NIF("Buscar cliente (NIF)"),
-        BUSCAR_CLIENTE_FACTURA("Buscar cliente (factura)"),
-        BUSCAR_CLIENTE_RANGO("Buscar clientes (rango)"),
-        BUSCAR_FACTURA_RANGO("Buscar facturas (rango)"),
-        BUSCAR_LLAMADAS_RANGO("Buscar llamadas (rango)"),
-        CARGAR("Cargar clientes"),
-        GUARDAR("Guardar clientes"),
-        CERRAR("Cerrar");
-
-        private final String description;
-
-        Button(final String description) {
-            this.description = stringNotEmpty("Descripcion", description);
-        }
-
-        public String getDescription() {
-            return description;
-        }
     }
 }

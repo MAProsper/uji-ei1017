@@ -23,17 +23,6 @@ public abstract class VentanaRango extends Ventana {
         this.periodo = referenceNotNull("Periodo", perido);
     }
 
-    @Override
-    abstract protected void update(); // Gestiona la notifiacion del modelo
-
-    // Controlador (gestiona la acción del usuario)
-    @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        validate("Button no clasificado", button == Button.VOLVER);
-        return Optional.empty();
-    }
-
     public enum Button implements app.ventanas.interfaces.Button {
         VOLVER("Volver");
 
@@ -50,5 +39,16 @@ public abstract class VentanaRango extends Ventana {
 
     public Range<LocalDateTime> getPeriodo() {
         return periodo;
+    }
+
+    @Override
+    abstract protected void update(); // Gestiona la notifiacion del modelo
+
+    // Controlador (gestiona la acción del usuario)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        validate("Button no clasificado", button == Button.VOLVER);
+        return Optional.empty();
     }
 }

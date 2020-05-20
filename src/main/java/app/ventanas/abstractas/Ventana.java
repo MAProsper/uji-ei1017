@@ -148,8 +148,38 @@ abstract public class Ventana extends Gestionable {
                 '}';
     }
 
-    public void setTable(final List<List<String>> table) {
-        this.tableContent.setModel(new TableModel(table, this.table));
+    private static class TableModel extends DefaultTableModel {
+        private static final long serialVersionUID = -3918709434546037714L;
+
+        public TableModel(List<List<String>> table, List<Table> header) {
+            super(tableAdapter(validateTable(table, header.size())), headerAdapter(header));
+        }
+
+        private static Vector<Object> headerAdapter(final List<Table> header) {
+            final Vector<Object> vHeader = new Vector<>();
+            for (Table column : header) vHeader.add(column.getDescription());
+            return vHeader;
+        }
+
+        private static List<List<String>> validateTable(final List<List<String>> table, int size) {
+            collectionWithoutNull("Tabla", table);
+            for (List<String> row : table) {
+                collectionWithoutNull("Fila", row);
+                validate("Fila no tiene un numero adecuado de columnas", row.size() == size);
+            }
+            return table;
+        }
+
+        private static Vector<Vector<Object>> tableAdapter(final List<List<String>> table) {
+            Vector<Vector<Object>> vTable = new Vector<>();
+            for (List<String> row : table) vTable.add(new Vector<>(row));
+            return vTable;
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
     }
 
     // Metodos para el Controlador (informase de la vista)
@@ -187,38 +217,8 @@ abstract public class Ventana extends Gestionable {
         setTable(vTable);
     }
 
-    private static class TableModel extends DefaultTableModel {
-        private static final long serialVersionUID = -3918709434546037714L;
-
-        public TableModel(List<List<String>> table, List<Table> header) {
-            super(tableAdapter(validateTable(table, header.size())), headerAdapter(header));
-        }
-
-        private static Vector<Object> headerAdapter(final List<Table> header) {
-            final Vector<Object> vHeader = new Vector<>();
-            for (Table column : header) vHeader.add(column.getDescription());
-            return vHeader;
-        }
-
-        private static List<List<String>> validateTable(final List<List<String>> table, int size) {
-            collectionWithoutNull("Tabla", table);
-            for (List<String> row : table) {
-                collectionWithoutNull("Fila", row);
-                validate("Fila no tiene un numero adecuado de columnas", row.size() == size);
-            }
-            return table;
-        }
-
-        private static Vector<Vector<Object>> tableAdapter(final List<List<String>> table) {
-            Vector<Vector<Object>> vTable = new Vector<>();
-            for (List<String> row : table) vTable.add(new Vector<>(row));
-            return vTable;
-        }
-
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
+    public void setTable(final List<List<String>> table) {
+        this.tableContent.setModel(new TableModel(table, this.table));
     }
 
     public void setTextbox(final Textbox name, final String content) {

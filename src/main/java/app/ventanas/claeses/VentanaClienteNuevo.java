@@ -66,5 +66,4 @@ public class VentanaClienteNuevo extends VentanaNuevo {
         // Modelo.addClientes (3. actualiza el modelo)
         getGestor().addCliente(cliente);
     }
-
 }

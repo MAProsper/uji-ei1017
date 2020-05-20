@@ -26,22 +26,6 @@ public class VentanaError extends Ventana {
         this(exception.getMessage());
     }
 
-    public static Gestionable attempt(final Runnable func) {
-        // Tiene muchos nulos, pressButton espera nulos, no sabemos como limpiarlo más
-        return attempt(() -> {
-            func.run();
-            return null;
-        }, v -> null);
-    }
-
-    // Controlador (define el controlador concreto)
-    @Override
-    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {  // Gestiona la acción del usuario
-        validate("Button tiene que ser esta ventana", button instanceof Button);
-        validate("Button no clasificado", button == Button.VOLVER);
-        return Optional.empty();
-    }
-
     public enum Button implements app.ventanas.interfaces.Button {
         VOLVER("Volver");
 
@@ -54,6 +38,22 @@ public class VentanaError extends Ventana {
         public String getDescription() {
             return description;
         }
+    }
+
+    // Controlador (define el controlador concreto)
+    @Override
+    public Optional<Gestionable> pressButton(final app.ventanas.interfaces.Button button) {  // Gestiona la acción del usuario
+        validate("Button tiene que ser esta ventana", button instanceof Button);
+        validate("Button no clasificado", button == Button.VOLVER);
+        return Optional.empty();
+    }
+
+    public static Gestionable attempt(final Runnable func) {
+        // Tiene muchos nulos, pressButton espera nulos, no sabemos como limpiarlo más
+        return attempt(() -> {
+            func.run();
+            return null;
+        }, v -> null);
     }
 
     public static <T> Gestionable attempt(final Supplier<T> func, final Function<T, Ventana> result) {
