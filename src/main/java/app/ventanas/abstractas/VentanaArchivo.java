@@ -24,13 +24,6 @@ public abstract class VentanaArchivo extends Gestionable {
 
     protected abstract int showDialog();
 
-    // Metodos para el Controlador (Informarse de la vista)
-    final protected Path getPath() {
-        final File file = jFile.getSelectedFile();
-        return Paths.get(file.getPath());
-    }
-
-    // Vista-Controlador (dificil separar, implementado por swing)
     @Override
     final public void show() { // Gestiona la notificacion del modelo
         super.show();
@@ -39,6 +32,12 @@ public abstract class VentanaArchivo extends Gestionable {
             ventana = processFile(getPath()).orElse(null);
         else ventana = null;
         showNext(ventana);
+    }
+
+    // Metodos para el Controlador (Informarse de la vista)
+    final protected Path getPath() {
+        final File file = jFile.getSelectedFile();
+        return Paths.get(file.getPath());
     }
 
     // Controlador (define el controlador contreto)
