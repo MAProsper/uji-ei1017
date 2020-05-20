@@ -13,7 +13,7 @@ public class VistaClienteParticular extends VistaCliente {
     }
 
     @Override
-    protected void update() { // Gestiona la notificacion del modelo
+    public void update() { // Gestiona la notificacion del modelo
         final ClientePaticular cliente = (ClientePaticular) getCliente();
 
         // Cliente.get (5. solicita nuevos datos)

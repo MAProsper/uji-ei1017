@@ -1,15 +1,18 @@
 package app.ventanas.vistas;
 
 import app.helpers.Parser;
+import app.ventanas.abstractas.Controlador;
 import app.ventanas.abstractas.VistaNuevo;
+import app.ventanas.controladores.ControladorCliente;
+import app.ventanas.controladores.ControladorClienteNuevo;
+import app.ventanas.textboxes.TextboxClienteNuevo;
 import clientes.Cliente;
 import helpers.clases.Direccion;
 import helpers.interfaces.FactoryClientes;
 import tarifas.Tarifa;
 import tarifas.TarifaBase;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.*;
 
 // Relacion Vista-Controlador
 public class VistaClienteNuevo extends VistaNuevo {
@@ -17,7 +20,7 @@ public class VistaClienteNuevo extends VistaNuevo {
 
     // Vista (define la vista contreta)
     public VistaClienteNuevo(final FactoryClientes factoria) {
-        this(Textbox.values(), factoria);
+        this(TextboxClienteNuevo.values(), factoria);
     }
 
     protected VistaClienteNuevo(final app.ventanas.interfaces.Textbox[] texboxes, final FactoryClientes factoria) {
@@ -25,45 +28,17 @@ public class VistaClienteNuevo extends VistaNuevo {
         this.factoria = referenceNotNull("factoria", factoria);
     }
 
-    public enum Textbox implements app.ventanas.interfaces.Textbox {
-        NIF("NIF"),
-        NOMBRE("Nombre"),
-        CODIGO_POSTAL("Codigo postal"),
-        PROVINCIA("Provincia"),
-        POBLACION("Poblacion"),
-        CORREO("Correo electronico"),
-        FECHA_ALTA("Fecha de alta"),
-        TARIFA("Tarifa");
-
-        private final String description;
-
-        Textbox(final String description) {
-            this.description = stringNotEmpty("Descripcion", description);
-        }
-
-        public String getDescription() {
-            return description;
-        }
+    @Override
+    protected Controlador validateControlador(Controlador controlador) {
+        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorClienteNuevo);
     }
 
-    // Controlador (define el controlador concreto)
     @Override
-    protected void crear() {
-        // Vista.getTextbox (2. solicita datos a la vista)
-        final String NIF = getTextbox(Textbox.NIF);
-        final String nombre = getTextbox(Textbox.NOMBRE);
-        final String codigoPostal = getTextbox(Textbox.CODIGO_POSTAL);
-        final String porvincia = getTextbox(Textbox.PROVINCIA);
-        final String poblacion = getTextbox(Textbox.POBLACION);
-        final String correo = getTextbox(Textbox.CORREO);
-        final String fechaAlta = getTextbox(Textbox.FECHA_ALTA);
-        final String tarifaBase = getTextbox(Textbox.TARIFA);
+    public Controlador getControladorDefault() {
+        return new ControladorCliente();
+    }
 
-        final Tarifa tarifa = new TarifaBase(Parser.real(Textbox.TARIFA.getDescription(), tarifaBase));
-        final Direccion direccion = new Direccion(Parser.entreo(Textbox.CODIGO_POSTAL.getDescription(), codigoPostal), porvincia, poblacion);
-        final Cliente cliente = factoria.getCliente(NIF, nombre, direccion, correo, Parser.fecha(Textbox.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
-
-        // Modelo.addClientes (3. actualiza el modelo)
-        getModelo().addCliente(cliente);
+    public FactoryClientes getFactoria() {
+        return factoria;
     }
 }
