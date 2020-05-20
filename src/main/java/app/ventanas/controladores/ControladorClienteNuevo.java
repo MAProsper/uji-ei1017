@@ -42,6 +42,5 @@ public class ControladorClienteNuevo extends ControladorNuevo {
         final Cliente cliente = vistaClientenuevo.getFactoria().getCliente(NIF, nombre, direccion, correo, Parser.fecha(TextboxClienteNuevo.FECHA_ALTA.getDescription(), fechaAlta), tarifa);
 
         getModelo().addCliente(cliente);
-
     }
 }
