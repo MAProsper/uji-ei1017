@@ -3,10 +3,15 @@ package app.ventanas.controladores;
 import app.ventanas.abstractas.Controlador;
 import app.ventanas.abstractas.Vista;
 import app.ventanas.acciones.AccionError;
+import app.ventanas.vistas.VistaError;
 
 import static helpers.estaticos.Arguments.validate;
 
 public class ControladorError extends Controlador {
+    public ControladorError() {
+        super();
+    }
+
     @Override
     public void gestionaAccion(final app.ventanas.interfaces.Accion accion) {
         validate("Button tiene que ser esta ventana", accion instanceof AccionError);
@@ -15,7 +20,7 @@ public class ControladorError extends Controlador {
     }
 
     @Override
-    protected Vista validateVista(Vista vista) {
-        return null;
+    protected Vista validateVista(final Vista vista) {
+        return validate("Controlador tiene que ser del mismo tipo", vista, vista instanceof VistaError);
     }
 }

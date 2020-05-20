@@ -1,8 +1,10 @@
 package app.ventanas.vistas;
 
+import app.ventanas.abstractas.Controlador;
 import app.ventanas.abstractas.Vista;
 import app.ventanas.abstractas.VistaPropia;
 import app.ventanas.acciones.AccionError;
+import app.ventanas.controladores.ControladorError;
 import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
 import helpers.estaticos.Arguments;
@@ -10,8 +12,7 @@ import helpers.estaticos.Arguments;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static helpers.estaticos.Arguments.ValidationException;
-import static helpers.estaticos.Arguments.stringNotEmpty;
+import static helpers.estaticos.Arguments.*;
 
 // Relacion Vista-Controlador
 public class VistaError extends VistaPropia {
@@ -47,5 +48,15 @@ public class VistaError extends VistaPropia {
         }
 
         return ventana == null ? result.apply(value) : ventana;
+    }
+
+    @Override
+    protected Controlador validateControlador(final Controlador controlador) {
+        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorError);
+    }
+
+    @Override
+    public Controlador getControladorDefault() {
+        return new ControladorError();
     }
 }

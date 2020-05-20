@@ -13,8 +13,8 @@ import static helpers.estaticos.Arguments.validate;
 public class ControladorFacturaBuscar extends Controlador {
 
     @Override
-    protected Vista validateVista(Vista vista) {
-        return null;
+    protected Vista validateVista(final Vista vista) {
+        return validate("Controlador tiene que ser del mismo tipo", vista, vista instanceof VistaFacturaBuscar);
     }
 
     @Override
