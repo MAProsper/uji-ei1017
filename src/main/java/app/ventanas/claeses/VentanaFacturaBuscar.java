@@ -48,7 +48,7 @@ public class VentanaFacturaBuscar extends Ventana {
         }
     }
 
-    protected Integer getCodigo() {
+    public final int getCodigo() {
         final String codigo = getTextbox(Textbox.CODIGO);
         return Parser.entreo(Textbox.CODIGO.getDescription(), codigo);
     }

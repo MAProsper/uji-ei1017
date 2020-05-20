@@ -37,7 +37,7 @@ public abstract class VentanaRango extends Ventana {
         }
     }
 
-    public Range<LocalDateTime> getPeriodo() {
+    public final Range<LocalDateTime> getPeriodo() {
         return periodo;
     }
 

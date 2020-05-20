@@ -25,23 +25,6 @@ public class VentanaCliente extends Ventana {
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 
-    @Override
-    protected void update() { // Gestiona la notificacion del modelo
-        final Direccion direccion = cliente.getDireccion();
-
-        // Cliente.get (5. solicita nuevos datos)
-        setTable(new String[][]{
-                {"NIF", cliente.getNIF()},
-                {"Nombre", cliente.getNombre()},
-                {"Codigo postal", Integer.toString(direccion.getCodigoPostal())},
-                {"Provincia", direccion.getProvincia()},
-                {"Poblacion", direccion.getPoblacion()},
-                {"Correo electronico", cliente.getCorreo()},
-                {"Fecha de alta", Formatter.format(cliente.getFecha())},
-                {"Tarifa", cliente.getTarifa().toString()}
-        });
-    }
-
     public enum Table implements app.ventanas.interfaces.Table {
         ATRIBUTO("Atributo"),
         VALOR("Valor");
@@ -73,6 +56,23 @@ public class VentanaCliente extends Ventana {
         public String getDescription() {
             return description;
         }
+    }
+
+    @Override
+    protected void update() { // Gestiona la notificacion del modelo
+        final Direccion direccion = cliente.getDireccion();
+
+        // Cliente.get (5. solicita nuevos datos)
+        setTable(new String[][]{
+                {"NIF", cliente.getNIF()},
+                {"Nombre", cliente.getNombre()},
+                {"Codigo postal", Integer.toString(direccion.getCodigoPostal())},
+                {"Provincia", direccion.getProvincia()},
+                {"Poblacion", direccion.getPoblacion()},
+                {"Correo electronico", cliente.getCorreo()},
+                {"Fecha de alta", Formatter.format(cliente.getFecha())},
+                {"Tarifa", cliente.getTarifa().toString()}
+        });
     }
 
     public final Cliente getCliente() {

@@ -26,10 +26,6 @@ public class VentanaRangoBuscar extends Ventana {
         this.tipo = referenceNotNull("Tipo", tipo);
     }
 
-    public final Tipo getTipo() {
-        return tipo;
-    }
-
     public enum Tipo implements Description {
         CLIENTES("clientes"),
         FACTURAS("facturas"),
@@ -76,7 +72,11 @@ public class VentanaRangoBuscar extends Ventana {
         }
     }
 
-    protected Range<LocalDateTime> getPeriodo() {
+    public final Tipo getTipo() {
+        return tipo;
+    }
+
+    public final Range<LocalDateTime> getPeriodo() {
         final String fechaInicio = getTextbox(Textbox.FECHA_INICIAL);
         final String fechaFinal = getTextbox(Textbox.FECHA_FINAL);
         return Fecha.getPeriodo(Parser.fecha(Textbox.FECHA_INICIAL.getDescription(), fechaInicio), Parser.fecha(Textbox.FECHA_INICIAL.getDescription(), fechaFinal));
