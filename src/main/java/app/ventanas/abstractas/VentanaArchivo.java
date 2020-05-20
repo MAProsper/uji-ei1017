@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-// Reacion Vista-Controlador (abstracta para ventanas de archivos swing)
+// Relacion Vista-Controlador (abstracta para ventanas de archivos swing)
 public abstract class VentanaArchivo extends Gestionable {
     protected final JFrame jFrame;
     protected final JFileChooser jFile;
