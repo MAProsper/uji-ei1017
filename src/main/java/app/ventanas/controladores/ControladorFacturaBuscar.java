@@ -1,0 +1,40 @@
+package app.ventanas.controladores;
+
+import app.Modelo;
+import app.ventanas.abstractas.Controlador;
+import app.ventanas.abstractas.Vista;
+import app.ventanas.acciones.AccionFacturaBuscar;
+import app.ventanas.vistas.VistaError;
+import app.ventanas.vistas.VistaFacturaBuscar;
+import helpers.estaticos.Arguments;
+
+import static helpers.estaticos.Arguments.validate;
+
+public class ControladorFacturaBuscar extends Controlador {
+
+    @Override
+    protected Vista validateVista(Vista vista) {
+        return null;
+    }
+
+    @Override
+    public void gestionaAccion(final app.ventanas.interfaces.Accion accion) {
+        validate("Acción tiene que ser esta ventana", accion instanceof AccionFacturaBuscar);
+        Vista vista = null;
+
+        switch ((AccionFacturaBuscar) accion) {
+            case BUSCAR:
+                final Modelo modelo = getModelo();
+                final VistaFacturaBuscar vistaBusqueda = (VistaFacturaBuscar) getVista();
+                final int codigo = vistaBusqueda.getCodigo();
+                vista = VistaError.attempt(() -> modelo.buscarCliente(codigo), modelo::getVisor);
+                break;
+            case VOLVER:
+                break;
+            default:
+                throw new Arguments.ValidationException("Acción no clasificada");
+        }
+
+        showNext(vista);
+    }
+}
