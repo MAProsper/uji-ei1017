@@ -16,6 +16,9 @@ import static helpers.estaticos.Arguments.validate;
 
 public class ControladorCliente extends Controlador {
 
+    public ControladorCliente(){
+        super();
+    }
 
     @Override
     protected Vista validateVista(Vista vista) {
@@ -28,7 +31,7 @@ public class ControladorCliente extends Controlador {
         Vista vista = null;
         final VistaCliente vistaCliente = (VistaCliente) getVista();
         final Cliente cliente = vistaCliente.getCliente();
-        
+
         switch ((AccionCliente) accion) {
             case VER_LLAMADAS:
                 vista = new VistaLlamadas(cliente);

@@ -14,6 +14,10 @@ import tarifas.TarifaBase;
 
 public class ControladorClienteParticularNuevo extends ControladorClienteNuevo {
 
+    public ControladorClienteParticularNuevo(){
+        super();
+    }
+
     @Override
     protected void crear() {
 
