@@ -75,7 +75,7 @@ abstract public class Ventana extends Gestionable {
             jbutton.addActionListener(e -> {
                 jFrame.setVisible(false);
 
-                //Controlador.pressButton (1. avisar de acción del usuario)
+                // Controlador.pressButton (1. avisar de acción del usuario)
                 showNext(pressButton(button).orElse(null));
             });
             panel.add(jbutton);
@@ -106,7 +106,7 @@ abstract public class Ventana extends Gestionable {
         clearTextboxes();
         window.pack();
 
-        //Los botones se pierden si reduces la ventana
+        // Los botones se pierden si reduces la ventana
         window.setMinimumSize(window.getSize());
 
         return window;
@@ -114,12 +114,10 @@ abstract public class Ventana extends Gestionable {
 
     private List<List<String>> validateTable(final List<List<String>> table) {
         collectionWithoutNull("Tabla", table);
-
         for (List<String> row : table) {
             collectionWithoutNull("Fila", row);
             validate("Fila no tiene un numero adecuado de columnas", row.size() == this.table.size());
         }
-
         return table;
     }
 
@@ -196,7 +194,7 @@ abstract public class Ventana extends Gestionable {
     }
 
     public void setTable(final List<List<String>> table) {
-        referenceNotNull("Table", table);
+        validateTable(table);
         Vector<Vector<Object>> vTable = new Vector<>();
         for (List<String> row : table) vTable.add(new Vector<>(row));
         this.tableContent.setModel(new DefaultTableModel(vTable, new Vector<>(this.table)));

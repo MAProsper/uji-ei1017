@@ -34,7 +34,7 @@ public abstract class VentanaArchivo extends Gestionable {
         showNext(ventana);
     }
 
-    // Metodos para el Controlador (Informarse de la vista)
+    // Metodos para el Controlador (informarse de la vista)
     final protected Path getPath() {
         final File file = jFile.getSelectedFile();
         return Paths.get(file.getPath());
