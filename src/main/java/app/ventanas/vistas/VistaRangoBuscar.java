@@ -34,7 +34,7 @@ public class VistaRangoBuscar extends VistaPropia {
 
     @Override
     public Controlador getControladorDefault() {
-        return new ControladorRangoBuscar(getTipo());
+        return new ControladorRangoBuscar();
     }
 
     public final TipoRangoBuscar getTipo() {
