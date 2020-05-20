@@ -159,7 +159,7 @@ public class Modelo {
         return manejador != null;
     }
 
-    protected void udpateVista() {
+    public void udpateVista() {
         for (Vista vista : getManejador().getVistas())
             vista.update();
     }
