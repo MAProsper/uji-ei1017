@@ -4,6 +4,7 @@ import app.helpers.Formatter;
 import app.ventanas.abstractas.Controlador;
 import app.ventanas.abstractas.VistaRango;
 import app.ventanas.controladores.ControladorLlamadasRango;
+import app.ventanas.tables.TableLlamadas;
 import com.google.common.collect.Range;
 import helpers.clases.Llamada;
 import helpers.estaticos.Fecha;
@@ -16,7 +17,7 @@ import static helpers.estaticos.Arguments.validate;
 
 public class VistaLlamadasRango extends VistaRango {
     public VistaLlamadasRango(final Range<LocalDateTime> perido) {
-        super(VistaLlamadas.Table.values(), perido);
+        super(TableLlamadas.values(), perido);
     }
 
     @Override
