@@ -20,7 +20,6 @@ public abstract class ControladorNuevo extends Controlador {
         switch ((AccionNuevo) accion) {
             case CREAR:
                 vista = VistaError.attempt(this::crear);
-                getModelo().udpateVista();
                 break;
             case VOLVER:
                 break;

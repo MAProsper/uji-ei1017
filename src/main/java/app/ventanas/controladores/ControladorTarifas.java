@@ -33,6 +33,7 @@ public class ControladorTarifas extends Controlador {
                     () -> Parser.real("Precio", precio),
                     p -> {
                         cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
+                        getModelo().udpateVista();
                         return null;
                     }
             );

@@ -5,6 +5,4 @@ public class ControladorEmpresaNuevo extends ControladorClienteNuevo {
     public ControladorEmpresaNuevo(){
         super();
     }
-
 }
-
