@@ -6,7 +6,6 @@ import app.ventanas.interfaces.Textbox;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -112,15 +111,6 @@ abstract public class Ventana extends Gestionable {
         return window;
     }
 
-    private List<List<String>> validateTable(final List<List<String>> table) {
-        collectionWithoutNull("Tabla", table);
-        for (List<String> row : table) {
-            collectionWithoutNull("Fila", row);
-            validate("Fila no tiene un numero adecuado de columnas", row.size() == this.table.size());
-        }
-        return table;
-    }
-
     private Textbox validateTextbox(final Textbox name) {
         return validate("Textbox " + name + " no esta definida", referenceNotNull("Name", name), textboxes.contains(name));
     }
@@ -132,6 +122,19 @@ abstract public class Ventana extends Gestionable {
     }
 
     protected void update() {
+    }
+
+    final public Optional<List<String>> getSelectedRow() {
+        final int selectedRow = this.tableContent.getSelectedRow();
+        if (selectedRow >= 0) {
+            final javax.swing.table.TableModel data = this.tableContent.getModel();
+            final List<String> row = new LinkedList<>();
+            for (int i = 0; i < table.size(); i++)
+                row.add((String) data.getValueAt(selectedRow, i));
+            return Optional.of(row);
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -160,17 +163,8 @@ abstract public class Ventana extends Gestionable {
         return table;
     }
 
-    final public Optional<List<String>> getSelectedRow() {
-        final int selectedRow = this.tableContent.getSelectedRow();
-        if (selectedRow >= 0) {
-            final TableModel data = this.tableContent.getModel();
-            final List<String> row = new LinkedList<>();
-            for (int i = 0; i < table.size(); i++)
-                row.add((String) data.getValueAt(selectedRow, i));
-            return Optional.of(row);
-        } else {
-            return Optional.empty();
-        }
+    public void setTable(final List<List<String>> table) {
+        this.tableContent.setModel(new TableModel(table, this.table));
     }
 
     final public List<Textbox> getTextboxes() {
@@ -193,11 +187,38 @@ abstract public class Ventana extends Gestionable {
         setTable(vTable);
     }
 
-    public void setTable(final List<List<String>> table) {
-        validateTable(table);
-        Vector<Vector<Object>> vTable = new Vector<>();
-        for (List<String> row : table) vTable.add(new Vector<>(row));
-        this.tableContent.setModel(new DefaultTableModel(vTable, new Vector<>(this.table)));
+    private static class TableModel extends DefaultTableModel {
+        private static final long serialVersionUID = -3918709434546037714L;
+
+        public TableModel(List<List<String>> table, List<Table> header) {
+            super(tableAdapter(validateTable(table, header.size())), headerAdapter(header));
+        }
+
+        private static Vector<Object> headerAdapter(final List<Table> header) {
+            final Vector<Object> vHeader = new Vector<>();
+            for (Table column : header) vHeader.add(column.getDescription());
+            return vHeader;
+        }
+
+        private static List<List<String>> validateTable(final List<List<String>> table, int size) {
+            collectionWithoutNull("Tabla", table);
+            for (List<String> row : table) {
+                collectionWithoutNull("Fila", row);
+                validate("Fila no tiene un numero adecuado de columnas", row.size() == size);
+            }
+            return table;
+        }
+
+        private static Vector<Vector<Object>> tableAdapter(final List<List<String>> table) {
+            Vector<Vector<Object>> vTable = new Vector<>();
+            for (List<String> row : table) vTable.add(new Vector<>(row));
+            return vTable;
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
     }
 
     public void setTextbox(final Textbox name, final String content) {
