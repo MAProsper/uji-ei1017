@@ -3,7 +3,6 @@ package app.ventanas.controladores;
 import app.ventanas.abstractas.Controlador;
 import app.ventanas.abstractas.Vista;
 import app.ventanas.acciones.AccionCliente;
-import app.ventanas.acciones.AccionPrincipal;
 import app.ventanas.interfaces.Accion;
 import app.ventanas.vistas.VistaCliente;
 import app.ventanas.vistas.VistaFacturas;
@@ -21,12 +20,12 @@ public class ControladorCliente extends Controlador {
     }
 
     @Override
-    protected Vista validateVista(Vista vista) {
+    protected Vista validateVista(final Vista vista) {
         return validate("Controlador tiene que ser del mismo tipo", vista, vista instanceof VistaCliente);
     }
 
     @Override
-    public void gestionaAccion(Accion accion) {
+    public void gestionaAccion(final Accion accion) {
         validate("Acción tiene que ser esta ventana", accion instanceof AccionCliente);
         Vista vista = null;
         final VistaCliente vistaCliente = (VistaCliente) getVista();

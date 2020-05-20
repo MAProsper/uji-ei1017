@@ -17,7 +17,7 @@ public abstract class ControladorArchivo extends Controlador {
     public abstract Optional<Vista> processFile(final Path path);
 
     @Override
-    public void gestionaAccion(Accion accion) {
+    public void gestionaAccion(final Accion accion) {
         validate("Acción tiene que ser esta ventana", accion instanceof AccionArchivo);
         Vista vista = null;
 

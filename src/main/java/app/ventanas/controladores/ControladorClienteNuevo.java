@@ -19,7 +19,7 @@ public class ControladorClienteNuevo extends ControladorNuevo {
     }
 
     @Override
-    protected Vista validateVista(Vista vista) {
+    protected Vista validateVista(final Vista vista) {
         return validate("Controlador tiene que ser del mismo tipo", vista, vista instanceof VistaClienteNuevo);
     }
 

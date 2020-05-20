@@ -4,6 +4,7 @@ import app.helpers.Parser;
 import app.ventanas.abstractas.Controlador;
 import app.ventanas.abstractas.Vista;
 import app.ventanas.acciones.AccionTarifas;
+import app.ventanas.interfaces.Accion;
 import app.ventanas.textboxes.TextboxTarifas;
 import app.ventanas.vistas.VistaError;
 import app.ventanas.vistas.VistaTarfias;
@@ -18,7 +19,7 @@ public class ControladorTarifas extends Controlador {
     }
 
     @Override
-    public void gestionaAccion(final app.ventanas.interfaces.Accion accion) {
+    public void gestionaAccion(final Accion accion) {
         validate("Acción tiene que ser esta ventana", accion instanceof AccionTarifas);
         Vista vista = null;
 
