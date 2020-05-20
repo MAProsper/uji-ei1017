@@ -148,6 +148,10 @@ abstract public class Ventana extends Gestionable {
                 '}';
     }
 
+    public void setTable(final List<List<String>> table) {
+        this.tableContent.setModel(new TableModel(table, this.table));
+    }
+
     // Metodos para el Controlador (informase de la vista)
     public abstract Optional<Gestionable> pressButton(final Button button); // Gestiona la accion del usuario
 
@@ -161,10 +165,6 @@ abstract public class Ventana extends Gestionable {
 
     final public List<Table> getTable() {
         return table;
-    }
-
-    public void setTable(final List<List<String>> table) {
-        this.tableContent.setModel(new TableModel(table, this.table));
     }
 
     final public List<Textbox> getTextboxes() {
