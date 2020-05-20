@@ -28,6 +28,7 @@ public abstract class VistaArchivo extends Vista {
         super.show();
         final Vista ventana;
         final boolean valido = (showDialog() == JFileChooser.APPROVE_OPTION);
+        super.hide();
         getControlador().gestionaAccion(valido ? AccionArchivo.PROCESAR : AccionArchivo.CANCELAR);
     }
 
