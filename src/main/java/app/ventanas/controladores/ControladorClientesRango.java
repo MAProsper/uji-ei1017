@@ -7,6 +7,12 @@ import app.ventanas.vistas.VistaClientesRango;
 import static helpers.estaticos.Arguments.validate;
 
 public class ControladorClientesRango extends ControladorRango {
+
+
+    public ControladorClientesRango(){
+        super();
+    }
+
     @Override
     protected Vista validateVista(final Vista vista) {
         return validate("Controlador tiene que ser del mismo tipo", vista, vista instanceof VistaClientesRango);
