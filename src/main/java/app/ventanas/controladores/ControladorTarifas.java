@@ -13,6 +13,9 @@ import helpers.interfaces.FactoryTarifas;
 import static helpers.estaticos.Arguments.validate;
 
 public class ControladorTarifas extends Controlador {
+    public ControladorTarifas() {
+        super();
+    }
 
     @Override
     public void gestionaAccion(final app.ventanas.interfaces.Accion accion) {

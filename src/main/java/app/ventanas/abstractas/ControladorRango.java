@@ -6,6 +6,10 @@ import app.ventanas.interfaces.Accion;
 import static helpers.estaticos.Arguments.validate;
 
 public abstract class ControladorRango extends Controlador {
+    public ControladorRango() {
+        super();
+    }
+
     @Override
     public void gestionaAccion(final Accion accion) {
         validate("Acción tiene que ser esta ventana", accion instanceof AccionRango);

@@ -8,6 +8,10 @@ import helpers.estaticos.Arguments;
 import static helpers.estaticos.Arguments.validate;
 
 public abstract class ControladorNuevo extends Controlador {
+    public ControladorNuevo() {
+        super();
+    }
+
     @Override
     public void gestionaAccion(final Accion accion) { // Gestiona la accion del usuario
         validate("Acción tiene que ser esta ventana", accion instanceof AccionNuevo);

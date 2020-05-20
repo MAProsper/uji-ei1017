@@ -11,6 +11,9 @@ import helpers.estaticos.Arguments;
 import static helpers.estaticos.Arguments.validate;
 
 public class ControladorFacturaBuscar extends Controlador {
+    public ControladorFacturaBuscar() {
+        super();
+    }
 
     @Override
     protected Vista validateVista(final Vista vista) {

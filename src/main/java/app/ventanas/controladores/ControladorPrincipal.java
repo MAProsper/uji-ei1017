@@ -11,6 +11,10 @@ import helpers.estaticos.Arguments;
 import static helpers.estaticos.Arguments.validate;
 
 public class ControladorPrincipal extends Controlador {
+    public ControladorPrincipal() {
+        super();
+    }
+
     @Override
     protected Vista validateVista(final Vista vista) {
         return validate("Controlador tiene que ser del mismo tipo", vista, vista instanceof VistaPrincipal);
