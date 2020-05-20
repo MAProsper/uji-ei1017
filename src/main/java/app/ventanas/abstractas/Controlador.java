@@ -4,6 +4,7 @@ import app.Manejador;
 import app.Modelo;
 import app.ventanas.interfaces.Accion;
 
+import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.validate;
 
 public abstract class Controlador {
@@ -58,12 +59,20 @@ public abstract class Controlador {
     public abstract void gestionaAccion(final Accion accion); // Gestiona la accion del usuario
 
     protected void showNext(final Vista vista, final Controlador controlador) {
+        referenceNotNull("Vista", vista);
+        referenceNotNull("Controlador", controlador);
+
         final Manejador manejador = getManejador();
         manejador.connectar(getModelo(), vista, controlador);
         manejador.show(vista);
     }
 
     protected void showNext(final Vista vista) {
-        showNext(vista, vista.getControladorDefault());
+        if (vista == null) viewBack();
+        else showNext(vista, vista.getControladorDefault());
+    }
+
+    protected void viewBack() {
+        getManejador().show(null);
     }
 }

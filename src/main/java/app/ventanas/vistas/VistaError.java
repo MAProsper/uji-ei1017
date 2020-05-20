@@ -2,14 +2,16 @@ package app.ventanas.vistas;
 
 import app.ventanas.abstractas.Vista;
 import app.ventanas.abstractas.VistaPropia;
+import app.ventanas.acciones.AccionError;
 import app.ventanas.interfaces.Table;
 import app.ventanas.interfaces.Textbox;
+import helpers.estaticos.Arguments;
 
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static helpers.estaticos.Arguments.*;
+import static helpers.estaticos.Arguments.ValidationException;
+import static helpers.estaticos.Arguments.stringNotEmpty;
 
 // Relacion Vista-Controlador
 public class VistaError extends VistaPropia {
@@ -19,33 +21,11 @@ public class VistaError extends VistaPropia {
         super(
                 "Error",
                 stringNotEmpty("Message", message),
-                Table.empty(), Textbox.empty(), Accion.values());
+                Table.empty(), Textbox.empty(), AccionError.values());
     }
 
     public VistaError(final ValidationException exception) {
         this(exception.getMessage());
-    }
-
-    public enum Accion implements app.ventanas.interfaces.Accion {
-        VOLVER("Volver");
-
-        private final String description;
-
-        Accion(final String description) {
-            this.description = stringNotEmpty("Descripcion", description);
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    }
-
-    // Controlador (define el controlador concreto)
-    @Override
-    public Optional<Vista> pressButton(final app.ventanas.interfaces.Accion accion) {
-        validate("Button tiene que ser esta ventana", accion instanceof Accion);
-        validate("Acción no clasificada", accion == Accion.VOLVER);
-        return Optional.empty();
     }
 
     public static Vista attempt(final Runnable func) {
@@ -62,7 +42,7 @@ public class VistaError extends VistaPropia {
 
         try {
             value = func.get();
-        } catch (ValidationException e) {
+        } catch (Arguments.ValidationException e) {
             ventana = new VistaError(e);
         }
 

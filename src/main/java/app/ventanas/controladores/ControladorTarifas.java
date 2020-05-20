@@ -1,0 +1,44 @@
+package app.ventanas.controladores;
+
+import app.helpers.Parser;
+import app.ventanas.abstractas.Controlador;
+import app.ventanas.abstractas.Vista;
+import app.ventanas.acciones.AccionTarifas;
+import app.ventanas.textboxes.TextboxTarifas;
+import app.ventanas.vistas.VistaError;
+import app.ventanas.vistas.VistaTarfias;
+import clientes.Cliente;
+import helpers.interfaces.FactoryTarifas;
+
+import static helpers.estaticos.Arguments.validate;
+
+public class ControladorTarifas extends Controlador {
+
+    @Override
+    public void gestionaAccion(final app.ventanas.interfaces.Accion accion) {
+        validate("Acción tiene que ser esta ventana", accion instanceof AccionTarifas);
+        Vista vista = null;
+
+        if (accion != AccionTarifas.VOLVER) {
+            final VistaTarfias vistaTarfias = (VistaTarfias) getVista();
+            final String precio = vistaTarfias.getTextbox(TextboxTarifas.PRECIO);
+            final Cliente cliente = vistaTarfias.getCliente();
+
+            final FactoryTarifas factoria = (FactoryTarifas) accion;
+            vista = VistaError.attempt(
+                    () -> Parser.real("Precio", precio),
+                    p -> {
+                        cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
+                        return null;
+                    }
+            );
+        }
+
+        showNext(vista);
+    }
+
+    @Override
+    protected Vista validateVista(final Vista vista) {
+        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaTarfias);
+    }
+}
