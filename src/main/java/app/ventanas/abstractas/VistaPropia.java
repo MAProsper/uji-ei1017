@@ -72,8 +72,6 @@ abstract public class VistaPropia extends Vista {
             final JButton jbutton = new JButton(accion.getDescription());
             jbutton.addActionListener(e -> {
                 hide();
-
-                // Controlador.gestionaAccion (1. avisar de acción del usuario)
                 getControlador().gestionaAccion(accion);
             });
             panel.add(jbutton);

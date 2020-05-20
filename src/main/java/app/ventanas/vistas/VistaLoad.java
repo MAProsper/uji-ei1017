@@ -1,31 +1,28 @@
 package app.ventanas.vistas;
 
-import app.Modelo;
-import app.ventanas.abstractas.Vista;
+import app.ventanas.abstractas.Controlador;
 import app.ventanas.abstractas.VistaArchivo;
+import app.ventanas.controladores.ControladorLoad;
 
-import java.nio.file.Path;
-import java.util.Optional;
+import static helpers.estaticos.Arguments.validate;
 
-// Relacion Vista-Controlador
 public class VistaLoad extends VistaArchivo {
-
-    // Vista (define la vista contreta)
     public VistaLoad() {
         super();
     }
 
     @Override
-    final protected int showDialog() {
-        return jFile.showOpenDialog(jFrame);
+    protected Controlador validateControlador(final Controlador controlador) {
+        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorLoad);
     }
 
-    // Controlador (define el controlador concreto)
     @Override
-    public Optional<Vista> processFile(final Path path) {
-        // Modelo.load (3. actualiza el modelo)
-        final Modelo modelo = getModelo();
-        final Vista ventana = VistaError.attempt(() -> modelo.load(path));
-        return Optional.ofNullable(ventana);
+    public Controlador getControladorDefault() {
+        return new ControladorLoad();
+    }
+
+    @Override
+    final protected int showDialog() {
+        return jFile.showOpenDialog(jFrame);
     }
 }

@@ -1,11 +1,10 @@
 package app.ventanas.vistas;
 
-import app.Modelo;
-import app.ventanas.abstractas.Vista;
+import app.ventanas.abstractas.Controlador;
 import app.ventanas.abstractas.VistaArchivo;
+import app.ventanas.controladores.ControladorSave;
 
-import java.nio.file.Path;
-import java.util.Optional;
+import static helpers.estaticos.Arguments.validate;
 
 // Relacion Vista-Controlador
 public class VistaSave extends VistaArchivo {
@@ -15,16 +14,17 @@ public class VistaSave extends VistaArchivo {
     }
 
     @Override
-    final protected int showDialog() {
-        return jFile.showSaveDialog(jFrame);
+    protected Controlador validateControlador(Controlador controlador) {
+        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorSave);
     }
 
-    // Controlador (define el controlador concreto)
     @Override
-    public Optional<Vista> processFile(final Path path) {
-        // Modelo.save (3. actualiza el modelo)
-        final Modelo modelo = getModelo();
-        final Vista ventana = VistaError.attempt(() -> modelo.save(path));
-        return Optional.ofNullable(ventana);
+    public Controlador getControladorDefault() {
+        return new ControladorSave();
+    }
+
+    @Override
+    final protected int showDialog() {
+        return jFile.showSaveDialog(jFrame);
     }
 }
