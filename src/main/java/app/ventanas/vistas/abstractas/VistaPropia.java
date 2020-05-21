@@ -124,13 +124,14 @@ abstract public class VistaPropia extends Vista {
 
     @Override
     public String toString() {
-        return "Ventana{" +
+        return "VistaPropia{" +
                 "title='" + title + '\'' +
                 ", info='" + info + '\'' +
                 ", table=" + table +
                 ", textboxes=" + textboxes +
-                ", buttons=" + accions +
-                '}';
+                ", accions=" + accions +
+                ", vista=" + super.toString() +
+                "}";
     }
 
     private static class TableModel extends DefaultTableModel {

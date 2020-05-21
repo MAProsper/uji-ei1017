@@ -15,7 +15,7 @@ public class ControladorVolver extends Controlador {
 
     @Override
     public void gestionaAccion(final Accion accion) {
-        validate("Button tiene que ser esta ventana", accion instanceof AccionVolver);
+        validate("Acción tiene que ser de este controlador", accion instanceof AccionVolver);
         validate("Acción no clasificada", accion == AccionVolver.VOLVER);
         vistaBack();
     }
