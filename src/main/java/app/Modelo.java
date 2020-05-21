@@ -1,10 +1,10 @@
 package app;
 
-import app.ventanas.abstractas.Vista;
-import app.ventanas.abstractas.VistaPropia;
-import app.ventanas.vistas.VistaCliente;
-import app.ventanas.vistas.VistaClienteEmpresa;
-import app.ventanas.vistas.VistaClienteParticular;
+import app.ventanas.vistas.abstractas.Vista;
+import app.ventanas.vistas.abstractas.VistaPropia;
+import app.ventanas.vistas.clases.VistaCliente;
+import app.ventanas.vistas.clases.VistaClienteEmpresa;
+import app.ventanas.vistas.clases.VistaClienteParticular;
 import clientes.Cliente;
 import clientes.ClienteEmpresa;
 import clientes.ClientePaticular;
@@ -21,7 +21,6 @@ import java.util.List;
 
 import static helpers.estaticos.Arguments.*;
 
-// Modelo
 public class Modelo {
     protected Manejador manejador;
     private HashMap<String, Cliente> id2cliente;
@@ -72,14 +71,14 @@ public class Modelo {
         clientes.add(cliente);
         for (final Llamada llamada : cliente.getLlamadas()) addLlamada(cliente, llamada);
         for (final Factura factura : cliente.getFacturas()) addFactura(cliente, factura);
-        udpateVista();
+        updateVistas();
     }
 
     public void addLlamada(final Cliente cliente, final Llamada llamada) {
         referenceNotNull("Cliente", cliente);
         referenceNotNull("Llamada", llamada);
         llamadas.add(llamada);
-        udpateVista();
+        updateVistas();
     }
 
     public void addFactura(final Cliente cliente, final Factura factura) {
@@ -87,7 +86,7 @@ public class Modelo {
         referenceNotNull("Factura", factura);
         factura2cliente.put(factura.getCodigo(), cliente);
         facturas.add(factura);
-        udpateVista();
+        updateVistas();
     }
 
     public VistaPropia getVisor(final Cliente cliente) {
@@ -110,7 +109,7 @@ public class Modelo {
         for (Llamada llamada : cliente.getLlamadas())
             llamadas.remove(llamada);
 
-        udpateVista();
+        updateVistas();
     }
 
     public void load(final Path path) {
@@ -128,7 +127,7 @@ public class Modelo {
         if (datos instanceof Cliente[]) {
             clearClientes();
             for (Cliente cliente : (Cliente[]) datos) addCliente(cliente);
-            udpateVista();
+            updateVistas();
         } else {
             throw new ValidationException("La ruta no contiene un archivo valido");
         }
@@ -151,7 +150,7 @@ public class Modelo {
         return validate("Manajador no esta asignado", manejador, hasManajador());
     }
 
-    public void setManejador(Manejador manejador) {
+    public void setManejador(final Manejador manejador) {
         this.manejador = manejador;
     }
 
@@ -159,14 +158,14 @@ public class Modelo {
         return manejador != null;
     }
 
-    public void udpateVista() {
+    public void updateVistas() {
         for (Vista vista : getManejador().getVistas())
             vista.update();
     }
 
     @Override
     public String toString() {
-        return "Gestor{" +
+        return "Modelo{" +
                 "clientes=" + getClientes() +
                 '}';
     }

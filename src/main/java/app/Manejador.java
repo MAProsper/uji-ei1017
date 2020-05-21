@@ -1,7 +1,8 @@
 package app;
 
-import app.ventanas.abstractas.Controlador;
-import app.ventanas.abstractas.Vista;
+import app.ventanas.controladores.abstractas.Controlador;
+import app.ventanas.vistas.abstractas.Vista;
+import app.ventanas.vistas.clases.VistaPrincipal;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,17 +23,21 @@ public class Manejador {
         this.closeOperation = referenceNotNull("Close operation", closeOperation);
     }
 
-    public Runnable getCloseOperation() {
-        return closeOperation;
+    final public void close() {
+        stack.clear();
+        closeOperation.run();
     }
 
     final public List<Vista> getVistas() {
         return Collections.unmodifiableList(stack);
     }
 
-    public void connectar(final Modelo modelo, final Vista vista, final Controlador controlador) {
+    public void connectMVC(final Modelo modelo, final Vista vista, final Controlador controlador) {
+        referenceNotNull("Modelo", modelo);
+        referenceNotNull("Vista", vista);
+        referenceNotNull("Controlador", controlador);
+
         modelo.setManejador(this);
-        vista.setManejador(this);
         vista.setModelo(modelo);
         vista.setControlador(controlador);
         controlador.setManejador(this);
@@ -40,13 +45,13 @@ public class Manejador {
         controlador.setVista(vista);
     }
 
-    public void connectar(final Modelo modelo, final Vista vista) {
-        connectar(modelo, vista, vista.getControladorDefault());
+    final public void connectMVC(final Modelo modelo, final Vista vista) {
+        connectMVC(modelo, vista, vista.getControladorDefault());
     }
 
-    final public void show(final Vista ventana) {
-        if (ventana != null) {
-            stack.push(ventana);
+    final public void vistaNext(final Vista vista) {
+        if (vista != null) {
+            stack.push(vista);
         } else {
             stack.pop();
         }
@@ -56,5 +61,23 @@ public class Manejador {
         } else {
             stack.peek().show();
         }
+    }
+
+    final public void vistaBack() {
+        vistaNext(null);
+    }
+
+    public void vistaDefault() {
+        final Modelo modelo = new Modelo();
+        final Vista vista = new VistaPrincipal();
+        connectMVC(modelo, vista);
+        vistaNext(vista);
+    }
+
+    @Override
+    public String toString() {
+        return "Manejador{" +
+                "vistas=" + stack +
+                '}';
     }
 }
