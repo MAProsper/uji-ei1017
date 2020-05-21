@@ -2,6 +2,7 @@ package app.ventanas.controladores.clases;
 
 import app.componentes.Accion;
 import app.componentes.acciones.AccionBuscar;
+import app.helpers.clases.Manejador;
 import app.helpers.clases.Modelo;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
@@ -31,7 +32,7 @@ public class ControladorFacturaBuscar extends Controlador {
                 final Modelo modelo = getModelo();
                 final VistaFacturaBuscar vistaActual = (VistaFacturaBuscar) getVista();
                 final int codigo = vistaActual.getCodigo();
-                vista = VistaError.attempt(() -> modelo.buscarCliente(codigo), modelo::getVisor);
+                vista = VistaError.attempt(() -> modelo.buscarCliente(codigo), Manejador::getVisor);
                 break;
             case VOLVER:
                 break;

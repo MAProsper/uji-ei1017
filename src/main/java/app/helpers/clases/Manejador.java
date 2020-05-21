@@ -2,7 +2,14 @@ package app.helpers.clases;
 
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
+import app.ventanas.vistas.abstractas.VistaPropia;
+import app.ventanas.vistas.clases.VistaCliente;
+import app.ventanas.vistas.clases.VistaClienteEmpresa;
+import app.ventanas.vistas.clases.VistaClienteParticular;
 import app.ventanas.vistas.clases.VistaPrincipal;
+import clientes.Cliente;
+import clientes.ClienteEmpresa;
+import clientes.ClientePaticular;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +37,13 @@ public class Manejador {
 
     final public List<Vista> getVistas() {
         return Collections.unmodifiableList(stack);
+    }
+
+    public static VistaPropia getVisor(final Cliente cliente) {
+        referenceNotNull("Cliente", cliente);
+        if (cliente instanceof ClientePaticular) return new VistaClienteParticular((ClientePaticular) cliente);
+        else if (cliente instanceof ClienteEmpresa) return new VistaClienteEmpresa((ClienteEmpresa) cliente);
+        else return new VistaCliente(cliente);
     }
 
     public void connectMVC(final Modelo modelo, final Vista vista, final Controlador controlador) {

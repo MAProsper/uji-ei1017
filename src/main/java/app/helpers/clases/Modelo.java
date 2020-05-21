@@ -1,13 +1,7 @@
 package app.helpers.clases;
 
 import app.ventanas.vistas.abstractas.Vista;
-import app.ventanas.vistas.abstractas.VistaPropia;
-import app.ventanas.vistas.clases.VistaCliente;
-import app.ventanas.vistas.clases.VistaClienteEmpresa;
-import app.ventanas.vistas.clases.VistaClienteParticular;
 import clientes.Cliente;
-import clientes.ClienteEmpresa;
-import clientes.ClientePaticular;
 import helpers.clases.Factura;
 import helpers.clases.Llamada;
 
@@ -87,13 +81,6 @@ public class Modelo {
         factura2cliente.put(factura.getCodigo(), cliente);
         facturas.add(factura);
         updateVistas();
-    }
-
-    public VistaPropia getVisor(final Cliente cliente) {
-        referenceNotNull("Cliente", cliente);
-        if (cliente instanceof ClientePaticular) return new VistaClienteParticular((ClientePaticular) cliente);
-        else if (cliente instanceof ClienteEmpresa) return new VistaClienteEmpresa((ClienteEmpresa) cliente);
-        else return new VistaCliente(cliente);
     }
 
     public void removeCliente(final Cliente cliente) {

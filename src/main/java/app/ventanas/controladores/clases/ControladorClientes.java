@@ -3,6 +3,7 @@ package app.ventanas.controladores.clases;
 import app.componentes.Accion;
 import app.componentes.acciones.AccionClientes;
 import app.componentes.tables.TableClientes;
+import app.helpers.clases.Manejador;
 import app.helpers.clases.Modelo;
 import app.helpers.interfaces.FactoryClientes;
 import app.ventanas.controladores.abstractas.Controlador;
@@ -39,7 +40,7 @@ public class ControladorClientes extends Controlador {
                     final Modelo modelo = getModelo();
                     final List<String> row = selection.get();
                     final String NIF = row.get(TableClientes.NIF.ordinal());
-                    vista = modelo.getVisor(modelo.buscarCliente(NIF));
+                    vista = Manejador.getVisor(modelo.buscarCliente(NIF));
                 } else {
                     vista = new VistaError("No se ha selecionado ningun cliente");
                 }

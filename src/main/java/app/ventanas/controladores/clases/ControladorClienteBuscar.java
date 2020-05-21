@@ -3,6 +3,7 @@ package app.ventanas.controladores.clases;
 import app.componentes.Accion;
 import app.componentes.acciones.AccionBuscar;
 import app.componentes.textboxes.TextboxClienteBuscar;
+import app.helpers.clases.Manejador;
 import app.helpers.clases.Modelo;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
@@ -32,7 +33,7 @@ public class ControladorClienteBuscar extends Controlador {
                 final Modelo modelo = getModelo();
                 final VistaClienteBuscar vistaActual = (VistaClienteBuscar) getVista();
                 final String NIF = vistaActual.getTextbox(TextboxClienteBuscar.NIF);
-                vista = VistaError.attempt(() -> modelo.buscarCliente(NIF), modelo::getVisor);
+                vista = VistaError.attempt(() -> modelo.buscarCliente(NIF), Manejador::getVisor);
                 break;
             case VOLVER:
                 break;
