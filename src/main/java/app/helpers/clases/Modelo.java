@@ -1,4 +1,4 @@
-package app;
+package app.helpers.clases;
 
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.abstractas.VistaPropia;

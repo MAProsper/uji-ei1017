@@ -2,8 +2,8 @@ package app.ventanas.controladores.clases;
 
 import app.componentes.Accion;
 import app.componentes.acciones.AccionPrincipal;
+import app.helpers.estaticos.TipoRangoBuscar;
 import app.ventanas.controladores.abstractas.Controlador;
-import app.ventanas.helpers.estaticos.TipoRangoBuscar;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.*;
 import helpers.estaticos.Arguments;

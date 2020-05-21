@@ -1,5 +1,5 @@
-import app.Manejador;
-import app.Modelo;
+import app.helpers.clases.Manejador;
+import app.helpers.clases.Modelo;
 import clientes.Cliente;
 import clientes.generadores.GeneradorCliente;
 import clientes.generadores.GeneradorClienteEmpresa;
@@ -52,7 +52,8 @@ public class TestGeneradores {
     private Tarifa gestionarGenerador(final GeneradorTarifaBase generador) {
         if (generador instanceof GeneradorTarifaDomingo)
             return ((GeneradorTarifaDomingo) generador).nextTarifaDomingo();
-        else if (generador instanceof GeneradorTarifaTarde) return ((GeneradorTarifaTarde) generador).nextTarifaTarde();
+        else if (generador instanceof GeneradorTarifaTarde)
+            return ((GeneradorTarifaTarde) generador).nextTarifaTarde();
         else return generador.nextTarifa();
     }
 

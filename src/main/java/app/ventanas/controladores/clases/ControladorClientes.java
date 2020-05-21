@@ -1,9 +1,9 @@
 package app.ventanas.controladores.clases;
 
-import app.Modelo;
 import app.componentes.Accion;
 import app.componentes.acciones.AccionClientes;
 import app.componentes.tables.TableClientes;
+import app.helpers.clases.Modelo;
 import app.helpers.interfaces.FactoryClientes;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;

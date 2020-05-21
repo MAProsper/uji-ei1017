@@ -1,6 +1,6 @@
 package app.ventanas.vistas.abstractas;
 
-import app.Modelo;
+import app.helpers.clases.Modelo;
 import app.ventanas.controladores.abstractas.Controlador;
 
 import java.util.concurrent.Semaphore;

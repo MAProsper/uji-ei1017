@@ -1,4 +1,4 @@
-package app;
+package app.helpers.clases;
 
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;

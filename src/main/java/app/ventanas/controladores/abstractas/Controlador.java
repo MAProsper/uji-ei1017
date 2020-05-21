@@ -1,8 +1,8 @@
 package app.ventanas.controladores.abstractas;
 
-import app.Manejador;
-import app.Modelo;
 import app.componentes.Accion;
+import app.helpers.clases.Manejador;
+import app.helpers.clases.Modelo;
 import app.ventanas.vistas.abstractas.Vista;
 
 import static helpers.estaticos.Arguments.referenceNotNull;

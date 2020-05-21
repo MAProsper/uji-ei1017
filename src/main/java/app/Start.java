@@ -1,6 +1,8 @@
 package app;
 
-public class Start {
+import app.helpers.clases.Manejador;
+
+final public class Start {
     private Start() {
     }
 

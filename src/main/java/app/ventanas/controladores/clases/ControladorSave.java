@@ -1,6 +1,6 @@
 package app.ventanas.controladores.clases;
 
-import app.Modelo;
+import app.helpers.clases.Modelo;
 import app.ventanas.controladores.abstractas.ControladorArchivo;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaError;

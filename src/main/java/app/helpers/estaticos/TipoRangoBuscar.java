@@ -1,4 +1,4 @@
-package app.ventanas.helpers.estaticos;
+package app.helpers.estaticos;
 
 import app.helpers.interfaces.Factory;
 import app.ventanas.vistas.abstractas.Vista;
