@@ -20,7 +20,7 @@ public class ControladorTarifas extends Controlador {
 
     @Override
     public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser esta ventana", accion instanceof AccionTarifas);
+        validate("Acción tiene que ser de este controlador", accion instanceof AccionTarifas);
         Vista vista = null;
 
         if (accion != AccionTarifas.VOLVER) {

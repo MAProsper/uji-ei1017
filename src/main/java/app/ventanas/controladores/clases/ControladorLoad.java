@@ -19,8 +19,8 @@ public class ControladorLoad extends ControladorArchivo {
     @Override
     public Optional<Vista> processFile(final Path path) {
         final Modelo modelo = getModelo();
-        final Vista ventana = VistaError.attempt(() -> modelo.load(path));
-        return Optional.ofNullable(ventana);
+        final Vista vista = VistaError.attempt(() -> modelo.load(path));
+        return Optional.ofNullable(vista);
     }
 
     @Override

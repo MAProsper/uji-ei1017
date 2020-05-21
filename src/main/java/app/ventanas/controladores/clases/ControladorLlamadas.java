@@ -17,7 +17,7 @@ public class ControladorLlamadas extends Controlador {
 
     @Override
     public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser esta ventana", accion instanceof AccionLlamadas);
+        validate("Acción tiene que ser de este controlador", accion instanceof AccionLlamadas);
         Vista vista = null;
 
         switch ((AccionLlamadas) accion) {

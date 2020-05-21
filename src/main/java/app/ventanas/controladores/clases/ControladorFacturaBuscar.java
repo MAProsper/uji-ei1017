@@ -24,7 +24,7 @@ public class ControladorFacturaBuscar extends Controlador {
 
     @Override
     public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser esta ventana", accion instanceof AccionBuscar);
+        validate("Acción tiene que ser de este controlador", accion instanceof AccionBuscar);
         Vista vista = null;
 
         switch ((AccionBuscar) accion) {

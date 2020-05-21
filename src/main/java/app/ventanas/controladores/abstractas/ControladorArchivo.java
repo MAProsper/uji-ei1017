@@ -20,7 +20,7 @@ public abstract class ControladorArchivo extends Controlador {
 
     @Override
     public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser esta ventana", accion instanceof AccionArchivo);
+        validate("Acción tiene que ser de este controlador", accion instanceof AccionArchivo);
         Vista vista = null;
 
         switch ((AccionArchivo) accion) {

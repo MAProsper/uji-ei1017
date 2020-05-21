@@ -25,7 +25,7 @@ public class ControladorCliente extends Controlador {
 
     @Override
     public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser esta ventana", accion instanceof AccionCliente);
+        validate("Acción tiene que ser de este controlador", accion instanceof AccionCliente);
         Vista vista = null;
 
         final VistaCliente vistaActual = (VistaCliente) getVista();
