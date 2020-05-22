@@ -1,6 +1,6 @@
 package app.ventanas.vistas.abstractas;
 
-import app.componentes.acciones.AccionArchivo;
+import app.componentes.buttons.ButtonArchivo;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -30,7 +30,7 @@ public abstract class VistaArchivo extends Vista {
         hide();
 
         final boolean valido = (result == JFileChooser.APPROVE_OPTION);
-        getControlador().gestionaAccion(valido ? AccionArchivo.PROCESAR : AccionArchivo.CANCELAR);
+        getControlador().gestionaButton(valido ? ButtonArchivo.PROCESAR : ButtonArchivo.CANCELAR);
     }
 
     public final Path getPath() {

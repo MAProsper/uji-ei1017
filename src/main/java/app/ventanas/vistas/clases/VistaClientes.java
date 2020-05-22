@@ -1,7 +1,7 @@
 package app.ventanas.vistas.clases;
 
 import app.componentes.Textbox;
-import app.componentes.acciones.AccionClientes;
+import app.componentes.buttons.ButtonClientes;
 import app.componentes.tables.TableClientes;
 import app.helpers.estaticos.Formatter;
 import app.ventanas.controladores.abstractas.Controlador;
@@ -18,7 +18,7 @@ public class VistaClientes extends VistaPropia {
         super(
                 "Clientes",
                 "Listado de clientes, selecione uno para verlo",
-                TableClientes.values(), Textbox.empty(), AccionClientes.values());
+                TableClientes.values(), Textbox.empty(), ButtonClientes.values());
     }
 
     @Override

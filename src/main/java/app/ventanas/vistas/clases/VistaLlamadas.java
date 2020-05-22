@@ -1,7 +1,7 @@
 package app.ventanas.vistas.clases;
 
 import app.componentes.Textbox;
-import app.componentes.acciones.AccionLlamadas;
+import app.componentes.buttons.ButtonLlamadas;
 import app.componentes.tables.TableLlamadas;
 import app.helpers.estaticos.Formatter;
 import app.ventanas.controladores.abstractas.Controlador;
@@ -21,7 +21,7 @@ public class VistaLlamadas extends VistaPropia {
         super(
                 "Llamadas",
                 "Gestion de llamadas",
-                TableLlamadas.values(), Textbox.empty(), AccionLlamadas.values());
+                TableLlamadas.values(), Textbox.empty(), ButtonLlamadas.values());
 
         this.cliente = referenceNotNull("Cliente", cliente);
     }

@@ -1,7 +1,7 @@
 package app.ventanas.controladores.clases;
 
-import app.componentes.Accion;
-import app.componentes.acciones.AccionTarifas;
+import app.componentes.Button;
+import app.componentes.buttons.ButtonTarifas;
 import app.componentes.textboxes.TextboxTarifas;
 import app.helpers.estaticos.Parser;
 import app.helpers.interfaces.FactoryTarifas;
@@ -19,16 +19,16 @@ public class ControladorTarifas extends Controlador {
     }
 
     @Override
-    public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser de este controlador", accion instanceof AccionTarifas);
+    public void gestionaButton(final Button button) {
+        validate("Button tiene que ser de este controlador", button instanceof ButtonTarifas);
         Vista vista = null;
 
-        if (accion != AccionTarifas.VOLVER) {
+        if (button != ButtonTarifas.VOLVER) {
             final VistaTarfias vistaActual = (VistaTarfias) getVista();
             final String precio = vistaActual.getTextbox(TextboxTarifas.PRECIO);
             final Cliente cliente = vistaActual.getCliente();
 
-            final FactoryTarifas factoria = (FactoryTarifas) accion;
+            final FactoryTarifas factoria = (FactoryTarifas) button;
             vista = VistaError.attempt(
                     () -> Parser.real("Precio", precio),
                     p -> {

@@ -1,15 +1,15 @@
-package app.componentes.acciones;
+package app.componentes.buttons;
 
-import app.componentes.Accion;
+import app.componentes.Button;
 
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-public enum AccionVolver implements Accion {
+public enum ButtonVolver implements Button {
     VOLVER("Volver");
 
     private final String description;
 
-    AccionVolver(final String description) {
+    ButtonVolver(final String description) {
         this.description = stringNotEmpty("Descripcion", description);
     }
 

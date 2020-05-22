@@ -1,7 +1,7 @@
 package app.ventanas.controladores.clases;
 
-import app.componentes.Accion;
-import app.componentes.acciones.AccionCliente;
+import app.componentes.Button;
+import app.componentes.buttons.ButtonCliente;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaCliente;
@@ -24,14 +24,14 @@ public class ControladorCliente extends Controlador {
     }
 
     @Override
-    public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser de este controlador", accion instanceof AccionCliente);
+    public void gestionaButton(final Button button) {
+        validate("Button tiene que ser de este controlador", button instanceof ButtonCliente);
         Vista vista = null;
 
         final VistaCliente vistaActual = (VistaCliente) getVista();
         final Cliente cliente = vistaActual.getCliente();
 
-        switch ((AccionCliente) accion) {
+        switch ((ButtonCliente) button) {
             case VER_LLAMADAS:
                 vista = new VistaLlamadas(cliente);
                 break;
@@ -42,13 +42,12 @@ public class ControladorCliente extends Controlador {
                 vista = new VistaTarfias(cliente);
                 break;
             case BORRAR_CLIENTE:
-
                 getModelo().removeCliente(cliente);
                 break;
             case VOLVER:
                 break;
             default:
-                throw new Arguments.ValidationException("Acción no clasificada");
+                throw new Arguments.ValidationException("Button no clasificado");
         }
 
         vistaNext(vista);

@@ -1,7 +1,7 @@
 package app.ventanas.vistas.clases;
 
 import app.componentes.Textbox;
-import app.componentes.acciones.AccionCliente;
+import app.componentes.buttons.ButtonCliente;
 import app.componentes.tables.TableAtributos;
 import app.helpers.estaticos.Formatter;
 import app.ventanas.controladores.abstractas.Controlador;
@@ -20,7 +20,7 @@ public class VistaCliente extends VistaPropia {
         super(
                 "Cliente",
                 "Gestion del cliente",
-                TableAtributos.values(), Textbox.empty(), AccionCliente.values());
+                TableAtributos.values(), Textbox.empty(), ButtonCliente.values());
 
         this.cliente = referenceNotNull("Cliente", cliente);
     }

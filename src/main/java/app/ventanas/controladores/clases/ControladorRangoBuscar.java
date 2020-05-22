@@ -1,7 +1,7 @@
 package app.ventanas.controladores.clases;
 
-import app.componentes.Accion;
-import app.componentes.acciones.AccionBuscar;
+import app.componentes.Button;
+import app.componentes.buttons.ButtonBuscar;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaError;
@@ -20,11 +20,11 @@ public class ControladorRangoBuscar extends Controlador {
     }
 
     @Override
-    public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser esta vista", accion instanceof AccionBuscar);
+    public void gestionaButton(final Button button) {
+        validate("Acción tiene que ser esta vista", button instanceof ButtonBuscar);
         Vista vista = null;
 
-        switch ((AccionBuscar) accion) {
+        switch ((ButtonBuscar) button) {
             case BUSCAR:
                 final VistaRangoBuscar vistaActual = (VistaRangoBuscar) getVista();
                 vista = VistaError.attempt(vistaActual::getPeriodo, vistaActual.getTipo()::getVista);

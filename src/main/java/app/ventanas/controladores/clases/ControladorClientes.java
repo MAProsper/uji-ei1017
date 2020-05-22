@@ -1,7 +1,7 @@
 package app.ventanas.controladores.clases;
 
-import app.componentes.Accion;
-import app.componentes.acciones.AccionClientes;
+import app.componentes.Button;
+import app.componentes.buttons.ButtonClientes;
 import app.componentes.tables.TableClientes;
 import app.helpers.clases.Manejador;
 import app.helpers.clases.Modelo;
@@ -27,11 +27,11 @@ public class ControladorClientes extends Controlador {
     }
 
     @Override
-    public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser de este controlador", accion instanceof AccionClientes);
+    public void gestionaButton(final Button button) {
+        validate("Button tiene que ser de este controlador", button instanceof ButtonClientes);
         Vista vista = null;
 
-        switch ((AccionClientes) accion) {
+        switch ((ButtonClientes) button) {
             case VER_CLIENTE:
                 final VistaClientes vistaActual = (VistaClientes) getVista();
                 final Optional<List<String>> selection = vistaActual.getSelectedRow();
@@ -47,18 +47,18 @@ public class ControladorClientes extends Controlador {
 
                 break;
             case NUEVO_CLIENTE:
-               vista = new VistaClienteNuevo((FactoryClientes) accion);
+                vista = new VistaClienteNuevo((FactoryClientes) button);
                 break;
             case NUEVO_PARTICULAR:
-                vista = new VistaClienteParticularNuevo((FactoryClientes) accion);
+                vista = new VistaClienteParticularNuevo((FactoryClientes) button);
                 break;
             case NUEVO_EMPRESA:
-                vista = new VistaClienteEmpresaNuevo((FactoryClientes) accion);
+                vista = new VistaClienteEmpresaNuevo((FactoryClientes) button);
                 break;
             case VOLVER:
                 break;
             default:
-                throw new Arguments.ValidationException("Acción no clasificada");
+                throw new Arguments.ValidationException("Button no clasificado");
         }
 
         vistaNext(vista);

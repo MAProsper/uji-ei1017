@@ -1,7 +1,7 @@
 package app.ventanas.vistas.clases;
 
 import app.componentes.Table;
-import app.componentes.acciones.AccionBuscar;
+import app.componentes.buttons.ButtonBuscar;
 import app.componentes.textboxes.TextboxFacturaBuscar;
 import app.helpers.estaticos.Parser;
 import app.ventanas.controladores.abstractas.Controlador;
@@ -15,7 +15,7 @@ public class VistaFacturaBuscar extends VistaPropia {
         super(
                 "Busqueda",
                 "Intoduzca el codigo de la factura",
-                Table.empty(), TextboxFacturaBuscar.values(), AccionBuscar.values());
+                Table.empty(), TextboxFacturaBuscar.values(), ButtonBuscar.values());
     }
 
     @Override

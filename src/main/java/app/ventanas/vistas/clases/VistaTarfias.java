@@ -1,7 +1,7 @@
 package app.ventanas.vistas.clases;
 
 import app.componentes.Table;
-import app.componentes.acciones.AccionTarifas;
+import app.componentes.buttons.ButtonTarifas;
 import app.componentes.textboxes.TextboxTarifas;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.controladores.clases.ControladorTarifas;
@@ -15,7 +15,7 @@ public class VistaTarfias extends VistaPropia {
     protected final Cliente cliente;
 
     public VistaTarfias(final Cliente cliente) {
-        super("Tarifas", "Seleciona una tarifa", Table.empty(), TextboxTarifas.values(), AccionTarifas.values());
+        super("Tarifas", "Seleciona una tarifa", Table.empty(), TextboxTarifas.values(), ButtonTarifas.values());
         this.cliente = referenceNotNull("Cliente", cliente);
     }
 

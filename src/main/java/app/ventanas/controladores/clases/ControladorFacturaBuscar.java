@@ -1,7 +1,7 @@
 package app.ventanas.controladores.clases;
 
-import app.componentes.Accion;
-import app.componentes.acciones.AccionBuscar;
+import app.componentes.Button;
+import app.componentes.buttons.ButtonBuscar;
 import app.helpers.clases.Manejador;
 import app.helpers.clases.Modelo;
 import app.ventanas.controladores.abstractas.Controlador;
@@ -23,11 +23,11 @@ public class ControladorFacturaBuscar extends Controlador {
     }
 
     @Override
-    public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser de este controlador", accion instanceof AccionBuscar);
+    public void gestionaButton(final Button button) {
+        validate("Button tiene que ser de este controlador", button instanceof ButtonBuscar);
         Vista vista = null;
 
-        switch ((AccionBuscar) accion) {
+        switch ((ButtonBuscar) button) {
             case BUSCAR:
                 final Modelo modelo = getModelo();
                 final VistaFacturaBuscar vistaActual = (VistaFacturaBuscar) getVista();
@@ -37,7 +37,7 @@ public class ControladorFacturaBuscar extends Controlador {
             case VOLVER:
                 break;
             default:
-                throw new Arguments.ValidationException("Acción no clasificada");
+                throw new Arguments.ValidationException("Button no clasificado");
         }
 
         vistaNext(vista);

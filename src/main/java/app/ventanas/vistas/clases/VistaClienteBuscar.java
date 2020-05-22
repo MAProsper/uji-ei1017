@@ -1,7 +1,7 @@
 package app.ventanas.vistas.clases;
 
 import app.componentes.Table;
-import app.componentes.acciones.AccionBuscar;
+import app.componentes.buttons.ButtonBuscar;
 import app.componentes.textboxes.TextboxClienteBuscar;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.controladores.clases.ControladorClienteBuscar;
@@ -14,7 +14,7 @@ public class VistaClienteBuscar extends VistaPropia {
         super(
                 "Busqueda",
                 "Intoduzca el NIF del cliente",
-                Table.empty(), TextboxClienteBuscar.values(), AccionBuscar.values());
+                Table.empty(), TextboxClienteBuscar.values(), ButtonBuscar.values());
     }
 
     @Override

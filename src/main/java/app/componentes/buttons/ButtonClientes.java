@@ -1,6 +1,6 @@
-package app.componentes.acciones;
+package app.componentes.buttons;
 
-import app.componentes.Accion;
+import app.componentes.Button;
 import app.helpers.interfaces.Factory;
 import app.helpers.interfaces.FactoryClientes;
 import clientes.Cliente;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-public enum AccionClientes implements Accion, FactoryClientes {
+public enum ButtonClientes implements Button, FactoryClientes {
     VER_CLIENTE("Ver cliente"),
     NUEVO_CLIENTE("Nuevo cliente", Cliente.class),
     NUEVO_PARTICULAR("Nuevo particular", ClientePaticular.class),
@@ -25,12 +25,12 @@ public enum AccionClientes implements Accion, FactoryClientes {
     private final String description;
     private final Class<? extends Cliente> clase;
 
-    AccionClientes(final String description, final Class<? extends Cliente> clase) {
+    ButtonClientes(final String description, final Class<? extends Cliente> clase) {
         this.description = stringNotEmpty("Descripcion", description);
         this.clase = clase;
     }
 
-    AccionClientes(final String description) {
+    ButtonClientes(final String description) {
         this(description, null);
     }
 

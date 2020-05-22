@@ -1,16 +1,16 @@
-package app.componentes.acciones;
+package app.componentes.buttons;
 
-import app.componentes.Accion;
+import app.componentes.Button;
 
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-public enum AccionBuscar implements Accion {
-    BUSCAR("Buscar"),
+public enum ButtonLlamadas implements Button {
+    NUEVA_LLAMADA("Añadir llamada"),
     VOLVER("Volver");
 
     private final String description;
 
-    AccionBuscar(final String description) {
+    ButtonLlamadas(final String description) {
         this.description = stringNotEmpty("Descripcion", description);
     }
 

@@ -1,7 +1,7 @@
 package app.ventanas.controladores.clases;
 
-import app.componentes.Accion;
-import app.componentes.acciones.AccionFacturas;
+import app.componentes.Button;
+import app.componentes.buttons.ButtonFacturas;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaFacturaNueva;
@@ -16,11 +16,11 @@ public class ControladorFacturas extends Controlador {
     }
 
     @Override
-    public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser de este controlador", accion instanceof AccionFacturas);
+    public void gestionaButton(final Button button) {
+        validate("Button tiene que ser de este controlador", button instanceof ButtonFacturas);
         Vista vista = null;
 
-        switch ((AccionFacturas) accion) {
+        switch ((ButtonFacturas) button) {
             case ANYADIR_FACTURA:
                 final VistaFacturas vistaActual = (VistaFacturas) getVista();
                 vista = new VistaFacturaNueva(vistaActual.getCliente());
@@ -28,7 +28,7 @@ public class ControladorFacturas extends Controlador {
             case VOLVER:
                 break;
             default:
-                throw new Arguments.ValidationException("Acción no clasificada");
+                throw new Arguments.ValidationException("Button no clasificado");
         }
 
         vistaNext(vista);

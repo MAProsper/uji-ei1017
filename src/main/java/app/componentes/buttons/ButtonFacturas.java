@@ -1,16 +1,16 @@
-package app.componentes.acciones;
+package app.componentes.buttons;
 
-import app.componentes.Accion;
+import app.componentes.Button;
 
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-public enum AccionArchivo implements Accion {
-    PROCESAR("Procesar"),
-    CANCELAR("Cancelar");
+public enum ButtonFacturas implements Button {
+    ANYADIR_FACTURA("Añadir factura"),
+    VOLVER("Volver");
 
     private final String description;
 
-    AccionArchivo(final String description) {
+    ButtonFacturas(final String description) {
         this.description = stringNotEmpty("Descripcion", description);
     }
 

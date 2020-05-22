@@ -1,6 +1,6 @@
 package app.ventanas.vistas.abstractas;
 
-import app.componentes.Accion;
+import app.componentes.Button;
 import app.componentes.Table;
 import app.componentes.Textbox;
 
@@ -22,9 +22,9 @@ abstract public class VistaPropia extends Vista {
     private final JTable tableContent;
     private final Map<Textbox, JTextField> textboxesContent;
     protected final List<Textbox> textboxes;
-    protected final List<Accion> accions;
+    protected final List<Button> buttons;
 
-    public VistaPropia(final String title, final String info, final List<Table> table, final List<Textbox> textboxes, final List<Accion> accions) {
+    public VistaPropia(final String title, final String info, final List<Table> table, final List<Textbox> textboxes, final List<Button> buttons) {
         super();
         this.title = stringNotEmpty("Title", title);
         this.info = stringNotEmpty("Information", info);
@@ -37,15 +37,15 @@ abstract public class VistaPropia extends Vista {
         this.textboxes = Collections.unmodifiableList(new LinkedList<>(textboxes));
         textboxesContent = new HashMap<>();
 
-        collectionWithoutNull("Buttons", accions);
-        validate("Buttons no puede estar vacia", !accions.isEmpty());
-        this.accions = Collections.unmodifiableList(new LinkedList<>(accions));
+        collectionWithoutNull("Buttons", buttons);
+        validate("Buttons no puede estar vacia", !buttons.isEmpty());
+        this.buttons = Collections.unmodifiableList(new LinkedList<>(buttons));
 
         jFrame = panelWindow();
     }
 
-    public VistaPropia(final String title, final String info, final Table[] table, final Textbox[] textboxes, final Accion[] accions) {
-        this(title, info, Arrays.asList(referenceNotNull("Table", table)), Arrays.asList(referenceNotNull("Textboxes", textboxes)), Arrays.asList(referenceNotNull("Buttons", accions)));
+    public VistaPropia(final String title, final String info, final Table[] table, final Textbox[] textboxes, final Button[] buttons) {
+        this(title, info, Arrays.asList(referenceNotNull("Table", table)), Arrays.asList(referenceNotNull("Textboxes", textboxes)), Arrays.asList(referenceNotNull("Buttons", buttons)));
     }
 
     private Component panelTable() {
@@ -67,11 +67,11 @@ abstract public class VistaPropia extends Vista {
 
     private Component panelButton() {
         final JPanel panel = new JPanel();
-        for (Accion accion : accions) {
-            final JButton jbutton = new JButton(accion.getDescription());
+        for (Button button : buttons) {
+            final JButton jbutton = new JButton(button.getDescription());
             jbutton.addActionListener(e -> {
                 hide();
-                getControlador().gestionaAccion(accion);
+                getControlador().gestionaButton(button);
             });
             panel.add(jbutton);
         }
@@ -129,7 +129,7 @@ abstract public class VistaPropia extends Vista {
                 ", info='" + info + '\'' +
                 ", table=" + table +
                 ", textboxes=" + textboxes +
-                ", accions=" + accions +
+                ", accions=" + buttons +
                 ", vista=" + super.toString() +
                 "}";
     }
@@ -201,8 +201,8 @@ abstract public class VistaPropia extends Vista {
         return textboxesContent.get(validateTextbox(name)).getText();
     }
 
-    final public List<Accion> getButtons() {
-        return accions;
+    final public List<Button> getButtons() {
+        return buttons;
     }
 
     public void setTable(final String[][] table) {

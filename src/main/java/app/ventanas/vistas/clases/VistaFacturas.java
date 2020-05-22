@@ -1,7 +1,7 @@
 package app.ventanas.vistas.clases;
 
 import app.componentes.Textbox;
-import app.componentes.acciones.AccionFacturas;
+import app.componentes.buttons.ButtonFacturas;
 import app.componentes.tables.TableFacturas;
 import app.helpers.estaticos.Formatter;
 import app.ventanas.controladores.abstractas.Controlador;
@@ -21,7 +21,7 @@ public class VistaFacturas extends VistaPropia {
         super(
                 "Facturas",
                 "Gestion de facturas",
-                TableFacturas.values(), Textbox.empty(), AccionFacturas.values());
+                TableFacturas.values(), Textbox.empty(), ButtonFacturas.values());
 
         this.cliente = referenceNotNull("Cliente", cliente);
     }

@@ -1,10 +1,10 @@
-package app.componentes.acciones;
+package app.componentes.buttons;
 
-import app.componentes.Accion;
+import app.componentes.Button;
 
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-public enum AccionPrincipal implements Accion {
+public enum ButtonPrincipal implements Button {
     VER_CLIENTES("Ver clientes"),
     BUSCAR_CLIENTE_NIF("Buscar cliente (NIF)"),
     BUSCAR_CLIENTE_FACTURA("Buscar cliente (factura)"),
@@ -17,7 +17,7 @@ public enum AccionPrincipal implements Accion {
 
     private final String description;
 
-    AccionPrincipal(final String description) {
+    ButtonPrincipal(final String description) {
         this.description = stringNotEmpty("Descripcion", description);
     }
 

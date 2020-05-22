@@ -1,7 +1,7 @@
 package app.ventanas.vistas.clases;
 
 import app.componentes.Table;
-import app.componentes.acciones.AccionBuscar;
+import app.componentes.buttons.ButtonBuscar;
 import app.componentes.textboxes.TextboxRangoBuscar;
 import app.helpers.estaticos.Parser;
 import app.helpers.estaticos.TipoRangoBuscar;
@@ -23,7 +23,7 @@ public class VistaRangoBuscar extends VistaPropia {
         super(
                 "Busqueda en rango",
                 "Introduce un rango de fechas para buscar",
-                Table.empty(), TextboxRangoBuscar.values(), AccionBuscar.values());
+                Table.empty(), TextboxRangoBuscar.values(), ButtonBuscar.values());
         this.tipo = referenceNotNull("Tipo", tipo);
     }
 

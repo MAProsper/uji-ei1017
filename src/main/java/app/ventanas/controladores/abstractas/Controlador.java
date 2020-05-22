@@ -1,6 +1,6 @@
 package app.ventanas.controladores.abstractas;
 
-import app.componentes.Accion;
+import app.componentes.Button;
 import app.helpers.clases.Manejador;
 import app.helpers.clases.Modelo;
 import app.ventanas.vistas.abstractas.Vista;
@@ -57,7 +57,7 @@ public abstract class Controlador {
         return manejador != null;
     }
 
-    public abstract void gestionaAccion(final Accion accion);
+    public abstract void gestionaButton(final Button button);
 
     final public void gestionaClose() {
         getManejador().close();

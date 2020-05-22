@@ -1,6 +1,6 @@
-package app.componentes.acciones;
+package app.componentes.buttons;
 
-import app.componentes.Accion;
+import app.componentes.Button;
 import app.helpers.interfaces.Factory;
 import app.helpers.interfaces.FactoryTarifas;
 import tarifas.Tarifa;
@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-public enum AccionTarifas implements Accion, FactoryTarifas {
+public enum ButtonTarifas implements Button, FactoryTarifas {
     DOMINGO("Domingo", TarifaDomingo.class),
     TARDES("Tardes", TarifaTarde.class),
     VOLVER("Volver");
@@ -21,12 +21,12 @@ public enum AccionTarifas implements Accion, FactoryTarifas {
     private final String desciption;
     private final Class<? extends TarifaExtra> clase;
 
-    AccionTarifas(final String desciption, final Class<? extends TarifaExtra> clase) {
+    ButtonTarifas(final String desciption, final Class<? extends TarifaExtra> clase) {
         this.desciption = stringNotEmpty("Desciption", desciption);
         this.clase = clase;
     }
 
-    AccionTarifas(final String desciption) {
+    ButtonTarifas(final String desciption) {
         this(desciption, null);
     }
 

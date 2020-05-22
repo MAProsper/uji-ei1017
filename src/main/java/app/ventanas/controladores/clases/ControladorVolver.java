@@ -1,7 +1,7 @@
 package app.ventanas.controladores.clases;
 
-import app.componentes.Accion;
-import app.componentes.acciones.AccionVolver;
+import app.componentes.Button;
+import app.componentes.buttons.ButtonVolver;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.abstractas.VistaVolver;
@@ -14,9 +14,9 @@ public class ControladorVolver extends Controlador {
     }
 
     @Override
-    public void gestionaAccion(final Accion accion) {
-        validate("Acción tiene que ser de este controlador", accion instanceof AccionVolver);
-        validate("Acción no clasificada", accion == AccionVolver.VOLVER);
+    public void gestionaButton(final Button button) {
+        validate("Button tiene que ser de este controlador", button instanceof ButtonVolver);
+        validate("Button no clasificado", button == ButtonVolver.VOLVER);
         vistaBack();
     }
 
