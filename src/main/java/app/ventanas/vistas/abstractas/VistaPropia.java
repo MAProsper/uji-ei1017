@@ -129,7 +129,7 @@ abstract public class VistaPropia extends Vista {
                 ", info='" + info + '\'' +
                 ", table=" + table +
                 ", textboxes=" + textboxes +
-                ", accions=" + buttons +
+                ", buttons=" + buttons +
                 ", vista=" + super.toString() +
                 "}";
     }

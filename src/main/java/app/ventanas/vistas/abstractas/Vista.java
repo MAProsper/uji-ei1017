@@ -2,6 +2,7 @@ package app.ventanas.vistas.abstractas;
 
 import app.helpers.clases.Modelo;
 import app.ventanas.controladores.abstractas.Controlador;
+import helpers.estaticos.Arguments;
 
 import java.util.concurrent.Semaphore;
 
@@ -30,14 +31,18 @@ public abstract class Vista {
         return modelo != null;
     }
 
-    protected abstract Controlador validateControlador(final Controlador controlador);
+    protected abstract boolean validateControlador(final Controlador controlador);
 
     public final Controlador getControlador() {
         return validate("Controlador no esta asignado", controlador, hasControlador());
     }
 
     public void setControlador(final Controlador controlador) {
-        this.controlador = validateControlador(controlador);
+        if (validateControlador(controlador)) {
+            this.controlador = controlador;
+        } else {
+            throw new Arguments.ValidationException("Controlador no valido para esta vista");
+        }
     }
 
     final public boolean hasControlador() {

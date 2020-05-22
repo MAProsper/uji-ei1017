@@ -6,9 +6,6 @@ import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaFacturaNueva;
 import app.ventanas.vistas.clases.VistaFacturas;
-import helpers.estaticos.Arguments;
-
-import static helpers.estaticos.Arguments.validate;
 
 public class ControladorFacturas extends Controlador {
     public ControladorFacturas() {
@@ -16,8 +13,13 @@ public class ControladorFacturas extends Controlador {
     }
 
     @Override
+    public boolean validateButton(final Button button) {
+        return button instanceof ButtonFacturas;
+    }
+
+    @Override
     public void gestionaButton(final Button button) {
-        validate("Button tiene que ser de este controlador", button instanceof ButtonFacturas);
+        super.gestionaButton(button);
         Vista vista = null;
 
         switch ((ButtonFacturas) button) {
@@ -28,14 +30,14 @@ public class ControladorFacturas extends Controlador {
             case VOLVER:
                 break;
             default:
-                throw new Arguments.ValidationException("Button no clasificado");
+                throw Button.MISSING;
         }
 
         vistaNext(vista);
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaFacturas);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaFacturas;
     }
 }

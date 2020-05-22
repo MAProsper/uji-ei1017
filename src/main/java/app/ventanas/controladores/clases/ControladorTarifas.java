@@ -11,16 +11,19 @@ import app.ventanas.vistas.clases.VistaError;
 import app.ventanas.vistas.clases.VistaTarfias;
 import clientes.Cliente;
 
-import static helpers.estaticos.Arguments.validate;
-
 public class ControladorTarifas extends Controlador {
     public ControladorTarifas() {
         super();
     }
 
     @Override
+    public boolean validateButton(final Button button) {
+        return button instanceof ButtonTarifas;
+    }
+
+    @Override
     public void gestionaButton(final Button button) {
-        validate("Button tiene que ser de este controlador", button instanceof ButtonTarifas);
+        super.gestionaButton(button);
         Vista vista = null;
 
         if (button != ButtonTarifas.VOLVER) {
@@ -43,7 +46,7 @@ public class ControladorTarifas extends Controlador {
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaTarfias);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaTarfias;
     }
 }

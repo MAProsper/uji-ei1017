@@ -6,8 +6,6 @@ import app.componentes.buttons.ButtonVolver;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.controladores.clases.ControladorVolver;
 
-import static helpers.estaticos.Arguments.validate;
-
 public abstract class VistaVolver extends VistaPropia {
     public VistaVolver(final String title, final String info) {
         super(
@@ -16,8 +14,8 @@ public abstract class VistaVolver extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(final Controlador controlador) {
-        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorVolver);
+    protected boolean validateControlador(final Controlador controlador) {
+        return controlador instanceof ControladorVolver;
     }
 
     @Override

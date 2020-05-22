@@ -9,23 +9,25 @@ import app.ventanas.vistas.clases.VistaFacturas;
 import app.ventanas.vistas.clases.VistaLlamadas;
 import app.ventanas.vistas.clases.VistaTarfias;
 import clientes.Cliente;
-import helpers.estaticos.Arguments;
-
-import static helpers.estaticos.Arguments.validate;
 
 public class ControladorCliente extends Controlador {
-    public ControladorCliente(){
+    public ControladorCliente() {
         super();
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaCliente);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaCliente;
+    }
+
+    @Override
+    public boolean validateButton(final Button button) {
+        return button instanceof ButtonCliente;
     }
 
     @Override
     public void gestionaButton(final Button button) {
-        validate("Button tiene que ser de este controlador", button instanceof ButtonCliente);
+        super.gestionaButton(button);
         Vista vista = null;
 
         final VistaCliente vistaActual = (VistaCliente) getVista();
@@ -47,7 +49,7 @@ public class ControladorCliente extends Controlador {
             case VOLVER:
                 break;
             default:
-                throw new Arguments.ValidationException("Button no clasificado");
+                throw Button.MISSING;
         }
 
         vistaNext(vista);

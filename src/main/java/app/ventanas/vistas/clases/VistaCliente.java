@@ -11,7 +11,6 @@ import clientes.Cliente;
 import helpers.clases.Direccion;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.validate;
 
 public class VistaCliente extends VistaPropia {
     protected final Cliente cliente;
@@ -26,8 +25,8 @@ public class VistaCliente extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(final Controlador controlador) {
-        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorCliente);
+    protected boolean validateControlador(final Controlador controlador) {
+        return controlador instanceof ControladorCliente;
     }
 
     @Override

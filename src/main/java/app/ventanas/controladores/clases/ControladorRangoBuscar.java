@@ -7,21 +7,24 @@ import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaError;
 import app.ventanas.vistas.clases.VistaRangoBuscar;
 
-import static helpers.estaticos.Arguments.validate;
-
 public class ControladorRangoBuscar extends Controlador {
     public ControladorRangoBuscar() {
         super();
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaRangoBuscar);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaRangoBuscar;
+    }
+
+    @Override
+    protected boolean validateButton(Button button) {
+        return button instanceof ButtonBuscar;
     }
 
     @Override
     public void gestionaButton(final Button button) {
-        validate("Acción tiene que ser esta vista", button instanceof ButtonBuscar);
+        super.gestionaButton(button);
         Vista vista = null;
 
         switch ((ButtonBuscar) button) {

@@ -4,6 +4,7 @@ import app.componentes.Button;
 import app.helpers.clases.Manejador;
 import app.helpers.clases.Modelo;
 import app.ventanas.vistas.abstractas.Vista;
+import helpers.estaticos.Arguments;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.validate;
@@ -31,14 +32,18 @@ public abstract class Controlador {
         return modelo != null;
     }
 
-    protected abstract Vista validateVista(final Vista vista);
+    protected abstract boolean validateVista(final Vista vista);
 
     public final Vista getVista() {
         return validate("Vista no esta asignado", vista, hasVista());
     }
 
     public void setVista(final Vista vista) {
-        this.vista = validateVista(vista);
+        if (validateVista(vista)) {
+            this.vista = vista;
+        } else {
+            throw new Arguments.ValidationException("Vista no valida para este controlador");
+        }
     }
 
     final public boolean hasVista() {
@@ -57,7 +62,13 @@ public abstract class Controlador {
         return manejador != null;
     }
 
-    public abstract void gestionaButton(final Button button);
+    protected abstract boolean validateButton(final Button button);
+
+    public void gestionaButton(final Button button) {
+        if (!validateButton(button)) {
+            throw new Arguments.ValidationException("Button no valido para este controlador");
+        }
+    }
 
     final public void gestionaClose() {
         getManejador().close();

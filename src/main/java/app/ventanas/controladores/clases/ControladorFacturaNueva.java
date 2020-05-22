@@ -15,7 +15,6 @@ import tarifas.Tarifa;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static helpers.estaticos.Arguments.validate;
 import static helpers.estaticos.Fecha.filterRange;
 
 public class ControladorFacturaNueva extends ControladorNuevo {
@@ -51,7 +50,7 @@ public class ControladorFacturaNueva extends ControladorNuevo {
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaFacturaNueva);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaFacturaNueva;
     }
 }

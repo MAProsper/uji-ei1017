@@ -7,8 +7,6 @@ import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.controladores.clases.ControladorClienteBuscar;
 import app.ventanas.vistas.abstractas.VistaPropia;
 
-import static helpers.estaticos.Arguments.validate;
-
 public class VistaClienteBuscar extends VistaPropia {
     public VistaClienteBuscar() {
         super(
@@ -18,8 +16,8 @@ public class VistaClienteBuscar extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(final Controlador controlador) {
-        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorClienteBuscar);
+    protected boolean validateControlador(final Controlador controlador) {
+        return controlador instanceof ControladorClienteBuscar;
     }
 
     @Override

@@ -8,16 +8,14 @@ import app.ventanas.vistas.clases.VistaLlamadaNueva;
 import clientes.Cliente;
 import helpers.clases.Llamada;
 
-import static helpers.estaticos.Arguments.validate;
-
 public class ControladorLlamadaNueva extends ControladorNuevo {
     public ControladorLlamadaNueva() {
         super();
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaLlamadaNueva);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaLlamadaNueva;
     }
 
     @Override

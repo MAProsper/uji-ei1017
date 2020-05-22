@@ -9,8 +9,6 @@ import app.ventanas.vistas.clases.VistaSave;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import static helpers.estaticos.Arguments.validate;
-
 public class ControladorSave extends ControladorArchivo {
     public ControladorSave() {
         super();
@@ -24,7 +22,7 @@ public class ControladorSave extends ControladorArchivo {
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaSave);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaSave;
     }
 }

@@ -14,7 +14,6 @@ import helpers.estaticos.Fecha;
 import java.time.LocalDateTime;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.validate;
 
 public class VistaRangoBuscar extends VistaPropia {
     protected final TipoRangoBuscar tipo;
@@ -28,8 +27,8 @@ public class VistaRangoBuscar extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(final Controlador controlador) {
-        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorRangoBuscar);
+    protected boolean validateControlador(final Controlador controlador) {
+        return controlador instanceof ControladorRangoBuscar;
     }
 
     @Override

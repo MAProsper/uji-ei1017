@@ -9,16 +9,14 @@ import helpers.clases.Direccion;
 import tarifas.Tarifa;
 import tarifas.TarifaBase;
 
-import static helpers.estaticos.Arguments.validate;
-
 public class ControladorClienteEmpresaNuevo extends ControladorClienteNuevo {
     public ControladorClienteEmpresaNuevo() {
         super();
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaClienteEmpresaNuevo);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaClienteEmpresaNuevo;
     }
 
     @Override

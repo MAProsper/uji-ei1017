@@ -14,14 +14,19 @@ public class ControladorVolver extends Controlador {
     }
 
     @Override
+    public boolean validateButton(final Button button) {
+        return button instanceof ButtonVolver;
+    }
+
+    @Override
     public void gestionaButton(final Button button) {
-        validate("Button tiene que ser de este controlador", button instanceof ButtonVolver);
+        super.gestionaButton(button);
         validate("Button no clasificado", button == ButtonVolver.VOLVER);
         vistaBack();
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaVolver);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaVolver;
     }
 }

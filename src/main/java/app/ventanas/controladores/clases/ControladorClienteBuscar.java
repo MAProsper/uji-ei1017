@@ -9,23 +9,25 @@ import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaClienteBuscar;
 import app.ventanas.vistas.clases.VistaError;
-import helpers.estaticos.Arguments;
-
-import static helpers.estaticos.Arguments.validate;
 
 public class ControladorClienteBuscar extends Controlador {
-    public ControladorClienteBuscar(){
+    public ControladorClienteBuscar() {
         super();
     }
 
     @Override
-    protected Vista validateVista(final Vista vista) {
-        return validate("Vista tiene que ser del mismo tipo", vista, vista instanceof VistaClienteBuscar);
+    protected boolean validateVista(final Vista vista) {
+        return vista instanceof VistaClienteBuscar;
+    }
+
+    @Override
+    public boolean validateButton(final Button button) {
+        return button instanceof ButtonBuscar;
     }
 
     @Override
     public void gestionaButton(final Button button) {
-        validate("Button tiene que ser de este controlador", button instanceof ButtonBuscar);
+        super.gestionaButton(button);
         Vista vista = null;
 
         switch ((ButtonBuscar) button) {
@@ -38,7 +40,7 @@ public class ControladorClienteBuscar extends Controlador {
             case VOLVER:
                 break;
             default:
-                throw new Arguments.ValidationException("Button no clasificado");
+                throw Button.MISSING;
         }
 
         vistaNext(vista);

@@ -10,8 +10,6 @@ import app.ventanas.vistas.abstractas.VistaPropia;
 
 import java.util.stream.Collectors;
 
-import static helpers.estaticos.Arguments.validate;
-
 
 public class VistaClientes extends VistaPropia {
     public VistaClientes() {
@@ -22,8 +20,8 @@ public class VistaClientes extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(final Controlador controlador) {
-        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorClientes);
+    protected boolean validateControlador(final Controlador controlador) {
+        return controlador instanceof ControladorClientes;
     }
 
     @Override

@@ -4,12 +4,9 @@ import app.componentes.Button;
 import app.componentes.buttons.ButtonArchivo;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.abstractas.VistaArchivo;
-import helpers.estaticos.Arguments;
 
 import java.nio.file.Path;
 import java.util.Optional;
-
-import static helpers.estaticos.Arguments.validate;
 
 public abstract class ControladorArchivo extends Controlador {
     public ControladorArchivo() {
@@ -19,8 +16,13 @@ public abstract class ControladorArchivo extends Controlador {
     public abstract Optional<Vista> processFile(final Path path);
 
     @Override
+    public boolean validateButton(final Button button) {
+        return button instanceof ButtonArchivo;
+    }
+
+    @Override
     public void gestionaButton(final Button button) {
-        validate("Button tiene que ser de este controlador", button instanceof ButtonArchivo);
+        super.gestionaButton(button);
         Vista vista = null;
 
         switch ((ButtonArchivo) button) {
@@ -31,7 +33,7 @@ public abstract class ControladorArchivo extends Controlador {
             case CANCELAR:
                 break;
             default:
-                throw new Arguments.ValidationException("Button no clasificado");
+                throw Button.MISSING;
         }
 
         vistaNext(vista);

@@ -12,7 +12,6 @@ import clientes.Cliente;
 import java.util.stream.Collectors;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.validate;
 
 public class VistaFacturas extends VistaPropia {
     protected final Cliente cliente;
@@ -27,8 +26,8 @@ public class VistaFacturas extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(final Controlador controlador) {
-        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorFacturas);
+    protected boolean validateControlador(final Controlador controlador) {
+        return controlador instanceof ControladorFacturas;
     }
 
     @Override

@@ -7,7 +7,6 @@ import app.ventanas.vistas.abstractas.VistaNuevo;
 import clientes.Cliente;
 
 import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.validate;
 
 public class VistaFacturaNueva extends VistaNuevo {
     protected final Cliente cliente;
@@ -22,8 +21,8 @@ public class VistaFacturaNueva extends VistaNuevo {
     }
 
     @Override
-    protected Controlador validateControlador(final Controlador controlador) {
-        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorFacturaNueva);
+    protected boolean validateControlador(final Controlador controlador) {
+        return controlador instanceof ControladorFacturaNueva;
     }
 
     @Override

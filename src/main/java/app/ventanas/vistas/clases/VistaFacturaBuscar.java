@@ -8,8 +8,6 @@ import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.controladores.clases.ControladorFacturaBuscar;
 import app.ventanas.vistas.abstractas.VistaPropia;
 
-import static helpers.estaticos.Arguments.validate;
-
 public class VistaFacturaBuscar extends VistaPropia {
     public VistaFacturaBuscar() {
         super(
@@ -19,8 +17,8 @@ public class VistaFacturaBuscar extends VistaPropia {
     }
 
     @Override
-    protected Controlador validateControlador(final Controlador controlador) {
-        return validate("Controlador tiene que ser del mismo tipo", controlador, controlador instanceof ControladorFacturaBuscar);
+    protected boolean validateControlador(final Controlador controlador) {
+        return controlador instanceof ControladorFacturaBuscar;
     }
 
     @Override
