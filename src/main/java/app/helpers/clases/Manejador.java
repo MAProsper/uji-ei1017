@@ -52,11 +52,11 @@ public class Manejador {
         referenceNotNull("Controlador", controlador);
 
         modelo.setManejador(this);
-        vista.setModelo(modelo);
         vista.setControlador(controlador);
+        vista.setModelo(modelo);
         controlador.setManejador(this);
-        controlador.setModelo(modelo);
         controlador.setVista(vista);
+        controlador.setModelo(modelo);
     }
 
     final public void connectMVC(final Modelo modelo, final Vista vista) {

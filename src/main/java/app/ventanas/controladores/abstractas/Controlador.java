@@ -4,10 +4,8 @@ import app.componentes.Button;
 import app.helpers.clases.Manejador;
 import app.helpers.clases.Modelo;
 import app.ventanas.vistas.abstractas.Vista;
-import helpers.estaticos.Arguments;
 
-import static helpers.estaticos.Arguments.referenceNotNull;
-import static helpers.estaticos.Arguments.validate;
+import static helpers.estaticos.Arguments.*;
 
 public abstract class Controlador {
     private Manejador manejador;
@@ -42,7 +40,7 @@ public abstract class Controlador {
         if (validateVista(vista)) {
             this.vista = vista;
         } else {
-            throw new Arguments.ValidationException("Vista no valida para este controlador");
+            throw new ValidationException("Vista no valida para este controlador");
         }
     }
 
@@ -66,7 +64,7 @@ public abstract class Controlador {
 
     public void gestionaButton(final Button button) {
         if (!validateButton(button)) {
-            throw new Arguments.ValidationException("Button no valido para este controlador");
+            throw new ValidationException("Button no valido para este controlador");
         }
     }
 

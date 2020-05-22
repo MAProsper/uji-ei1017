@@ -16,7 +16,7 @@ public abstract class ControladorArchivo extends Controlador {
     public abstract Optional<Vista> processFile(final Path path);
 
     @Override
-    public boolean validateButton(final Button button) {
+    protected boolean validateButton(final Button button) {
         return button instanceof ButtonArchivo;
     }
 

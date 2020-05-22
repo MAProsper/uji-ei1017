@@ -2,7 +2,6 @@ package app.ventanas.vistas.clases;
 
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.abstractas.VistaVolver;
-import helpers.estaticos.Arguments;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -34,7 +33,7 @@ public class VistaError extends VistaVolver {
 
         try {
             value = func.get();
-        } catch (Arguments.ValidationException e) {
+        } catch (ValidationException e) {
             vista = new VistaError(e);
         }
 

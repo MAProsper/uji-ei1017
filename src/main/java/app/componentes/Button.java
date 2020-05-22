@@ -1,8 +1,9 @@
 package app.componentes;
 
-import helpers.estaticos.Arguments;
 import helpers.interfaces.Description;
 
+import static helpers.estaticos.Arguments.ValidationException;
+
 public interface Button extends Description {
-    Arguments.ValidationException MISSING = new Arguments.ValidationException("Button no clasificado");
+    ValidationException MISSING = new ValidationException("Button no clasificado");
 }
