@@ -59,6 +59,7 @@ public abstract class Vista {
         private static final long serialVersionUID = -4234327239149123858L;
     }
 
+    // Se utiliza en el caso de que no definas un controlador al connectar el MVC
     public abstract Controlador getControladorDefault();
 
     public void show() {
