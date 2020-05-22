@@ -12,8 +12,8 @@ public class VistaClienteParticular extends VistaCliente {
     @Override
     public void update() {
         final ClientePaticular cliente = (ClientePaticular) getCliente();
-
         final Direccion direccion = cliente.getDireccion();
+
         setTable(new String[][]{
                 {"NIF", cliente.getNIF()},
                 {"Nombre", cliente.getNombre()},
