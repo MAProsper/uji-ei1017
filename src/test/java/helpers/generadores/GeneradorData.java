@@ -1,23 +1,19 @@
-import app.helpers.clases.Manejador;
-import app.helpers.clases.Modelo;
+package helpers.generadores;
+
 import clientes.Cliente;
 import clientes.generadores.GeneradorCliente;
 import clientes.generadores.GeneradorClienteEmpresa;
 import clientes.generadores.GeneradorClienteParticular;
-import org.junit.jupiter.api.Test;
 import tarifas.Tarifa;
 import tarifas.generadores.GeneradorTarifaBase;
 import tarifas.generadores.GeneradorTarifaDomingo;
 import tarifas.generadores.GeneradorTarifaTarde;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
-public class TestGeneradores {
-    protected static final int size = 10;
-    protected static final Path path = Paths.get("target/clientes.bin");
-
+public class GeneradorData {
     protected static final Random genBase = new Random();
     protected static final GeneradorCliente[] genClientes = {
             new GeneradorCliente(), new GeneradorClienteParticular(), new GeneradorClienteEmpresa()
@@ -26,22 +22,11 @@ public class TestGeneradores {
             new GeneradorTarifaBase(), new GeneradorTarifaDomingo(), new GeneradorTarifaTarde()
     };
 
-    @Test
-    public void testGeneradores() {
-        final Modelo modelo = new Modelo();
-        modelo.setManejador(new Manejador());
-
-        for (int i = 0; i < size; i++)
-            modelo.addCliente(nextCliente(getRandom(genClientes), getRandom(genTarifas)));
-
-        modelo.save(path);
-    }
-
     private <T> T getRandom(final T[] array) {
         return array[genBase.nextInt(array.length)];
     }
 
-    private Cliente gestionarGenerador(final GeneradorCliente generador) {
+    protected Cliente gestionarGenerador(final GeneradorCliente generador) {
         if (generador instanceof GeneradorClienteParticular)
             return ((GeneradorClienteParticular) generador).nextClienteParticular();
         else if (generador instanceof GeneradorClienteEmpresa)
@@ -49,7 +34,7 @@ public class TestGeneradores {
         else return generador.nextCliente();
     }
 
-    private Tarifa gestionarGenerador(final GeneradorTarifaBase generador) {
+    protected Tarifa gestionarGenerador(final GeneradorTarifaBase generador) {
         if (generador instanceof GeneradorTarifaDomingo)
             return ((GeneradorTarifaDomingo) generador).nextTarifaDomingo();
         else if (generador instanceof GeneradorTarifaTarde)
@@ -57,11 +42,25 @@ public class TestGeneradores {
         else return generador.nextTarifa();
     }
 
-    protected Cliente nextCliente(final GeneradorCliente genCliente, final GeneradorTarifaBase genTarifa) {
+    public Cliente nextCliente(final int size) {
+        final GeneradorCliente genCliente = getRandom(genClientes);
+        final GeneradorTarifaBase genTarifa = getRandom(genTarifas);
+
         final Cliente cliente = gestionarGenerador(genCliente);
         cliente.setTarifa(gestionarGenerador(genTarifa));
+
         for (int i = 0; i < size; i++) cliente.addLlamada(genCliente.nextLlamada());
         for (int i = 0; i < size; i++) cliente.addFactura(genCliente.nextFactura());
+
         return cliente;
+    }
+
+    public List<Cliente> nextClientes(final int size) {
+        final List<Cliente> clientes = new LinkedList<>();
+
+        for (int i = 0; i < size; i++)
+            clientes.add(nextCliente(size));
+
+        return clientes;
     }
 }
