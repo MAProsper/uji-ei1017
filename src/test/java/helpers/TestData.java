@@ -14,7 +14,7 @@ public class TestData {
 
     protected static final GeneradorData generador = new GeneradorData();
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         final Modelo modelo = new Modelo();
         modelo.setManejador(new Manejador());
 
