@@ -8,6 +8,7 @@ import helpers.generadores.GeneradorData;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+// Genera un fichero de clientes para pruebas manuales (no es un test)
 public class TestData {
     public static final int size = 10;
     public static final Path path = Paths.get("target/clientes.bin");

@@ -2,6 +2,7 @@ package app.ventanas.controladores.clases;
 
 import app.componentes.Button;
 import app.componentes.buttons.ButtonBuscar;
+import app.helpers.interfaces.FactoryVistaRango;
 import app.ventanas.controladores.abstractas.Controlador;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaError;
@@ -30,7 +31,8 @@ public class ControladorRangoBuscar extends Controlador {
         switch ((ButtonBuscar) button) {
             case BUSCAR:
                 final VistaRangoBuscar vistaActual = (VistaRangoBuscar) getVista();
-                vista = VistaError.attempt(vistaActual::getPeriodo, vistaActual.getTipo()::getVista);
+                final FactoryVistaRango factoria = vistaActual.getTipo();
+                vista = VistaError.attempt(vistaActual::getPeriodo, factoria::getVista);
                 break;
             case VOLVER:
                 break;

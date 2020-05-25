@@ -31,6 +31,7 @@ public class GeneradorCliente {
     }
 
     public final String nextNIF() {
+        // Puede dar problemas, numero limitado (podria repetir)
         return genINE.getNIF();
     }
 
@@ -40,7 +41,11 @@ public class GeneradorCliente {
 
     public final String nextCorreo() {
         final String provincia = genINE.getProvincia();
-        return stripNonWord(genINE.getNombre()) + "@" + stripNonWord(genINE.getPoblacion(provincia)) + "." + stripNonWord(provincia);
+        return String.format("%s@%s.%s",
+                stripNonWord(nextNombre()),
+                stripNonWord(genDireccion.nextPoblacion(provincia)),
+                stripNonWord(provincia)
+        ).toLowerCase();
     }
 
     public final LocalDateTime nextFecha() {

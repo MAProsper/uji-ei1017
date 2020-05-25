@@ -10,6 +10,7 @@ import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.clases.VistaError;
 import app.ventanas.vistas.clases.VistaTarfias;
 import clientes.Cliente;
+import tarifas.Tarifa;
 
 public class ControladorTarifas extends Controlador {
     public ControladorTarifas() {
@@ -35,8 +36,8 @@ public class ControladorTarifas extends Controlador {
             vista = VistaError.attempt(
                     () -> Parser.real("Precio", precio),
                     p -> {
-                        cliente.setTarifa(factoria.getTarifa(cliente.getTarifa(), p));
-                        getModelo().updateVistas();
+                        final Tarifa tarifa = factoria.getTarifa(cliente.getTarifa(), p);
+                        getModelo().setTarifa(cliente, tarifa);
                         return null;
                     }
             );

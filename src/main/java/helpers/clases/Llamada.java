@@ -37,14 +37,13 @@ public class Llamada implements Cronologico, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final Llamada llamada = (Llamada) o;
-        return Double.compare(llamada.duracion, duracion) == 0 &&
-                Objects.equals(telefono, llamada.telefono) &&
+        return Objects.equals(telefono, llamada.telefono) &&
                 Objects.equals(fecha, llamada.fecha);
     }
 
     @Override
     final public int hashCode() {
-        return Objects.hash(telefono, fecha, duracion);
+        return Objects.hash(telefono, fecha);
     }
 
     @Override

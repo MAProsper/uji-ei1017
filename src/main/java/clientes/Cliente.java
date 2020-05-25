@@ -70,7 +70,9 @@ public class Cliente implements Cronologico, Serializable {
     }
 
     public void addLlamada(final Llamada llamada) {
-        llamadas.add(referenceNotNull("Llamada", llamada));
+        referenceNotNull("Llamada", llamada);
+        validate("Llamada repetida en el cliente", !llamadas.contains(llamada));
+        llamadas.add(llamada);
     }
 
     final public List<Factura> getFacturas() {
@@ -78,7 +80,9 @@ public class Cliente implements Cronologico, Serializable {
     }
 
     public void addFactura(final Factura factura) {
-        facturas.add(referenceNotNull("Factura", factura));
+        referenceNotNull("Factura", factura);
+        validate("Factura repetida en el cliente", !facturas.contains(factura));
+        facturas.add(factura);
     }
 
     @Override

@@ -4,14 +4,15 @@ import clientes.Cliente;
 import clientes.generadores.GeneradorCliente;
 import clientes.generadores.GeneradorClienteEmpresa;
 import clientes.generadores.GeneradorClienteParticular;
+import helpers.clases.Llamada;
 import tarifas.Tarifa;
 import tarifas.generadores.GeneradorTarifaBase;
 import tarifas.generadores.GeneradorTarifaDomingo;
 import tarifas.generadores.GeneradorTarifaTarde;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
+import static helpers.estaticos.Arguments.ValidationException;
 
 public class GeneradorData {
     protected static final Random genBase = new Random();
@@ -42,24 +43,39 @@ public class GeneradorData {
         else return generador.nextTarifa();
     }
 
-    public Cliente nextCliente(final int size) {
+    public Cliente nextCliente(final int maxSize) {
         final GeneradorCliente genCliente = getRandom(genClientes);
         final GeneradorTarifaBase genTarifa = getRandom(genTarifas);
 
         final Cliente cliente = gestionarGenerador(genCliente);
         cliente.setTarifa(gestionarGenerador(genTarifa));
 
-        for (int i = 0; i < size; i++) cliente.addLlamada(genCliente.nextLlamada());
-        for (int i = 0; i < size; i++) cliente.addFactura(genCliente.nextFactura());
+        // Generar sin llamadas repetidas
+        final Set<Llamada> llamadas = new HashSet<>();
+        for (int i = 0; i < maxSize; i++) llamadas.add(genCliente.nextLlamada());
+        for (Llamada llamada : llamadas) cliente.addLlamada(llamada);
+
+        // Garantizado sin repetidos
+        for (int i = 0; i < maxSize; i++) cliente.addFactura(genCliente.nextFactura());
 
         return cliente;
     }
 
-    public List<Cliente> nextClientes(final int size) {
+    public List<Cliente> nextClientes(final int maxSize) {
         final List<Cliente> clientes = new LinkedList<>();
 
-        for (int i = 0; i < size; i++)
-            clientes.add(nextCliente(size));
+        for (int i = 0; i < maxSize; i++) {
+            final Cliente cliente;
+
+            try {
+                cliente = nextCliente(maxSize);
+            } catch (ValidationException ignored) {
+                // Podria fallar por NIF repetido
+                continue;
+            }
+
+            clientes.add(cliente);
+        }
 
         return clientes;
     }

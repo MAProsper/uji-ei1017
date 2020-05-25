@@ -1,6 +1,7 @@
 package app.helpers.estaticos;
 
 import app.helpers.interfaces.Factory;
+import app.helpers.interfaces.FactoryVistaRango;
 import app.ventanas.vistas.abstractas.Vista;
 import app.ventanas.vistas.abstractas.VistaRango;
 import app.ventanas.vistas.clases.VistaClientesRango;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 import static helpers.estaticos.Arguments.referenceNotNull;
 import static helpers.estaticos.Arguments.stringNotEmpty;
 
-public enum TipoRangoBuscar implements Description, Factory {
+public enum TipoRangoBuscar implements Description, FactoryVistaRango {
     CLIENTES("clientes", VistaClientesRango.class),
     FACTURAS("facturas", VistaFacturasRango.class),
     LLAMADAS("llamadas", VistaLlamadasRango.class);

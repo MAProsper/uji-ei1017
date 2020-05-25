@@ -4,6 +4,7 @@ import app.ventanas.vistas.abstractas.Vista;
 import clientes.Cliente;
 import helpers.clases.Factura;
 import helpers.clases.Llamada;
+import tarifas.Tarifa;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -17,23 +18,23 @@ import static helpers.estaticos.Arguments.*;
 
 public class Modelo {
     protected Manejador manejador;
-    private HashMap<String, Cliente> id2cliente;
-    private HashMap<Integer, Cliente> factura2cliente;
-    private List<Cliente> clientes;
-    private List<Factura> facturas;
-    private List<Llamada> llamadas;
+    private final HashMap<String, Cliente> id2cliente;
+    private final HashMap<Integer, Cliente> factura2cliente;
+    private final List<Cliente> clientes;
+    private final List<Factura> facturas;
+    private final List<Llamada> llamadas;
 
     public Modelo() {
         manejador = null;
-        clearClientes();
-    }
-
-    public void clearClientes() {
         id2cliente = new HashMap<>();
         factura2cliente = new HashMap<>();
         clientes = new LinkedList<>();
         facturas = new LinkedList<>();
         llamadas = new LinkedList<>();
+    }
+
+    public void clearClientes() {
+        for (Cliente cliente : getClientes()) removeCliente(cliente);
     }
 
     final public List<Cliente> getClientes() {
@@ -61,14 +62,23 @@ public class Modelo {
 
     public void addCliente(final Cliente cliente) {
         referenceNotNull("Cliente", cliente);
+        validate("Cliente ya existe en el modelo", !id2cliente.containsKey(cliente.getNIF()));
         id2cliente.put(cliente.getNIF(), cliente);
         clientes.add(cliente);
-        for (final Llamada llamada : cliente.getLlamadas()) addLlamada(cliente, llamada);
-        for (final Factura factura : cliente.getFacturas()) addFactura(cliente, factura);
         updateVistas();
+
+        for (final Llamada llamada : cliente.getLlamadas()) controlarLlamada(cliente, llamada);
+        for (final Factura factura : cliente.getFacturas()) controlarFactura(cliente, factura);
     }
 
     public void addLlamada(final Cliente cliente, final Llamada llamada) {
+        referenceNotNull("Cliente", cliente);
+        referenceNotNull("Llamada", llamada);
+        cliente.addLlamada(llamada);
+        controlarLlamada(cliente, llamada);
+    }
+
+    private void controlarLlamada(final Cliente cliente, final Llamada llamada) {
         referenceNotNull("Cliente", cliente);
         referenceNotNull("Llamada", llamada);
         llamadas.add(llamada);
@@ -78,8 +88,22 @@ public class Modelo {
     public void addFactura(final Cliente cliente, final Factura factura) {
         referenceNotNull("Cliente", cliente);
         referenceNotNull("Factura", factura);
+        cliente.addFactura(factura);
+        controlarFactura(cliente, factura);
+    }
+
+    private void controlarFactura(final Cliente cliente, final Factura factura) {
+        referenceNotNull("Cliente", cliente);
+        referenceNotNull("Factura", factura);
         factura2cliente.put(factura.getCodigo(), cliente);
         facturas.add(factura);
+        updateVistas();
+    }
+
+    public void setTarifa(final Cliente cliente, final Tarifa tarifa) {
+        referenceNotNull("Cliente", cliente);
+        referenceNotNull("Tarifa", tarifa);
+        cliente.setTarifa(tarifa);
         updateVistas();
     }
 
@@ -114,7 +138,6 @@ public class Modelo {
         if (datos instanceof Cliente[]) {
             clearClientes();
             for (Cliente cliente : (Cliente[]) datos) addCliente(cliente);
-            updateVistas();
         } else {
             throw new ValidationException("La ruta no contiene un archivo valido");
         }
