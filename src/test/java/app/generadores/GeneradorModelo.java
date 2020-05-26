@@ -1,4 +1,4 @@
-package helpers.generadores;
+package app.generadores;
 
 import clientes.Cliente;
 import clientes.generadores.GeneradorCliente;
@@ -14,7 +14,7 @@ import java.util.*;
 
 import static helpers.estaticos.Arguments.ValidationException;
 
-public class GeneradorData {
+public class GeneradorModelo {
     protected static final Random genBase = new Random();
     protected static final GeneradorCliente[] genClientes = {
             new GeneradorCliente(), new GeneradorClienteParticular(), new GeneradorClienteEmpresa()

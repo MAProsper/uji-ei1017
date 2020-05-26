@@ -46,7 +46,7 @@ public class Manejador {
         else return new VistaCliente(cliente);
     }
 
-    public void connectMVC(final Modelo modelo, final Vista vista, final Controlador controlador) {
+    public Vista connectMVC(final Modelo modelo, final Vista vista, final Controlador controlador) {
         referenceNotNull("Modelo", modelo);
         referenceNotNull("Vista", vista);
         referenceNotNull("Controlador", controlador);
@@ -57,10 +57,15 @@ public class Manejador {
         controlador.setManejador(this);
         controlador.setVista(vista);
         controlador.setModelo(modelo);
+        return vista;
     }
 
-    final public void connectMVC(final Modelo modelo, final Vista vista) {
-        connectMVC(modelo, vista, vista.getControladorDefault());
+    final public Vista connectMVC(final Modelo modelo, final Vista vista) {
+        return connectMVC(modelo, vista, vista.getControladorDefault());
+    }
+
+    final public Vista connectMVC(final Modelo modelo) {
+        return connectMVC(modelo, getVistaDefault());
     }
 
     final public void vistaNext(final Vista vista) {
@@ -81,11 +86,12 @@ public class Manejador {
         vistaNext(null);
     }
 
+    public Vista getVistaDefault() {
+        return new VistaPrincipal();
+    }
+
     public void vistaDefault() {
-        final Modelo modelo = new Modelo();
-        final Vista vista = new VistaPrincipal();
-        connectMVC(modelo, vista);
-        vistaNext(vista);
+        vistaNext(connectMVC(new Modelo()));
     }
 
     @Override
