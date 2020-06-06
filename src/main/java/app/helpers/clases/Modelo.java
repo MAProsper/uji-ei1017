@@ -34,7 +34,7 @@ public class Modelo {
     }
 
     public void clearClientes() {
-        for (Cliente cliente : getClientes()) removeCliente(cliente);
+        for (Cliente cliente : new LinkedList<>(getClientes())) removeCliente(cliente);
     }
 
     final public List<Cliente> getClientes() {
